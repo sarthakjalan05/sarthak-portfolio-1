@@ -22,12 +22,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   return (
     <div
-      className="relative flex flex-col items-center justify-center text-center p-8 md:p-14 border max-w-2xl mx-auto my-8 overflow-hidden"
+      className="fade-up realm-card relative flex flex-col items-center justify-center text-center p-6 sm:p-10 md:p-14 border max-w-2xl mx-auto my-8 overflow-hidden"
       style={{
+        '--accent': accentColor,
         borderColor: `color-mix(in srgb, ${accentColor} 30%, transparent)`,
         background: `radial-gradient(ellipse 80% 80% at 50% 50%, color-mix(in srgb, ${accentColor} 8%, #050403) 0%, #050403 100%)`,
         boxShadow: `0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px color-mix(in srgb, ${accentColor} 12%, transparent)`,
-      }}
+      } as React.CSSProperties}
     >
       {/* Corner brackets */}
       <span className="corner corner-tl" style={{ '--accent': accentColor } as React.CSSProperties} />
@@ -93,13 +94,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 
       {/* CTA Button */}
       {ctaLink ? (
-        <Link to={ctaLink} className="got-cta-btn" style={{ background: accentColor, color: '#050403' }}>
+        <Link to={ctaLink} className="got-cta-btn min-h-[44px]" style={{ background: accentColor, color: '#050403' }}>
           <span>⚔</span> {ctaText}
         </Link>
       ) : onCtaClick ? (
         <button
           onClick={onCtaClick}
-          className="got-cta-btn"
+          className="got-cta-btn min-h-[44px]"
           style={{ background: accentColor, color: '#050403' }}
         >
           <span>⚔</span> {ctaText}

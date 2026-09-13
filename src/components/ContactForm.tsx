@@ -125,7 +125,7 @@ export const ContactForm: React.FC = () => {
 
         <button
           onClick={() => setIsSubmitted(false)}
-          className="got-cta-ghost"
+          className="got-cta-ghost min-h-[44px]"
           style={{ borderColor: '#8fafc4', color: '#8fafc4' }}
         >
           Send Another Raven
@@ -169,9 +169,9 @@ export const ContactForm: React.FC = () => {
           value={formData.name}
           onChange={handleChange}
           placeholder="e.g. Lord Eddard of Winterfell"
-          className={`w-full px-4 py-3 bg-[#0d131c] border ${
-            errors.name ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4]'
-          } rounded-none font-fell text-[var(--parchment)] placeholder-[#5d6878] focus:outline-none transition-colors`}
+          className={`w-full min-h-[44px] px-4 py-3 bg-[#0d131c] border ${
+            errors.name ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4] focus:shadow-[0_0_15px_rgba(143,175,196,0.3)]'
+          } rounded-none font-fell text-[var(--parchment)] placeholder-[#5d6878] focus:outline-none transition-all`}
         />
         {errors.name && (
           <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-fell italic">
@@ -196,9 +196,9 @@ export const ContactForm: React.FC = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="e.g. raven@winterfell.realm"
-          className={`w-full px-4 py-3 bg-[#0d131c] border ${
-            errors.email ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4]'
-          } rounded-none font-fell text-[var(--parchment)] placeholder-[#5d6878] focus:outline-none transition-colors`}
+          className={`w-full min-h-[44px] px-4 py-3 bg-[#0d131c] border ${
+            errors.email ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4] focus:shadow-[0_0_15px_rgba(143,175,196,0.3)]'
+          } rounded-none font-fell text-[var(--parchment)] placeholder-[#5d6878] focus:outline-none transition-all`}
         />
         {errors.email && (
           <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-fell italic">
@@ -224,8 +224,8 @@ export const ContactForm: React.FC = () => {
           onChange={handleChange}
           placeholder="Inscribe your proposition, alliance, or greeting..."
           className={`w-full px-4 py-3 bg-[#0d131c] border ${
-            errors.message ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4]'
-          } rounded-none font-fell text-[var(--parchment)] placeholder-[#5d6878] focus:outline-none transition-colors resize-y`}
+            errors.message ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4] focus:shadow-[0_0_15px_rgba(143,175,196,0.3)]'
+          } rounded-none font-fell text-[var(--parchment)] placeholder-[#5d6878] focus:outline-none transition-all resize-y`}
         />
         {errors.message && (
           <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-fell italic">
@@ -240,7 +240,7 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="got-cta-btn w-full sm:w-auto"
+          className="got-cta-btn w-full sm:w-auto min-h-[44px]"
           style={{ background: '#8fafc4', color: '#050403' }}
         >
           <Send size={14} />

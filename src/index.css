@@ -18,6 +18,24 @@
   --ash:        #c8bfb0;
   --ink:        #0a0705;
   --white-mist: rgba(245, 230, 200, 0.88);
+  --ease-realm: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Standardized Page Header Rhythm Tokens */
+  --header-gap-eyebrow: 14px;
+  --header-gap-sigil:   20px;
+  --header-gap-title:   20px;
+  --header-gap-motto:   22px;
+  --header-gap-bottom:  56px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-gap-eyebrow: 10px;
+    --header-gap-sigil:   16px;
+    --header-gap-title:   16px;
+    --header-gap-motto:   18px;
+    --header-gap-bottom:  40px;
+  }
 }
 
 html {
@@ -98,19 +116,21 @@ body {
   flex: 1;
   max-width: 60px;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold-dim));
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--accent, var(--gold)) 65%, transparent));
 }
 
+.got-divider-line:last-of-type,
 .got-divider-line.right,
+.divider-line:last-of-type,
 .divider-line.right {
-  background: linear-gradient(to left, transparent, var(--gold-dim));
+  background: linear-gradient(to left, transparent, color-mix(in srgb, var(--accent, var(--gold)) 65%, transparent));
 }
 
 .got-divider-diamond,
 .divider-diamond {
   width: 6px;
   height: 6px;
-  background: var(--gold);
+  background: var(--accent, var(--gold));
   transform: rotate(45deg);
   flex-shrink: 0;
 }
@@ -125,6 +145,7 @@ body {
   background: var(--gold);
   border: none;
   padding: 13px 28px;
+  min-height: 44px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -134,14 +155,18 @@ body {
   justify-content: center;
   gap: 8px;
   font-weight: 600;
-  transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+  transition: background 0.3s var(--ease-realm),
+              color 0.3s var(--ease-realm),
+              transform 0.25s var(--ease-realm),
+              box-shadow 0.3s var(--ease-realm);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  touch-action: manipulation;
 }
 
 .got-cta-btn:hover {
   background: var(--gold-light);
-  box-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
-  transform: translateY(-1px);
+  box-shadow: 0 0 24px rgba(201, 168, 76, 0.45);
+  transform: translateY(-2px);
 }
 
 .got-cta-ghost {
@@ -153,6 +178,7 @@ body {
   background: transparent;
   border: 1px solid var(--gold-dim);
   padding: 12px 26px;
+  min-height: 44px;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -160,15 +186,21 @@ body {
   justify-content: center;
   gap: 8px;
   font-weight: 600;
-  transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.2s;
+  transition: border-color 0.3s var(--ease-realm),
+              color 0.3s var(--ease-realm),
+              background 0.3s var(--ease-realm),
+              transform 0.25s var(--ease-realm),
+              box-shadow 0.3s var(--ease-realm);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  touch-action: manipulation;
 }
 
 .got-cta-ghost:hover {
   border-color: var(--gold);
   color: var(--gold-light);
-  background: rgba(201, 168, 76, 0.08);
-  transform: translateY(-1px);
+  background: rgba(201, 168, 76, 0.12);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.25);
+  transform: translateY(-2px);
 }
 
 /* ── Corner Ornaments for Cards ── */
@@ -179,7 +211,7 @@ body {
   pointer-events: none;
   z-index: 4;
   opacity: 0.45;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s var(--ease-realm), border-color 0.3s var(--ease-realm);
 }
 
 .corner::before,
@@ -196,12 +228,34 @@ body {
 .corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
 .corner-br { bottom: 10px; right: 10px; transform: scale(-1); }
 
+/* ── Standard Realm Card Interactive Base ── */
+.realm-card {
+  position: relative;
+  transition: transform 0.4s var(--ease-realm),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              background-color 0.4s ease;
+}
+
+.realm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px var(--accent, var(--gold)) inset,
+              0 14px 45px rgba(0, 0, 0, 0.85),
+              0 0 45px color-mix(in srgb, var(--accent, var(--gold)) 25%, transparent);
+  border-color: var(--accent, var(--gold)) !important;
+}
+
+.realm-card:hover .corner {
+  opacity: 0.85;
+}
+
 /* ── IntersectionObserver Fade Up ── */
 .fade-up {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 0.75s var(--ease-realm),
+              transform 0.75s var(--ease-realm);
+  will-change: opacity, transform;
 }
 
 .fade-up.visible {
@@ -209,13 +263,11 @@ body {
   transform: translateY(0);
 }
 
-/* ── Focus Outline for Accessibility ── */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
+/* ── Keyboard Focus Outline for Accessibility (All Interactive Elements) ── */
+:focus-visible {
+  outline: 2px solid var(--gold) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 14px rgba(201, 168, 76, 0.6) !important;
 }
 
 /* ── Page Container Base ── */
@@ -228,8 +280,62 @@ textarea:focus-visible {
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .realm-page {
-    padding: 100px 16px 80px;
+    padding: 105px 20px 90px;
   }
 }
+
+@media (max-width: 768px) {
+  .realm-page {
+    padding: 90px 16px 70px;
+  }
+}
+
+@media (max-width: 375px) {
+  .realm-page {
+    padding: 85px 12px 60px;
+  }
+}
+
+/* ── Reduced Motion Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .realm-card,
+  .house-card,
+  .got-cta-btn,
+  .got-cta-ghost {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ── Atmospheric Page Background Layers ── */
+.realm-bg-texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px;
+  pointer-events: none;
+}
+
+.realm-bg-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 85% 85% at 50% 35%,
+    color-mix(in srgb, var(--accent, var(--gold)) 11%, transparent) 0%,
+    color-mix(in srgb, var(--accent, var(--gold)) 3%, transparent) 42%,
+    rgba(5, 4, 3, 0.78) 75%,
+    #050403 100%
+  );
+}
+

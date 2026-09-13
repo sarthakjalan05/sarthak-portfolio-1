@@ -29,33 +29,25 @@ export const Skills: React.FC = () => {
   const accent = '#c9a84c'; // Baratheon Gold
 
   return (
-    <div className="realm-page">
+    <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
+      {/* Atmospheric Background Layers */}
+      <div className="realm-bg-texture" />
+      <div className="realm-bg-vignette" />
+
       <PageHeader
         eyebrow="HOUSE BARATHEON · STORM'S END"
         title="Arsenal of"
         titleEm="Arms & Mastery"
+        motto="Ours Is The Fury"
         subtitle='"The stag&apos;s strength, catalogued." Primary weapons of programming, relational databases, and enterprise cloud systems tempered in production.'
         accent={accent}
         sigilRune="⚔"
       />
 
-      {/* House Motto Banner */}
-      <div className="text-center mb-16">
-        <span
-          className="font-cinzel-dec text-lg sm:text-xl tracking-widest uppercase block"
-          style={{ color: accent, textShadow: `0 0 20px color-mix(in srgb, ${accent} 40%, transparent)` }}
-        >
-          "Ours Is The Fury"
-        </span>
-        <div className="got-divider max-w-xs mx-auto mt-2">
-          <div className="got-divider-line" />
-          <div className="got-divider-diamond" />
-          <div className="got-divider-line right" />
-        </div>
-      </div>
-
-      {/* CORE SKILLS SECTION (Coat-of-Arms style banner cards) */}
-      <div className="mb-20">
+      {/* Main Content Sections */}
+      <div className="relative z-10">
+        {/* CORE SKILLS SECTION (Coat-of-Arms style banner cards) */}
+        <div className="mb-20">
         <div className="flex items-center justify-center gap-3 mb-8">
           <Shield size={18} className="text-[var(--gold)]" />
           <h2 className="font-cinzel text-xs tracking-[0.4em] uppercase text-[var(--gold)] font-bold">
@@ -113,7 +105,13 @@ export const Skills: React.FC = () => {
       </div>
 
       {/* SECONDARY "ALSO WORKED WITH" GROUP (Visually Distinct & Secondary) */}
-      <div ref={secondaryRef} className="pt-10 border-t border-[var(--gold-dim)]/25 max-w-6xl mx-auto">
+      <div
+        ref={secondaryRef}
+        className="pt-10 max-w-6xl mx-auto"
+        style={{
+          borderTop: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
+        }}
+      >
         <div className="text-center mb-8">
           <span className="font-cinzel text-[11px] tracking-[0.35em] text-[#9c917f] uppercase block mb-1">
             Secondary Domain Battlegrounds
@@ -154,6 +152,7 @@ export const Skills: React.FC = () => {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

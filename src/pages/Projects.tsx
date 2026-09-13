@@ -77,9 +77,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
         </p>
 
         <div className="house-divider">
-          <span className="divider-line" />
-          <span className="divider-diamond" />
-          <span className="divider-line" />
+          <span className="divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
+          <span className="divider-diamond" style={{ background: accent }} />
+          <span className="divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
         </div>
 
         <h3 className="house-name font-cinzel-dec text-xl sm:text-2xl text-[var(--parchment)] mb-3">
@@ -95,7 +95,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
           {project.stack.slice(0, 3).map((t) => (
             <span
               key={t}
-              className="text-[9px] font-cinzel uppercase px-2 py-0.5 border border-[#521919] bg-[#1a0404] text-[var(--parchment)]"
+              className="text-[9px] font-cinzel uppercase px-2 py-0.5 bg-[#1a0404] text-[var(--parchment)]"
+              style={{ border: `1px solid color-mix(in srgb, ${accent} 35%, transparent)` }}
             >
               {t}
             </span>
@@ -121,21 +122,28 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
         </p>
 
         <div className="house-divider hover-divider">
-          <span className="divider-line" />
-          <span className="divider-diamond" />
-          <span className="divider-line" />
+          <span className="divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
+          <span className="divider-diamond" style={{ background: accent }} />
+          <span className="divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
         </div>
 
-        <p className="hover-desc text-xs sm:text-sm leading-relaxed mb-4 max-w-sm">
+        <p className="hover-desc text-xs sm:text-sm leading-relaxed mb-3 max-w-sm">
           {project.description}
         </p>
+
+        {/* Themed divider directly above the tech-tag row */}
+        <div
+          className="w-full max-w-[140px] mx-auto my-3"
+          style={{ borderTop: `1px solid color-mix(in srgb, ${accent} 35%, transparent)` }}
+        />
 
         {/* All Tech tags on hover */}
         <div className="flex flex-wrap justify-center gap-1.5 max-w-sm mb-6">
           {project.stack.map((t) => (
             <span
               key={t}
-              className="text-[9px] font-cinzel uppercase px-2 py-0.5 border border-[var(--gold-dim)]/50 bg-[#1f0505] text-[var(--parchment)]"
+              className="text-[9px] font-cinzel uppercase px-2 py-0.5 bg-[#1f0505] text-[var(--parchment)]"
+              style={{ border: `1px solid color-mix(in srgb, ${accent} 35%, transparent)` }}
             >
               {t}
             </span>
@@ -165,33 +173,23 @@ export const Projects: React.FC = () => {
   const accent = '#c0392b'; // Targaryen Blood Crimson
 
   return (
-    <div className="realm-page">
+    <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
+      {/* Atmospheric Background Layers */}
+      <div className="realm-bg-texture" />
+      <div className="realm-bg-vignette" />
+
       <PageHeader
         eyebrow="HOUSE TARGARYEN · DRAGONSTONE"
         title="Armory of"
         titleEm="Forged Projects"
+        motto="Fire and Blood"
         subtitle='"Built, not inherited — dragons hatched from Sarthak&apos;s own fire." Scaled on-device diagnostics, intelligent triage networks, and affective multimodal companions.'
         accent={accent}
         sigilRune="🐉"
       />
 
-      {/* House Motto Banner */}
-      <div className="text-center mb-16">
-        <span
-          className="font-cinzel-dec text-lg sm:text-xl tracking-widest uppercase block"
-          style={{ color: accent, textShadow: `0 0 20px color-mix(in srgb, ${accent} 40%, transparent)` }}
-        >
-          "Fire and Blood"
-        </span>
-        <div className="got-divider max-w-xs mx-auto mt-2">
-          <div className="got-divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
-          <div className="got-divider-diamond" style={{ background: accent }} />
-          <div className="got-divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
-        </div>
-      </div>
-
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {PROJECTS.map((project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} accent={accent} />
         ))}

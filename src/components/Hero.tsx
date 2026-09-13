@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Scroll } from 'lucide-react';
 import { CHAPTERS } from '../data/chapters';
+import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 import '../styles/hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -368,18 +370,22 @@ export const Hero: React.FC = () => {
                 Explore the Realm
               </button>
 
-              {/**
-               * ─── SECONDARY CTA CHOICE ─────────────────────────────────────
-               * Primary option chosen: "View on GitHub" (direct link to code repo).
-               * Alternative option: "Download the Scroll" (links to a downloadable
-               * PDF resume at `href="/resume.pdf"` with download attribute).
-               * ──────────────────────────────────────────────────────────────
-               */}
+              <a
+                href={RESUME_PATH}
+                download={RESUME_FILENAME}
+                className="got-cta-ghost flex items-center gap-2"
+                aria-label="Download Sarthak Jalan Resume Scroll PDF"
+              >
+                <Scroll size={14} className="text-[var(--gold)]" />
+                <span>Download the Scroll</span>
+              </a>
+
               <a
                 href="https://github.com/sarthakjalan05"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="got-cta-ghost"
+                aria-label="View Sarthak Jalan code on GitHub"
               >
                 <span>View on GitHub</span>
                 <span className="text-xs">⚔</span>

@@ -8,43 +8,32 @@ export const Certifications: React.FC = () => {
   const accent = '#b8a040';
 
   return (
-    <div className="realm-page">
+    <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
+      {/* Atmospheric Background Layers */}
+      <div className="realm-bg-texture" />
+      <div className="realm-bg-vignette" />
+
       <PageHeader
         eyebrow="HOUSE GREYJOY · PYKE"
         title="The Iron Price of"
         titleEm="Earned Credentials"
+        motto="We Do Not Sow"
         subtitle='"The ironborn take nothing they haven’t paid the price for — credentials earned, not given." Rigorous technical certifications won through dedicated study, full-stack implementations, and verified mastery.'
         accent={accent}
         sigilRune="⚔"
       />
 
-      {/* Motto Banner */}
-      <div className="text-center mb-16">
-        <span
-          className="font-cinzel-dec text-lg sm:text-xl tracking-widest uppercase block"
-          style={{ color: accent, textShadow: `0 0 20px color-mix(in srgb, ${accent} 40%, transparent)` }}
-        >
-          "We Do Not Sow"
-        </span>
-        <div className="got-divider max-w-xs mx-auto mt-2">
-          <div className="got-divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
-          <div className="got-divider-diamond" style={{ background: accent }} />
-          <div className="got-divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
-        </div>
-        <p className="font-fell italic text-xs text-[var(--ash)] mt-2">
-          Paid in dedication and code — credentials claimed through verified examination
-        </p>
-      </div>
-
-      {/* Row of 'Iron Price Paid' Badges */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {CERTIFICATIONS.map((cert) => (
+      {/* Row of 'Iron Price Paid' Badges with Staggered Entrance */}
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        {CERTIFICATIONS.map((cert, idx) => (
           <div
             key={cert.id}
-            className="relative p-7 sm:p-8 border bg-[#080b12]/90 backdrop-blur-sm flex flex-col justify-between group hover:border-[#b8a040] transition-all duration-300 shadow-[0_0_35px_rgba(0,0,0,0.8)]"
+            className="fade-up realm-card relative p-6 sm:p-8 border bg-[#080b12]/90 backdrop-blur-sm flex flex-col justify-between group shadow-[0_0_35px_rgba(0,0,0,0.8)]"
             style={{
+              '--accent': accent,
               borderColor: 'rgba(184, 160, 64, 0.35)',
-            }}
+            } as React.CSSProperties}
+            data-delay={idx * 120}
           >
             {/* Corner brackets */}
             <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
@@ -56,7 +45,7 @@ export const Certifications: React.FC = () => {
               {/* Badge Icon Top */}
               <div className="flex items-center justify-between mb-6">
                 <div
-                  className="w-12 h-12 rounded-full border flex items-center justify-center bg-[#121620]"
+                  className="w-12 h-12 rounded-full border flex items-center justify-center bg-[#121620] group-hover:scale-105 transition-transform duration-300"
                   style={{
                     borderColor: accent,
                     color: accent,
@@ -81,7 +70,7 @@ export const Certifications: React.FC = () => {
               </p>
 
               {/* Title */}
-              <h3 className="font-cinzel-dec text-lg sm:text-xl font-bold text-[var(--parchment)] mb-4 leading-snug">
+              <h3 className="font-cinzel-dec text-base sm:text-lg font-bold text-[var(--parchment)] mb-3 leading-snug">
                 {cert.title}
               </h3>
 
@@ -92,25 +81,31 @@ export const Certifications: React.FC = () => {
               </div>
 
               {/* Oath Statement */}
-              <p className="font-fell italic text-sm text-[var(--ash)] leading-relaxed mb-6">
+              <p className="font-fell italic text-xs sm:text-sm text-[var(--ash)] leading-relaxed mb-6">
                 "{cert.oath}"
               </p>
             </div>
 
             {/* External Link Button */}
-            <div className="pt-4 border-t border-[#262418]">
+            <div
+              className="pt-4 mt-2"
+              style={{
+                borderTop: `1px solid color-mix(in srgb, ${accent} 25%, transparent)`,
+              }}
+            >
               <a
                 href={cert.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="got-cta-ghost w-full justify-center text-xs py-2.5"
+                className="got-cta-ghost w-full justify-center text-xs py-2.5 min-h-[44px]"
                 style={{
                   borderColor: 'rgba(184, 160, 64, 0.5)',
                   color: accent,
                 }}
+                aria-label={`Verify Credential for ${cert.title}`}
               >
                 <span>Verify Credential</span>
-                <ExternalLink size={13} />
+                <ExternalLink size={13} className="shrink-0" />
               </a>
             </div>
           </div>
