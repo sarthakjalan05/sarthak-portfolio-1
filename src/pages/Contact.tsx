@@ -93,7 +93,7 @@ export const Contact: React.FC = () => {
 
                 {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com/in/sarthak-jalan-1b5597284"
+                  href="https://www.linkedin.com/in/sarthak-jalan-7685a7285/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between p-3 sm:p-3.5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[52px] group"
@@ -107,7 +107,7 @@ export const Contact: React.FC = () => {
                         Guild Network
                       </span>
                       <span className="font-cinzel text-xs sm:text-sm text-[var(--parchment)] font-semibold truncate block">
-                        linkedin.com/in/sarthak-jalan
+                        linkedin.com/in/sarthak-jalan-7685a7285
                       </span>
                     </div>
                   </div>

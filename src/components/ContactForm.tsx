@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, User, Mail, MessageSquare } from 'lucide-react';
 
 interface FormState {
   name: string;
@@ -138,98 +138,128 @@ export const ContactForm: React.FC = () => {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="relative p-6 md:p-10 border border-[#38485e] bg-[#0a0f16]/90 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+      className="relative p-6 sm:p-8 md:p-10 border-2 border-[#384f6b] bg-[#0c131d]/95 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.85)]"
     >
       <span className="corner corner-tl" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
       <span className="corner corner-tr" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
       <span className="corner corner-bl" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
       <span className="corner corner-br" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
 
-      <div className="mb-6 text-center">
+      <div className="mb-8 text-center">
         <span className="font-cinzel text-xs tracking-[0.35em] text-[#8fafc4] uppercase block mb-1">
           Dispatch to Winterfell
         </span>
-        <h3 className="font-cinzel-dec text-xl md:text-2xl text-[var(--parchment)]">
+        <h3 className="font-cinzel-dec text-2xl sm:text-3xl text-[var(--parchment)] drop-shadow-[0_0_15px_rgba(245,241,232,0.15)]">
           Send a Raven
         </h3>
+        <p className="font-garamond text-sm sm:text-base text-[#a2b5c7] mt-1.5 max-w-md mx-auto leading-relaxed">
+          Inscribe your missive below. Your message is dispatched directly to Sarthak Jalan.
+        </p>
       </div>
 
       {/* Name Field */}
-      <div className="mb-5">
-        <label
-          htmlFor="contact-name"
-          className="block font-cinzel text-xs uppercase tracking-widest text-[#8fafc4] mb-2"
-        >
-          Your Name & House
-        </label>
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <label
+            htmlFor="contact-name"
+            className="flex items-center gap-2 font-cinzel text-xs sm:text-sm uppercase tracking-wider text-[#e6f0fa] font-semibold"
+          >
+            <User size={16} className="text-[#8fafc4] shrink-0" />
+            <span>Your Name &amp; House / Company</span>
+            <span className="text-[#8fafc4] font-bold" title="Required">*</span>
+          </label>
+          <span className="font-garamond text-xs text-[#8ca4bd] italic">
+            Required
+          </span>
+        </div>
         <input
           id="contact-name"
           name="name"
           type="text"
           value={formData.name}
           onChange={handleChange}
-          placeholder="e.g. Lord Eddard of Winterfell"
-          className={`w-full min-h-[44px] px-4 py-3 bg-[#0d131c] border ${
-            errors.name ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4] focus:shadow-[0_0_15px_rgba(143,175,196,0.3)]'
-          } rounded-none font-garamond text-base text-[var(--parchment)] placeholder-[#8a99ac] focus:outline-none transition-all`}
+          placeholder="e.g. Lord Eddard / Alex Vance (Stark Enterprises)"
+          className={`w-full min-h-[48px] px-4 py-3 bg-[#131d2b] border-2 ${
+            errors.name
+              ? 'border-red-500 bg-red-950/20'
+              : 'border-[#3b526d] hover:border-[#6787a8] hover:bg-[#162335] focus:border-[#a8cbe6] focus:bg-[#19283c] focus:shadow-[0_0_20px_rgba(168,203,230,0.35)] focus:ring-1 focus:ring-[#a8cbe6]'
+          } rounded-none font-garamond text-base sm:text-lg text-[#f7f5f0] placeholder:text-[#95abc0] placeholder:opacity-100 focus:outline-none transition-all`}
         />
         {errors.name && (
-          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-garamond">
-            <AlertCircle size={14} className="shrink-0" />
+          <p className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-red-400 font-garamond">
+            <AlertCircle size={15} className="shrink-0" />
             {errors.name}
           </p>
         )}
       </div>
 
       {/* Email Field */}
-      <div className="mb-5">
-        <label
-          htmlFor="contact-email"
-          className="block font-cinzel text-xs uppercase tracking-widest text-[#8fafc4] mb-2"
-        >
-          Raven Destination (Email Address)
-        </label>
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <label
+            htmlFor="contact-email"
+            className="flex items-center gap-2 font-cinzel text-xs sm:text-sm uppercase tracking-wider text-[#e6f0fa] font-semibold"
+          >
+            <Mail size={16} className="text-[#8fafc4] shrink-0" />
+            <span>Your Email Address (For Reply)</span>
+            <span className="text-[#8fafc4] font-bold" title="Required">*</span>
+          </label>
+          <span className="font-garamond text-xs text-[#8ca4bd] italic">
+            Where to send reply
+          </span>
+        </div>
         <input
           id="contact-email"
           name="email"
           type="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="e.g. raven@winterfell.realm"
-          className={`w-full min-h-[44px] px-4 py-3 bg-[#0d131c] border ${
-            errors.email ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4] focus:shadow-[0_0_15px_rgba(143,175,196,0.3)]'
-          } rounded-none font-garamond text-base text-[var(--parchment)] placeholder-[#8a99ac] focus:outline-none transition-all`}
+          placeholder="e.g. yourname@company.com or lord@realm.org"
+          className={`w-full min-h-[48px] px-4 py-3 bg-[#131d2b] border-2 ${
+            errors.email
+              ? 'border-red-500 bg-red-950/20'
+              : 'border-[#3b526d] hover:border-[#6787a8] hover:bg-[#162335] focus:border-[#a8cbe6] focus:bg-[#19283c] focus:shadow-[0_0_20px_rgba(168,203,230,0.35)] focus:ring-1 focus:ring-[#a8cbe6]'
+          } rounded-none font-garamond text-base sm:text-lg text-[#f7f5f0] placeholder:text-[#95abc0] placeholder:opacity-100 focus:outline-none transition-all`}
         />
         {errors.email && (
-          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-garamond">
-            <AlertCircle size={14} className="shrink-0" />
+          <p className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-red-400 font-garamond">
+            <AlertCircle size={15} className="shrink-0" />
             {errors.email}
           </p>
         )}
       </div>
 
       {/* Message Field */}
-      <div className="mb-6">
-        <label
-          htmlFor="contact-message"
-          className="block font-cinzel text-xs uppercase tracking-widest text-[#8fafc4] mb-2"
-        >
-          The Inscription (Message)
-        </label>
+      <div className="mb-7">
+        <div className="flex items-center justify-between mb-2">
+          <label
+            htmlFor="contact-message"
+            className="flex items-center gap-2 font-cinzel text-xs sm:text-sm uppercase tracking-wider text-[#e6f0fa] font-semibold"
+          >
+            <MessageSquare size={16} className="text-[#8fafc4] shrink-0" />
+            <span>Your Message / Inscription</span>
+            <span className="text-[#8fafc4] font-bold" title="Required">*</span>
+          </label>
+          <span className="font-garamond text-xs text-[#8ca4bd] italic">
+            Inscribe your scroll
+          </span>
+        </div>
         <textarea
           id="contact-message"
           name="message"
           rows={5}
           value={formData.message}
           onChange={handleChange}
-          placeholder="Inscribe your proposition, alliance, or greeting..."
-          className={`w-full px-4 py-3 bg-[#0d131c] border ${
-            errors.message ? 'border-red-600' : 'border-[#2d3a4d] focus:border-[#8fafc4] focus:shadow-[0_0_15px_rgba(143,175,196,0.3)]'
-          } rounded-none font-garamond text-base text-[var(--parchment)] placeholder-[#8a99ac] focus:outline-none transition-all resize-y`}
+          placeholder="Inscribe your proposition, project collaboration, opportunity, or greeting..."
+          className={`w-full px-4 py-3.5 bg-[#131d2b] border-2 ${
+            errors.message
+              ? 'border-red-500 bg-red-950/20'
+              : 'border-[#3b526d] hover:border-[#6787a8] hover:bg-[#162335] focus:border-[#a8cbe6] focus:bg-[#19283c] focus:shadow-[0_0_20px_rgba(168,203,230,0.35)] focus:ring-1 focus:ring-[#a8cbe6]'
+          } rounded-none font-garamond text-base sm:text-lg text-[#f7f5f0] placeholder:text-[#95abc0] placeholder:opacity-100 focus:outline-none transition-all resize-y leading-[1.7]`}
         />
         {errors.message && (
-          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-garamond">
-            <AlertCircle size={14} className="shrink-0" />
+          <p className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-red-400 font-garamond">
+            <AlertCircle size={15} className="shrink-0" />
             {errors.message}
           </p>
         )}
@@ -240,10 +270,10 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="got-cta-btn w-full sm:w-auto min-h-[44px]"
-          style={{ background: '#8fafc4', color: '#050403' }}
+          className="got-cta-btn w-full sm:w-auto min-h-[48px] px-8 text-sm sm:text-base font-semibold tracking-wider hover:shadow-[0_0_25px_rgba(143,175,196,0.45)] transition-all duration-300"
+          style={{ background: '#8fafc4', color: '#050c14' }}
         >
-          <Send size={14} />
+          <Send size={16} />
           {isSubmitting ? 'The Raven Prepares Flight...' : 'Release The Raven'}
         </button>
       </div>

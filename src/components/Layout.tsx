@@ -295,7 +295,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <span className="group-hover:translate-x-1 transition-transform">Email</span>
                 </a>
                 <a
-                  href="https://linkedin.com/in/sarthak-jalan"
+                  href="https://www.linkedin.com/in/sarthak-jalan-7685a7285/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
