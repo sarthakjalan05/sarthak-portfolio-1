@@ -24,11 +24,11 @@ export const Certifications: React.FC = () => {
       />
 
       {/* Row of 'Iron Price Paid' Badges with Staggered Entrance */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 max-w-6xl mx-auto px-2">
         {CERTIFICATIONS.map((cert, idx) => (
           <div
             key={cert.id}
-            className="fade-up realm-card relative p-6 sm:p-8 border bg-[#080b12]/90 backdrop-blur-sm flex flex-col justify-between group shadow-[0_0_35px_rgba(0,0,0,0.8)]"
+            className="fade-up realm-card relative p-8 sm:p-10 border bg-[#080b12]/90 backdrop-blur-sm flex flex-col justify-between group shadow-[0_0_35px_rgba(0,0,0,0.8)]"
             style={{
               '--accent': accent,
               borderColor: 'rgba(184, 160, 64, 0.35)',
@@ -65,30 +65,30 @@ export const Certifications: React.FC = () => {
               </div>
 
               {/* Issuer Eyebrow */}
-              <p className="font-cinzel text-[10px] tracking-[0.3em] uppercase text-[var(--ash)] mb-2">
+              <p className="font-cinzel text-[11px] tracking-[0.3em] uppercase text-[var(--ash)] mb-3">
                 ISSUED BY: {cert.issuer}
               </p>
 
               {/* Title */}
-              <h3 className="font-cinzel-dec text-base sm:text-lg font-bold text-[var(--parchment)] mb-3 leading-snug">
+              <h3 className="font-cinzel-dec text-lg sm:text-xl font-bold text-[var(--parchment)] mb-4 leading-snug">
                 {cert.title}
               </h3>
 
-              <div className="got-divider max-w-[100px] mb-4">
+              <div className="got-divider max-w-[100px] mb-5 justify-center">
                 <div className="got-divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
                 <div className="got-divider-diamond" style={{ background: accent }} />
                 <div className="got-divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
               </div>
 
               {/* Oath Statement */}
-              <p className="font-fell italic text-xs sm:text-sm text-[var(--ash)] leading-relaxed mb-6">
+              <p className="font-fell italic text-base sm:text-lg text-[var(--ash)] leading-relaxed mb-6">
                 "{cert.oath}"
               </p>
             </div>
 
             {/* External Link Button */}
             <div
-              className="pt-4 mt-2"
+              className="pt-5 mt-3"
               style={{
                 borderTop: `1px solid color-mix(in srgb, ${accent} 25%, transparent)`,
               }}
@@ -97,7 +97,7 @@ export const Certifications: React.FC = () => {
                 href={cert.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="got-cta-ghost w-full justify-center text-xs py-2.5 min-h-[44px]"
+                className="got-cta-ghost w-full justify-center text-sm sm:text-base py-3 min-h-[50px]"
                 style={{
                   borderColor: 'rgba(184, 160, 64, 0.5)',
                   color: accent,
@@ -105,7 +105,7 @@ export const Certifications: React.FC = () => {
                 aria-label={`Verify Credential for ${cert.title}`}
               >
                 <span>Verify Credential</span>
-                <ExternalLink size={13} className="shrink-0" />
+                <ExternalLink size={16} className="shrink-0" />
               </a>
             </div>
           </div>

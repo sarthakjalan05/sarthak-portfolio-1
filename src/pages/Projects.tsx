@@ -41,7 +41,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
           '--accent': accent,
           '--border': '#5a1212',
           background: 'linear-gradient(135deg, #120202 0%, #200808 60%, #120202 100%)',
-          minHeight: '440px',
+          minHeight: '520px',
         } as React.CSSProperties
       }
     >
@@ -127,7 +127,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
           <span className="divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
         </div>
 
-        <p className="hover-desc text-xs sm:text-sm leading-relaxed mb-3 max-w-sm">
+        <p className="hover-desc text-sm sm:text-base leading-relaxed mb-4 max-w-sm">
           {project.description}
         </p>
 
@@ -189,7 +189,7 @@ export const Projects: React.FC = () => {
       />
 
       {/* Projects Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 max-w-7xl mx-auto px-2">
         {PROJECTS.map((project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} accent={accent} />
         ))}

@@ -24,19 +24,19 @@ export const Contact: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-5xl mx-auto space-y-12 sm:space-y-16">
+      <div className="relative z-10 max-w-5xl mx-auto space-y-16 sm:space-y-20 px-2">
         {/* Requirement 4: Grand Maester's Ledger Full Inline Resume Viewer */}
         <section aria-label="Grand Maester's Ledger - Official Resume Scroll">
           <ResumeViewer accent={accent} />
         </section>
 
         {/* Communication Coordinates & Raven Dispatch Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
           {/* Left Column: Direct Communication Channels & Seat Note */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-8">
             {/* Raven Registry Card */}
             <div
-              className="fade-up realm-card p-6 sm:p-8 border bg-[#0d121a]/90 backdrop-blur-sm relative"
+              className="fade-up realm-card p-8 sm:p-10 border bg-[#0d121a]/90 backdrop-blur-sm relative"
               style={{ '--accent': accent, borderColor: 'rgba(143, 175, 196, 0.35)' } as React.CSSProperties}
               data-delay="200"
             >
@@ -46,27 +46,27 @@ export const Contact: React.FC = () => {
               <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
               <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
-              <h3 className="font-cinzel-dec text-xl font-bold text-[var(--parchment)] mb-2">
+              <h3 className="font-cinzel-dec text-2xl font-bold text-[var(--parchment)] mb-3">
                 Direct Inscriptions
               </h3>
-              <p className="font-fell italic text-sm text-[var(--ash)] mb-6">
+              <p className="font-fell italic text-base text-[var(--ash)] mb-8">
                 When haste is imperative, summon the raven post directly through verified coordinates.
               </p>
 
-              <div className="space-y-3.5">
+              <div className="space-y-5">
                 {/* Clickable Email */}
                 <a
                   href="mailto:sarthakjalan06@gmail.com"
-                  className="flex items-center gap-3.5 p-3 sm:p-3.5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[52px] group"
+                  className="flex items-center gap-4 p-4 sm:p-5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[56px] group"
                 >
                   <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
                     <Mail size={18} />
                   </div>
                   <div className="min-w-0">
-                    <span className="font-cinzel text-[10px] tracking-widest text-[#8fafc4] uppercase block">
+                    <span className="font-cinzel text-[11px] tracking-widest text-[#8fafc4] uppercase block">
                       Raven Mail
                     </span>
-                    <span className="font-cinzel text-xs sm:text-sm text-[var(--parchment)] font-semibold truncate block">
+                    <span className="font-cinzel text-sm sm:text-base text-[var(--parchment)] font-semibold truncate block">
                       sarthakjalan06@gmail.com
                     </span>
                   </div>

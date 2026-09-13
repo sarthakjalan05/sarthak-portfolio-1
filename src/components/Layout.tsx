@@ -204,101 +204,156 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Persistent Footer */}
       <footer
-        className="relative z-20 bg-[#070504] py-20 sm:py-28 px-4 sm:px-8 text-center overflow-hidden"
-        style={{ borderTop: '1px solid color-mix(in srgb, var(--gold-dim) 40%, transparent)' }}
+        className="relative z-20 bg-gradient-to-b from-[#0a0805] to-[#050403] py-24 sm:py-32 md:py-40 px-4 sm:px-8 overflow-hidden"
+        style={{ borderTop: '2px solid color-mix(in srgb, var(--gold) 45%, transparent)' }}
       >
-        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
-          {/* 1. Flanked Ornament Divider */}
-          <div className="got-divider max-w-xs mx-auto mb-6 sm:mb-8">
-            <div className="got-divider-line" />
-            <div className="got-divider-diamond" />
-            <div className="got-divider-line right" />
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#e8c97a] opacity-3 blur-3xl rounded-full" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto">
+          {/* Top: Ornamental Divider */}
+          <div className="flex items-center justify-center gap-6 mb-16 sm:mb-24">
+            <div className="flex-1 h-[1.5px] bg-gradient-to-r from-transparent to-[#c8a860]" />
+            <span className="text-2xl sm:text-3xl text-[#e8c97a] drop-shadow-[0_0_12px_rgba(232,201,122,0.4)]">✦</span>
+            <div className="flex-1 h-[1.5px] bg-gradient-to-l from-transparent to-[#c8a860]" />
           </div>
 
-          {/* 2. Prominent Wordmark Heading */}
-          <h2 className="font-cinzel-dec text-2xl sm:text-3xl md:text-4xl text-[var(--gold)] font-bold tracking-[0.2em] sm:tracking-[0.24em] uppercase text-center pl-[0.2em] sm:pl-[0.24em] mb-4 sm:mb-5 drop-shadow-[0_0_25px_rgba(201,168,76,0.35)]">
-            The Realm of Sarthak Jalan
-          </h2>
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 mb-20 sm:mb-28">
+            {/* Left: Avatar Badge & Name + Description */}
+            <div className="flex flex-col items-start justify-start md:col-span-1">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#e8c97a] via-[#d4b860] to-[#c8a860] flex items-center justify-center text-[#050403] font-cinzel-dec font-bold text-lg tracking-wider shadow-lg shadow-[#e8c97a]/30">
+                  SJ
+                </div>
+                <div>
+                  <h2 className="font-cinzel-dec text-2xl sm:text-3xl font-bold text-[var(--gold-light)] tracking-wide drop-shadow-[0_0_15px_rgba(232,201,122,0.3)]">
+                    Sarthak
+                  </h2>
+                  <p className="font-cinzel text-xs tracking-[0.2em] text-[#c8a860] uppercase font-semibold">
+                    Jalan
+                  </p>
+                </div>
+              </div>
+              <p className="font-fell italic text-sm sm:text-base text-[var(--ash)] leading-relaxed max-w-sm">
+                Full-Stack Engineer & AI Architect. Building intelligent, resilient systems across the realms of code and consciousness.
+              </p>
+            </div>
 
-          {/* 3. House Motto Quote */}
-          <p className="font-fell italic text-base sm:text-lg md:text-xl text-[var(--ash)] max-w-2xl mx-auto leading-relaxed text-center mb-8 sm:mb-10 px-4">
-            "When you play the game of code, you build for resilience, intelligence, and permanence."
-          </p>
+            {/* Center: Main Navigation */}
+            <div className="md:col-span-1">
+              <h3 className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#e8c97a] uppercase font-bold mb-8 block drop-shadow-[0_0_10px_rgba(232,201,122,0.2)]">
+                ✦ Navigation
+              </h3>
+              <nav className="flex flex-col gap-4 text-sm sm:text-base font-cinzel">
+                <a 
+                  href="/" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                >
+                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  <span className="group">About</span>
+                </a>
+                <a 
+                  href="/skills" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                >
+                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  <span>Skills</span>
+                </a>
+                <a 
+                  href="/projects" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                >
+                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  <span>Projects</span>
+                </a>
+                <a 
+                  href="/experience" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                >
+                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  <span>Experience</span>
+                </a>
+              </nav>
+            </div>
 
-          {/* 4. Action Button: Resume Download CTA */}
-          <div className="flex justify-center mb-10 sm:mb-12">
+            {/* Right: Connect & CTA */}
+            <div className="md:col-span-1">
+              <h3 className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#e8c97a] uppercase font-bold mb-8 block drop-shadow-[0_0_10px_rgba(232,201,122,0.2)]">
+                ✦ Connect
+              </h3>
+              <div className="flex flex-col gap-4">
+                <a
+                  href="mailto:sarthakjalan06@gmail.com"
+                  className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
+                >
+                  <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
+                    ✉
+                  </span>
+                  <span className="group-hover:translate-x-1 transition-transform">Email</span>
+                </a>
+                <a
+                  href="https://linkedin.com/in/sarthak-jalan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
+                >
+                  <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0 font-bold text-xs">
+                    in
+                  </span>
+                  <span className="group-hover:translate-x-1 transition-transform">LinkedIn</span>
+                </a>
+                <a
+                  href="https://github.com/sarthakjalan05"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
+                >
+                  <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
+                    ⚡
+                  </span>
+                  <span className="group-hover:translate-x-1 transition-transform">GitHub</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Resume CTA Button - Prominent */}
+          <div className="flex justify-center mb-20 sm:mb-28">
             <a
               href={RESUME_PATH}
               download={RESUME_FILENAME}
-              className="got-cta-btn min-h-[48px] px-8 sm:px-10 py-3.5 flex items-center justify-center gap-3 text-xs sm:text-sm tracking-[0.25em] shadow-[0_0_25px_rgba(201,168,76,0.3)] hover:shadow-[0_0_35px_rgba(201,168,76,0.5)] transition-all"
+              className="got-cta-btn min-h-[56px] px-10 sm:px-14 py-4 flex items-center justify-center gap-3 text-xs sm:text-sm tracking-[0.25em] font-cinzel font-semibold shadow-[0_0_30px_rgba(201,168,76,0.4)] hover:shadow-[0_0_50px_rgba(201,168,76,0.6)] transition-all duration-300 hover:scale-105 group"
               aria-label="Download Sarthak Jalan Resume PDF"
             >
-              <Scroll size={17} className="shrink-0" />
-              <span>Download the Scroll (Resume PDF)</span>
+              <Scroll size={20} className="shrink-0 group-hover:rotate-12 transition-transform" />
+              <span>DOWNLOAD THE SCROLL</span>
             </a>
           </div>
 
-          {/* 5. Contact & Social Group (Interactive icon-plus-label pills) */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 max-w-4xl mx-auto mb-12 sm:mb-14 px-2">
-            <a
-              href="mailto:sarthakjalan06@gmail.com"
-              className="group min-h-[44px] inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#120d09]/75 hover:bg-[#1c140c] border border-[#2e261a] hover:border-[var(--gold)] hover:shadow-[0_0_20px_rgba(201,168,76,0.25)] hover:-translate-y-0.5 transition-all duration-300 text-xs font-cinzel tracking-wider text-[var(--parchment)] hover:text-[var(--gold-light)]"
-              aria-label="Email Sarthak Jalan"
-            >
-              <span className="w-6 h-6 rounded-full border border-[#3e3424] group-hover:border-[var(--gold)] flex items-center justify-center bg-[#18110a] text-[var(--gold)] transition-colors shrink-0">
-                <Mail size={13} />
-              </span>
-              <span className="truncate max-w-[210px] sm:max-w-none">sarthakjalan06@gmail.com</span>
-            </a>
+          {/* Dividers */}
+          <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#c8a860] to-transparent mb-10 sm:mb-16" />
 
-            <a
-              href="tel:+919874255221"
-              className="group min-h-[44px] inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#120d09]/75 hover:bg-[#1c140c] border border-[#2e261a] hover:border-[var(--gold)] hover:shadow-[0_0_20px_rgba(201,168,76,0.25)] hover:-translate-y-0.5 transition-all duration-300 text-xs font-cinzel tracking-wider text-[var(--parchment)] hover:text-[var(--gold-light)]"
-              aria-label="Call Sarthak Jalan"
-            >
-              <span className="w-6 h-6 rounded-full border border-[#3e3424] group-hover:border-[var(--gold)] flex items-center justify-center bg-[#18110a] text-[var(--gold)] transition-colors shrink-0">
-                <Phone size={13} />
-              </span>
-              <span>+91-9874255221</span>
-            </a>
-
-            <a
-              href="https://linkedin.com/in/sarthak-jalan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group min-h-[44px] inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#120d09]/75 hover:bg-[#1c140c] border border-[#2e261a] hover:border-[var(--gold)] hover:shadow-[0_0_20px_rgba(201,168,76,0.25)] hover:-translate-y-0.5 transition-all duration-300 text-xs font-cinzel tracking-wider text-[var(--parchment)] hover:text-[var(--gold-light)]"
-              aria-label="Sarthak Jalan on LinkedIn"
-            >
-              <span className="w-6 h-6 rounded-full border border-[#3e3424] group-hover:border-[var(--gold)] flex items-center justify-center bg-[#18110a] text-[var(--gold)] transition-colors shrink-0">
-                <Linkedin size={13} />
-              </span>
-              <span>LinkedIn</span>
-              <ExternalLink size={12} className="opacity-50 group-hover:opacity-100 group-hover:text-[var(--gold)] transition-all shrink-0 ml-0.5" />
-            </a>
-
-            <a
-              href="https://github.com/sarthakjalan05"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group min-h-[44px] inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#120d09]/75 hover:bg-[#1c140c] border border-[#2e261a] hover:border-[var(--gold)] hover:shadow-[0_0_20px_rgba(201,168,76,0.25)] hover:-translate-y-0.5 transition-all duration-300 text-xs font-cinzel tracking-wider text-[var(--parchment)] hover:text-[var(--gold-light)]"
-              aria-label="Sarthak Jalan on GitHub"
-            >
-              <span className="w-6 h-6 rounded-full border border-[#3e3424] group-hover:border-[var(--gold)] flex items-center justify-center bg-[#18110a] text-[var(--gold)] transition-colors shrink-0">
-                <Github size={13} />
-              </span>
-              <span>GitHub</span>
-              <ExternalLink size={12} className="opacity-50 group-hover:opacity-100 group-hover:text-[var(--gold)] transition-all shrink-0 ml-0.5" />
-            </a>
-          </div>
-
-          {/* 6. Distinct Separated Closing Section: Copyright */}
-          <div
-            className="w-full max-w-2xl mx-auto pt-8 flex flex-col items-center justify-center text-center"
-            style={{ borderTop: '1px solid color-mix(in srgb, var(--gold-dim) 25%, transparent)' }}
-          >
-            <p className="font-cinzel text-[10px] sm:text-[11px] tracking-[0.25em] text-[#827563] uppercase">
-              © {new Date().getFullYear()} Sarthak Jalan · All Rights Sworn Across the Realm
-            </p>
+          {/* Bottom Section: Copyright & Location - Bigger Text */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+              <p className="font-cinzel text-[11px] sm:text-xs tracking-[0.3em] text-[#e8c97a] uppercase font-semibold drop-shadow-[0_0_8px_rgba(232,201,122,0.2)]">
+                © {new Date().getFullYear()} SARTHAK JALAN
+              </p>
+              <p className="font-fell italic text-xs sm:text-sm text-[var(--ash)] mt-2">
+                All rights reserved across the realm
+              </p>
+            </div>
+            <div className="flex flex-col items-center sm:items-end gap-1">
+              <p className="font-cinzel text-sm sm:text-base text-[#c8a860] font-semibold">
+                📍 VIT Vellore
+              </p>
+              <p className="font-cinzel text-[10px] sm:text-xs tracking-[0.2em] text-[#827563] uppercase">
+                ECE (2023–2027) • Remote Ready
+              </p>
+            </div>
           </div>
         </div>
       </footer>

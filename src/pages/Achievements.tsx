@@ -23,11 +23,11 @@ export const Achievements: React.FC = () => {
       />
 
       {/* Achievement Cards with Staggered Entrance */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 max-w-5xl mx-auto px-2">
         {ACHIEVEMENTS.map((item, idx) => (
           <div
             key={item.id}
-            className="fade-up realm-card relative p-6 sm:p-9 border bg-[#050c04]/90 backdrop-blur-sm flex flex-col justify-between group shadow-[0_0_35px_rgba(0,0,0,0.8)]"
+            className="fade-up realm-card relative p-8 sm:p-10 border bg-[#050c04]/90 backdrop-blur-sm flex flex-col justify-between group shadow-[0_0_35px_rgba(0,0,0,0.8)]"
             style={{
               '--accent': accent,
               borderColor: 'rgba(90, 158, 72, 0.35)',
@@ -77,7 +77,7 @@ export const Achievements: React.FC = () => {
                 <div className="got-divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
               </div>
 
-              <p className="font-fell italic text-sm sm:text-base text-[var(--ash)] leading-relaxed mb-6">
+              <p className="font-fell italic text-base sm:text-lg text-[var(--ash)] leading-relaxed mb-6">
                 {item.description}
               </p>
             </div>

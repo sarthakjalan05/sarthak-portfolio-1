@@ -118,15 +118,15 @@ export const Experience: React.FC = () => {
                   <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
                   <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
-                  {/* Period & Location badge */}
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-cinzel text-[var(--ash)] mb-3">
-                    <span className="flex items-center gap-1.5 text-[var(--gold)] font-semibold">
-                      <Calendar size={13} />
+                  {/* Period & Location badge - PROMINENT DATE */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm sm:text-base font-cinzel mb-6 pb-5 border-b border-[var(--gold-dim)]/40">
+                    <span className="flex items-center gap-2 text-[#ffde7a] font-bold tracking-wider uppercase drop-shadow-[0_0_8px_rgba(255,222,122,0.2)]">
+                      <Calendar size={16} className="shrink-0" />
                       {item.period}
                     </span>
-                    <span className="opacity-40">·</span>
-                    <span className="flex items-center gap-1.5">
-                      <MapPin size={13} />
+                    <span className="hidden sm:block text-[var(--gold-dim)] opacity-60">◆</span>
+                    <span className="flex items-center gap-2 text-[var(--ash)] font-semibold">
+                      <MapPin size={16} className="shrink-0" />
                       {item.locationType}
                     </span>
                   </div>
@@ -172,20 +172,20 @@ export const Experience: React.FC = () => {
                   </div>
 
                   {/* Summary copy */}
-                  <p className="font-fell italic text-sm sm:text-base text-[var(--parchment)] leading-relaxed mb-5 transition-all duration-300 group-hover/entry:text-[#e8d5b5]">
+                  <p className="font-fell italic text-lg text-[var(--parchment)] leading-relaxed mb-6 transition-all duration-300 group-hover:text-[#e8d5b5]">
                     {item.description}
                   </p>
 
                   {/* Detailed Points */}
-                  <ul className="space-y-2.5 mb-6 text-xs sm:text-sm font-fell text-[var(--ash)]">
+                  <ul className="space-y-3 mb-7 text-base font-fell text-[var(--ash)]">
                     {item.details.map((detail, dIdx) => (
                       <li
                         key={dIdx}
-                        className="flex items-start gap-2.5 transition-all duration-300 group-hover/entry:text-[#f0d8a0]"
+                        className="flex items-start gap-3 transition-all duration-300 group-hover/entry:text-[#f0d8a0]"
                       >
                         <CheckCircle
-                          size={14}
-                          className="shrink-0 mt-1 transition-all duration-300"
+                          size={18}
+                          className="shrink-0 mt-0.5 transition-all duration-300"
                           style={{ color: accent }}
                         />
                         <span className="leading-relaxed">{detail}</span>
@@ -195,17 +195,17 @@ export const Experience: React.FC = () => {
 
                   {/* Technology Tags */}
                   <div
-                    className="flex flex-wrap gap-2 pt-3.5 mt-2"
+                    className="flex flex-wrap gap-3 pt-5 mt-6"
                     style={{
-                      borderTop: `1px solid color-mix(in srgb, ${accent} 25%, transparent)`,
+                      borderTop: `1.5px solid color-mix(in srgb, ${accent} 40%, transparent)`,
                     }}
                   >
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-cinzel text-[10px] tracking-wider uppercase px-2.5 py-1 bg-[#1e1500] text-[var(--parchment)] transition-all duration-300 hover:text-[#ffde7a]"
+                        className="font-cinzel text-xs sm:text-sm tracking-[0.15em] uppercase px-4 py-2 bg-gradient-to-br from-[#2a1f0f] to-[#1e1500] text-[#ffde7a] border-2 transition-all duration-300 hover:text-[#fff] hover:bg-gradient-to-br hover:from-[#3d2d15] hover:to-[#2a1f0f] hover:shadow-[0_0_20px_rgba(255,222,122,0.3)] hover:scale-110 font-semibold"
                         style={{
-                          border: `1px solid color-mix(in srgb, ${accent} 35%, transparent)`,
+                          borderColor: `color-mix(in srgb, ${accent} 50%, transparent)`,
                         }}
                       >
                         {tag}

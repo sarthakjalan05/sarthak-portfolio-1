@@ -21,20 +21,20 @@
   --ease-realm: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Standardized Page Header Rhythm Tokens */
-  --header-gap-eyebrow: 14px;
-  --header-gap-sigil:   20px;
-  --header-gap-title:   20px;
-  --header-gap-motto:   22px;
-  --header-gap-bottom:  56px;
+  --header-gap-eyebrow: 24px;
+  --header-gap-sigil:   32px;
+  --header-gap-title:   32px;
+  --header-gap-motto:   36px;
+  --header-gap-bottom:  80px;
 }
 
 @media (max-width: 640px) {
   :root {
-    --header-gap-eyebrow: 10px;
-    --header-gap-sigil:   16px;
-    --header-gap-title:   16px;
-    --header-gap-motto:   18px;
-    --header-gap-bottom:  40px;
+    --header-gap-eyebrow: 16px;
+    --header-gap-sigil:   20px;
+    --header-gap-title:   24px;
+    --header-gap-motto:   28px;
+    --header-gap-bottom:  60px;
   }
 }
 
@@ -275,26 +275,26 @@ body {
   position: relative;
   width: 100%;
   min-height: calc(100vh - 80px);
-  padding: 120px 24px 100px;
+  padding: 140px 32px 120px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 @media (max-width: 1024px) {
   .realm-page {
-    padding: 105px 20px 90px;
+    padding: 120px 28px 100px;
   }
 }
 
 @media (max-width: 768px) {
   .realm-page {
-    padding: 90px 16px 70px;
+    padding: 100px 20px 80px;
   }
 }
 
 @media (max-width: 375px) {
   .realm-page {
-    padding: 85px 12px 60px;
+    padding: 90px 16px 70px;
   }
 }
 

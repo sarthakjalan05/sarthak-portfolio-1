@@ -126,7 +126,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       )}
 
       {/* 5. Subtitle / Body Copy */}
-      <p className="font-fell italic text-[clamp(14px,1.6vw,18px)] text-[var(--ash)] max-w-2xl mx-auto leading-relaxed px-3 sm:px-2">
+      <p className="font-fell italic text-[clamp(15px,1.8vw,20px)] text-[var(--ash)] max-w-2xl mx-auto text-center leading-relaxed px-4 sm:px-4">
         {subtitle}
       </p>
     </header>

@@ -22,13 +22,14 @@ export const Education: React.FC = () => {
         sigilRune="⛓"
       />
 
-      {/* Illuminated Manuscript Single Card */}
-      <div className="relative z-10 max-w-3xl mx-auto">
+      {/* Illuminated Manuscript Single Card - Diploma Rectangle */}
+      <div className="relative z-10 max-w-6xl mx-auto px-2">
         <div
-          className="fade-up realm-card relative p-6 sm:p-10 md:p-14 border bg-[#0d0c0a]/95 backdrop-blur-md shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden"
+          className="fade-up realm-card relative p-12 sm:p-16 md:p-20 border bg-[#0d0c0a]/95 backdrop-blur-md shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden"
           style={{
             '--accent': '#e8c97a',
             borderColor: 'rgba(200, 191, 176, 0.4)',
+            aspectRatio: '1.6 / 1',
           } as React.CSSProperties}
           data-delay="100"
         >
@@ -50,7 +51,7 @@ export const Education: React.FC = () => {
             >
               <Scroll size={32} className="sm:w-9 sm:h-9" />
             </div>
-            <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#e8c97a] text-center">
+            <span className="font-cinzel text-[11px] sm:text-sm tracking-[0.35em] uppercase text-[#e8c97a] text-center">
               Conferred by Vellore Institute of Technology
             </span>
           </div>
@@ -75,7 +76,7 @@ export const Education: React.FC = () => {
 
           {/* Tenure & Location */}
           <div
-            className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 py-3 px-4 sm:px-6 my-6 bg-[#12100d] text-[11px] sm:text-xs font-cinzel tracking-wider text-[var(--ash)]"
+            className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 py-4 px-5 sm:px-8 my-8 bg-[#12100d] text-sm sm:text-base font-cinzel tracking-wider text-[var(--ash)]"
             style={{
               borderTop: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
               borderBottom: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
@@ -87,18 +88,18 @@ export const Education: React.FC = () => {
           </div>
 
           {/* Manuscript Highlights */}
-          <div className="space-y-4 my-8">
-            <h4 className="font-cinzel text-xs uppercase tracking-[0.3em] text-[#c8bfb0] flex items-center gap-2">
-              <BookOpen size={15} className="text-[#e8c97a] shrink-0" />
+          <div className="space-y-6 my-12">
+            <h4 className="font-cinzel text-base sm:text-lg uppercase tracking-[0.3em] text-[#c8bfb0] flex items-center gap-3">
+              <BookOpen size={22} className="text-[#e8c97a] shrink-0" />
               Links in the Chain (Curricular Focus)
             </h4>
-            <div className="space-y-2.5 sm:space-y-3">
+            <div className="space-y-4 sm:space-y-5">
               {EDUCATION_DATA.highlights.map((h, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 p-3 sm:p-3.5 border border-[#2e2820] bg-[#14120e] text-xs sm:text-sm font-fell text-[var(--ash)] hover:border-[#e8c97a]/40 hover:bg-[#1a1712] hover:text-[var(--parchment)] hover:translate-x-1 transition-all duration-300 cursor-default"
+                  className="flex items-start gap-4 p-5 sm:p-6 border border-[#2e2820] bg-[#14120e] text-base sm:text-lg font-fell text-[var(--ash)] hover:border-[#e8c97a]/40 hover:bg-[#1a1712] hover:text-[var(--parchment)] hover:translate-x-1 transition-all duration-300 cursor-default"
                 >
-                  <span className="text-[#e8c97a] mt-0.5 shrink-0">✦</span>
+                  <span className="text-[#e8c97a] text-xl mt-0 shrink-0">✦</span>
                   <span className="leading-relaxed">{h}</span>
                 </div>
               ))}
