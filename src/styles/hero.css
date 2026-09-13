@@ -1,0 +1,418 @@
+/* ── Hero Styles (Preserved & Enhanced) ── */
+
+.got-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Sticky layer on desktop */
+.got-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #050403;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Fallback / ambient background when video is still loading or on low-power */
+.got-video-fallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #1a1510 0%, #050403 100%);
+  z-index: 1;
+}
+
+/* Background video */
+.got-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 2;
+  will-change: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Mobile poster static background (replaces video on touch / mobile viewports) */
+.got-mobile-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 2;
+  display: block;
+}
+
+/* Vignette - softened to let real footage show through clearly */
+.got-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(5, 4, 3, 0.65) 100%);
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Overlay gradient - balanced for text legibility while keeping video crisp */
+.got-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5, 4, 3, 0.78) 0%, rgba(5, 4, 3, 0.20) 45%, rgba(5, 4, 3, 0.04) 100%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Film grain texture */
+.got-grain-local {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+}
+
+/* Top wordmark (reduced to avoid duplicate nav) */
+.got-hero-wordmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 48px;
+  pointer-events: none;
+}
+
+.got-hero-sigil-stamp {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+/* Rune / tick bar */
+.got-rune-bar {
+  position: absolute;
+  top: 80px;
+  left: 48px;
+  right: 48px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 2px;
+}
+
+.rune-tick {
+  flex: 1;
+  height: 100%;
+  background: var(--gold-dim);
+  transform-origin: bottom;
+  opacity: 0.35;
+}
+
+.rune-tick:nth-child(3n) {
+  height: 5px;
+  background: var(--gold);
+  opacity: 0.7;
+}
+
+.rune-tick:nth-child(7n) {
+  height: 3px;
+  opacity: 0.5;
+}
+
+/* Main hero content */
+.got-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0 64px 60px;
+  max-width: 760px;
+}
+
+.got-sigil {
+  font-size: 28px;
+  margin-bottom: 14px;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.6));
+  color: var(--gold);
+}
+
+.got-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.got-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(30px, 4.8vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--parchment);
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.9), 0 0 60px rgba(201, 168, 76, 0.15);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+
+.got-body {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.75;
+  color: var(--ash);
+  max-width: 520px;
+  font-style: italic;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* CTA row */
+.got-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 32px;
+}
+
+/* Right side vertical panel */
+.got-right-panel {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.got-chapter-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.got-vert-line {
+  width: 1px;
+  height: 70px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+}
+
+/* Chapter progress dots */
+.got-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.got-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  transition: background 0.4s, transform 0.4s;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.got-dot.active {
+  background: var(--gold);
+  transform: scale(1.8);
+  box-shadow: 0 0 8px var(--gold);
+}
+
+/* Bottom progress bar */
+.got-progress-bar-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(201, 168, 76, 0.15);
+  z-index: 20;
+}
+
+.got-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, var(--gold-dim), var(--gold));
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px var(--gold);
+}
+
+/* Scroll hint */
+.got-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  right: 48px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.65;
+  animation: hint-fade 2.5s ease-in-out infinite;
+}
+
+.got-scroll-hint span {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.got-scroll-hint .arrow {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: arrow-drop 2.5s ease-in-out infinite;
+}
+
+@keyframes hint-fade {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes arrow-drop {
+  0%   { transform: translateY(-6px); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateY(6px);  opacity: 0; }
+}
+
+/* Corner ornaments */
+.got-corner {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.got-corner svg { width: 100%; height: 100%; }
+.got-corner-tl { top: 20px; left: 20px; }
+.got-corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.got-corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.got-corner-br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+/* Loading screen */
+.got-loading {
+  position: fixed;
+  inset: 0;
+  background: #050403;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.got-loading.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.got-loading-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: 0.25em;
+  text-align: center;
+}
+
+.got-loading-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+.got-loading-bar-wrap {
+  width: 160px;
+  height: 1px;
+  background: rgba(201, 168, 76, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.got-loading-bar-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  animation: load-fill 1.6s ease forwards;
+}
+
+@keyframes load-fill {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* Mobile Hero (clean, unpinned layout to avoid mobile scroll jumping & overflow) */
+@media (max-width: 768px) {
+  .got-container.mobile-hero {
+    height: auto !important;
+  }
+  .got-sticky.mobile-hero-sticky {
+    position: relative;
+    height: auto;
+    min-height: 85vh;
+    padding-top: 40px;
+  }
+  .got-content {
+    position: relative;
+    padding: 30px 20px 60px;
+    max-width: 100%;
+  }
+  .got-right-panel {
+    display: none;
+  }
+  .got-scroll-hint {
+    display: none;
+  }
+  .got-rune-bar {
+    left: 20px;
+    right: 20px;
+    top: 20px;
+  }
+  .got-corner {
+    display: none;
+  }
+  .got-title {
+    font-size: 32px;
+  }
+}

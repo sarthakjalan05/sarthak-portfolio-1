@@ -1,0 +1,6 @@
+{
+  "name": "Sarthak Jalan Portfolio",
+  "description": "Multi-page cinematic Game of Thrones themed portfolio for full-stack developer & AI engineer Sarthak Jalan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
