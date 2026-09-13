@@ -68,7 +68,7 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = '#8fafc4' }
           <h2 className="font-cinzel-dec text-xl sm:text-2xl font-bold text-[var(--parchment)]">
             The Official Scroll (Resume)
           </h2>
-          <p className="font-fell italic text-xs sm:text-sm text-[var(--ash)] mt-1">
+          <p className="font-garamond text-sm sm:text-base text-[var(--ash)] leading-[1.7] mt-1">
             Archival parchment chronicling technical campaigns, production platforms, and engineering masteries.
           </p>
         </div>
@@ -145,7 +145,7 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = '#8fafc4' }
           <h3 className="font-cinzel-dec text-base font-bold text-[var(--parchment)] mb-2">
             Archival Parchment Available
           </h3>
-          <p className="font-fell italic text-xs text-[var(--ash)] max-w-md mx-auto mb-5 leading-relaxed">
+          <p className="font-garamond text-sm text-[var(--ash)] max-w-md mx-auto mb-5 leading-[1.75]">
             The Grand Maester's ledger is formatted for royal desk displays. For the clearest reading experience on handheld scrolls, open directly in a dedicated tab or download the file.
           </p>
 

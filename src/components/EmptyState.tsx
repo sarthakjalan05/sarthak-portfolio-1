@@ -88,7 +88,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       </div>
 
       {/* Body text */}
-      <p className="font-fell italic text-base md:text-lg text-[#c8bfb0] max-w-lg mb-8 leading-relaxed">
+      <p className="font-garamond text-base md:text-lg text-[#c8bfb0] max-w-lg mb-8 leading-[1.75]">
         {body}
       </p>
 

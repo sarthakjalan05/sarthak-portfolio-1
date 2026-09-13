@@ -180,12 +180,12 @@
 }
 
 .got-body {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(15px, 1.4vw, 18px);
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(16px, 1.5vw, 19px);
   line-height: 1.75;
   color: var(--ash);
   max-width: 520px;
-  font-style: italic;
+  font-style: normal;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
 }
 

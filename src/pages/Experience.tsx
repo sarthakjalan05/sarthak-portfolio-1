@@ -34,6 +34,7 @@ export const Experience: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Experience"
         eyebrow="HOUSE LANNISTER · CASTERLY ROCK"
         title="Ledger of"
         titleEm="Deeds & Service"
@@ -172,12 +173,12 @@ export const Experience: React.FC = () => {
                   </div>
 
                   {/* Summary copy */}
-                  <p className="font-fell italic text-lg text-[var(--parchment)] leading-relaxed mb-6 transition-all duration-300 group-hover:text-[#e8d5b5]">
+                  <p className="font-garamond text-lg text-[var(--parchment)] leading-[1.75] mb-6 transition-all duration-300 group-hover:text-[#e8d5b5]">
                     {item.description}
                   </p>
 
                   {/* Detailed Points */}
-                  <ul className="space-y-3 mb-7 text-base font-fell text-[var(--ash)]">
+                  <ul className="space-y-3 mb-7 text-base font-garamond text-[var(--ash)] leading-[1.75]">
                     {item.details.map((detail, dIdx) => (
                       <li
                         key={dIdx}
@@ -188,7 +189,7 @@ export const Experience: React.FC = () => {
                           className="shrink-0 mt-0.5 transition-all duration-300"
                           style={{ color: accent }}
                         />
-                        <span className="leading-relaxed">{detail}</span>
+                        <span className="leading-[1.75]">{detail}</span>
                       </li>
                     ))}
                   </ul>

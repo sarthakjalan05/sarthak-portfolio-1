@@ -14,6 +14,7 @@ export const Contact: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Contact"
         eyebrow="HOUSE STARK · WINTERFELL"
         title="Ravens to"
         titleEm="The North"
@@ -49,7 +50,7 @@ export const Contact: React.FC = () => {
               <h3 className="font-cinzel-dec text-2xl font-bold text-[var(--parchment)] mb-3">
                 Direct Inscriptions
               </h3>
-              <p className="font-fell italic text-base text-[var(--ash)] mb-8">
+              <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.75] mb-8">
                 When haste is imperative, summon the raven post directly through verified coordinates.
               </p>
 
@@ -140,14 +141,14 @@ export const Contact: React.FC = () => {
 
             {/* Winterfell Seat Posture note */}
             <div
-              className="fade-up p-5 sm:p-6 border border-[#26374d] bg-[#090e14] text-xs font-fell text-[var(--ash)] leading-relaxed relative"
+              className="fade-up p-5 sm:p-6 border border-[#26374d] bg-[#090e14] text-sm font-garamond text-[var(--ash)] leading-[1.75] relative"
               data-delay="300"
             >
               <div className="flex items-center gap-2 mb-2 font-cinzel text-[#8fafc4] uppercase tracking-wider">
                 <MapPin size={14} className="shrink-0" />
                 <span>Seat: The North · Remote Realms & Relocation</span>
               </div>
-              <p>
+              <p className="leading-[1.75]">
                 Anchored in Vellore &amp; Bangalore (India). Ready to dispatch code, lead engineering campaigns, and consult across the kingdoms.
               </p>
             </div>

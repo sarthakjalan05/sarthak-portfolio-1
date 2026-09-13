@@ -13,6 +13,7 @@ export const Achievements: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Achievements"
         eyebrow="HOUSE TYRELL · HIGHGARDEN"
         title="Banners of"
         titleEm="Growth & Leadership"
@@ -77,7 +78,7 @@ export const Achievements: React.FC = () => {
                 <div className="got-divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
               </div>
 
-              <p className="font-fell italic text-base sm:text-lg text-[var(--ash)] leading-relaxed mb-6">
+              <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.75] mb-6">
                 {item.description}
               </p>
             </div>

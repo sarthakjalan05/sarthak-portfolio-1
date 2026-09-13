@@ -86,7 +86,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
           {project.title}
         </h3>
 
-        <p className="font-fell italic text-sm text-[var(--ash)] max-w-xs mx-auto mb-4 line-clamp-3">
+        <p className="font-garamond text-base text-[var(--ash)] leading-[1.7] max-w-xs mx-auto mb-4 line-clamp-3">
           {project.summary}
         </p>
 
@@ -127,7 +127,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
           <span className="divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
         </div>
 
-        <p className="hover-desc text-sm sm:text-base leading-relaxed mb-4 max-w-sm">
+        <p className="hover-desc font-garamond text-sm sm:text-base leading-[1.75] mb-4 max-w-sm">
           {project.description}
         </p>
 
@@ -179,6 +179,7 @@ export const Projects: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Projects"
         eyebrow="HOUSE TARGARYEN · DRAGONSTONE"
         title="Armory of"
         titleEm="Forged Projects"

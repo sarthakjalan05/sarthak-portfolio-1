@@ -88,11 +88,12 @@
 }
 
 .section1-subtitle {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(15px, 1.5vw, 19px);
-  font-style: italic;
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-style: normal;
   color: var(--ash);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
   margin-top: 4px;
 }
 
@@ -388,11 +389,11 @@
 }
 
 .hover-desc {
-  font-family: 'IM Fell English', serif;
-  font-size: 14px;
-  font-style: italic;
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-style: normal;
   color: var(--parchment);
-  line-height: 1.7;
+  line-height: 1.75;
   max-width: 280px;
   margin-bottom: 16px;
 }

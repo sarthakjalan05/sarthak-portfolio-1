@@ -14,6 +14,7 @@ export const Certifications: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Certifications"
         eyebrow="HOUSE GREYJOY · PYKE"
         title="The Iron Price of"
         titleEm="Earned Credentials"
@@ -81,7 +82,7 @@ export const Certifications: React.FC = () => {
               </div>
 
               {/* Oath Statement */}
-              <p className="font-fell italic text-base sm:text-lg text-[var(--ash)] leading-relaxed mb-6">
+              <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.75] mb-6">
                 "{cert.oath}"
               </p>
             </div>

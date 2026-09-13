@@ -174,7 +174,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           <p className="font-cinzel text-[10px] tracking-[0.25em] text-[var(--gold-dim)] uppercase">
             Sarthak Jalan · Portfolio
           </p>
-          <p className="font-fell italic text-xs text-[#8a8070] mt-1">
+          <p className="font-fell italic text-xs text-[#a09585] mt-1">
             "A chronicle of code and craft"
           </p>
         </div>

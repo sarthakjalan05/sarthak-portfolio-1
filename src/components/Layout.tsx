@@ -110,7 +110,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     { to: '/experience', label: 'Experience' },
     { to: '/projects', label: 'Projects' },
     { to: '/skills', label: 'Skills' },
-    { to: '/education', label: 'Citadel' },
+    { to: '/education', label: 'Education' },
     { to: '/certifications', label: 'Certifications' },
     { to: '/achievements', label: 'Achievements' },
     { to: '/contact', label: 'Contact' },
@@ -237,7 +237,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </p>
                 </div>
               </div>
-              <p className="font-fell italic text-sm sm:text-base text-[var(--ash)] leading-relaxed max-w-sm">
+              <p className="font-garamond text-base text-[var(--ash)] leading-[1.75] max-w-sm">
                 Full-Stack Engineer & AI Architect. Building intelligent, resilient systems across the realms of code and consciousness.
               </p>
             </div>
@@ -342,7 +342,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <p className="font-cinzel text-[11px] sm:text-xs tracking-[0.3em] text-[#e8c97a] uppercase font-semibold drop-shadow-[0_0_8px_rgba(232,201,122,0.2)]">
                 © {new Date().getFullYear()} SARTHAK JALAN
               </p>
-              <p className="font-fell italic text-xs sm:text-sm text-[var(--ash)] mt-2">
+              <p className="font-garamond text-sm text-[var(--ash)] mt-2">
                 All rights reserved across the realm
               </p>
             </div>
@@ -350,7 +350,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <p className="font-cinzel text-sm sm:text-base text-[#c8a860] font-semibold">
                 📍 VIT Vellore
               </p>
-              <p className="font-cinzel text-[10px] sm:text-xs tracking-[0.2em] text-[#827563] uppercase">
+              <p className="font-cinzel text-[10px] sm:text-xs tracking-[0.2em] text-[#9e927f] uppercase">
                 ECE (2023–2027) • Remote Ready
               </p>
             </div>

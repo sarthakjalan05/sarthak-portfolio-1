@@ -35,6 +35,7 @@ export const Skills: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Skills"
         eyebrow="HOUSE BARATHEON · STORM'S END"
         title="Arsenal of"
         titleEm="Arms & Mastery"
@@ -78,7 +79,7 @@ export const Skills: React.FC = () => {
                 {grp.title}
               </h3>
 
-              <p className="font-fell italic text-sm sm:text-base text-[var(--gold-dim)] mb-6">
+              <p className="font-fell italic text-sm sm:text-base text-[#bda05e] mb-6">
                 {grp.motto}
               </p>
 
@@ -119,7 +120,7 @@ export const Skills: React.FC = () => {
           <h2 className="font-cinzel-dec text-3xl sm:text-4xl text-[var(--gold-light)] mb-6 drop-shadow-[0_0_15px_rgba(232,201,122,0.3)]">
             Also Worked With
           </h2>
-          <p className="font-fell italic text-base sm:text-lg text-[var(--ash)] max-w-2xl mx-auto leading-relaxed">
+          <p className="font-garamond text-base sm:text-lg text-[var(--ash)] max-w-2xl mx-auto leading-[1.75]">
             Ecosystems, neural libraries, and server frameworks forged across applied machine learning and full-stack projects.
           </p>
         </div>
@@ -147,8 +148,8 @@ export const Skills: React.FC = () => {
               
               <div className="h-[1px] bg-gradient-to-r from-[#c8a860] to-transparent mb-6 opacity-50 group-hover:opacity-100 transition-opacity" />
               
-              <p className="font-fell text-xs sm:text-sm text-[var(--ash)] group-hover:text-[#e8c97a] transition-colors mb-6 leading-relaxed">
-                {grp.description || 'Supporting technologies'}
+              <p className="font-garamond text-sm text-[var(--ash)] group-hover:text-[#e8c97a] transition-colors mb-6 leading-[1.75]">
+                {grp.motto || 'Supporting technologies'}
               </p>
 
               <div className="flex flex-wrap gap-2">

@@ -13,6 +13,7 @@ export const Education: React.FC = () => {
       <div className="realm-bg-vignette" />
 
       <PageHeader
+        sectionLabel="Education"
         eyebrow="THE CITADEL OF OLDTOWN · ARCHIVES"
         title="Scholarly Scroll of"
         titleEm="The Citadel"
@@ -69,7 +70,7 @@ export const Education: React.FC = () => {
             <h3 className="font-cinzel text-xs sm:text-sm md:text-base tracking-widest uppercase text-[#e8c97a] font-semibold mb-2">
               {EDUCATION_DATA.degree}
             </h3>
-            <p className="font-fell italic text-sm sm:text-base md:text-lg text-[var(--parchment)] max-w-xl mx-auto">
+            <p className="font-garamond text-base sm:text-lg md:text-xl text-[var(--parchment)] max-w-xl mx-auto leading-[1.7]">
               Specialization in {EDUCATION_DATA.specialization.replace('Bachelor of Technology (B.Tech) in ', '')}
             </p>
           </div>
@@ -97,10 +98,10 @@ export const Education: React.FC = () => {
               {EDUCATION_DATA.highlights.map((h, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-5 sm:p-6 border border-[#2e2820] bg-[#14120e] text-base sm:text-lg font-fell text-[var(--ash)] hover:border-[#e8c97a]/40 hover:bg-[#1a1712] hover:text-[var(--parchment)] hover:translate-x-1 transition-all duration-300 cursor-default"
+                  className="flex items-start gap-4 p-5 sm:p-6 border border-[#2e2820] bg-[#14120e] text-base sm:text-lg font-garamond text-[var(--ash)] leading-[1.75] hover:border-[#e8c97a]/40 hover:bg-[#1a1712] hover:text-[var(--parchment)] hover:translate-x-1 transition-all duration-300 cursor-default"
                 >
                   <span className="text-[#e8c97a] text-xl mt-0 shrink-0">✦</span>
-                  <span className="leading-relaxed">{h}</span>
+                  <span className="leading-[1.75]">{h}</span>
                 </div>
               ))}
             </div>
@@ -108,7 +109,7 @@ export const Education: React.FC = () => {
 
           {/* Wax seal watermark mark */}
           <div className="text-center pt-2">
-            <span className="font-cinzel text-[10px] tracking-[0.35em] text-[#6d6455] uppercase block">
+            <span className="font-cinzel text-[10px] tracking-[0.35em] text-[#9e927f] uppercase block">
               Archives of Oldtown · Validated Record
             </span>
           </div>
