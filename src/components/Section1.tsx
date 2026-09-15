@@ -126,7 +126,7 @@ export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
           <span className="divider-diamond" />
           <span className="divider-line" />
         </div>
-        <h3 className="hover-name">{house.name}</h3>
+        <h3 className="hover-name">{house.section || house.name}</h3>
         <p className="hover-desc">{house.description}</p>
         {house.isNavigable && (
           <span className="hover-enter-cta">
@@ -146,7 +146,7 @@ export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
       <Link
         to={house.route}
         className="house-card-link"
-        aria-label={`Explore ${house.name} - ${house.words}`}
+        aria-label={`Explore ${house.section || house.name} (${house.name}) - ${house.words}`}
       >
         {cardContent}
       </Link>

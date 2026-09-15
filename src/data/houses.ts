@@ -17,6 +17,7 @@ export const HOUSES: House[] = [
   {
     id: 'lannister',
     name: 'LANNISTER',
+    section: 'Experience',
     seat: 'Casterly Rock',
     words: '"Hear Me Roar"',
     region: 'The Westerlands',
@@ -34,6 +35,7 @@ export const HOUSES: House[] = [
   {
     id: 'targaryen',
     name: 'TARGARYEN',
+    section: 'Projects',
     seat: 'Dragonstone',
     words: '"Fire and Blood"',
     region: 'The Crownlands',
@@ -51,6 +53,7 @@ export const HOUSES: House[] = [
   {
     id: 'baratheon',
     name: 'BARATHEON',
+    section: 'Skills & Arsenal',
     seat: "Storm's End",
     words: '"Ours Is The Fury"',
     region: 'The Stormlands',
@@ -68,6 +71,7 @@ export const HOUSES: House[] = [
   {
     id: 'citadel',
     name: 'THE CITADEL',
+    section: 'Education',
     seat: 'Oldtown',
     words: '"Knowledge Is a Chain Unbroken"',
     region: 'Order of Maesters',
@@ -85,6 +89,7 @@ export const HOUSES: House[] = [
   {
     id: 'greyjoy',
     name: 'GREYJOY',
+    section: 'Certifications',
     seat: 'Pyke',
     words: '"We Do Not Sow"',
     region: 'The Iron Islands',
@@ -102,6 +107,7 @@ export const HOUSES: House[] = [
   {
     id: 'tyrell',
     name: 'TYRELL',
+    section: 'Achievements',
     seat: 'Highgarden',
     words: '"Growing Strong"',
     region: 'The Reach',
@@ -119,6 +125,7 @@ export const HOUSES: House[] = [
   {
     id: 'stark',
     name: 'STARK',
+    section: 'Contact',
     seat: 'Winterfell',
     words: '"Winter Is Coming"',
     region: 'The North',

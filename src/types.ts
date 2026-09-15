@@ -1,6 +1,7 @@
 export interface House {
   id: string;
   name: string;
+  section?: string;
   seat: string;
   words: string;
   region: string;
