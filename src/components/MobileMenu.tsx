@@ -10,6 +10,7 @@ interface MobileMenuProps {
 
 const NAV_ITEMS = [
   { path: '/', label: 'The Realm (Home)', house: 'Overview' },
+  { path: '/about', label: 'About Sarthak', house: 'Beyond the Houses' },
   { path: '/experience', label: 'Experience', house: 'House Lannister' },
   { path: '/projects', label: 'Projects', house: 'House Targaryen' },
   { path: '/skills', label: 'Skills & Arsenal', house: 'House Baratheon' },

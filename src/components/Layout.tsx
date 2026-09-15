@@ -13,6 +13,10 @@ const ROUTE_META: Record<string, { title: string; desc: string }> = {
     title: 'The Realm of Sarthak Jalan | Full-Stack & AI Engineer',
     desc: 'The personal realm of Sarthak Jalan — Full-Stack Developer and AI Engineer, forged in the Game of Thrones visual aesthetic.',
   },
+  '/about': {
+    title: 'About Sarthak Jalan — Beyond the Houses',
+    desc: 'Beyond the houses — meet Sarthak Jalan: Full-Stack Engineer and AI/ML practitioner building intelligent web applications and machine learning systems.',
+  },
   '/experience': {
     title: 'Experience — House Lannister | Sarthak Jalan',
     desc: "Sarthak Jalan's professional experience — House Lannister's ledger of deeds, engineering production platforms and predictive ML systems.",
@@ -107,6 +111,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navLinks = [
     { to: '/', label: 'Realm' },
+    { to: '/about', label: 'About' },
     { to: '/experience', label: 'Experience' },
     { to: '/projects', label: 'Projects' },
     { to: '/skills', label: 'Skills' },
@@ -248,34 +253,34 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 ✦ Navigation
               </h3>
               <nav className="flex flex-col gap-4 text-sm sm:text-base font-cinzel">
-                <a 
-                  href="/" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                <Link 
+                  to="/about" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
                 >
                   <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  <span className="group">About</span>
-                </a>
-                <a 
-                  href="/skills" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                  <span>About</span>
+                </Link>
+                <Link 
+                  to="/skills" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
                 >
                   <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                   <span>Skills</span>
-                </a>
-                <a 
-                  href="/projects" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                </Link>
+                <Link 
+                  to="/projects" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
                 >
                   <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                   <span>Projects</span>
-                </a>
-                <a 
-                  href="/experience" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2"
+                </Link>
+                <Link 
+                  to="/experience" 
+                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
                 >
                   <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                   <span>Experience</span>
-                </a>
+                </Link>
               </nav>
             </div>
 
