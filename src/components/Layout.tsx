@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, Mail, Phone, Linkedin, Github, ExternalLink, Scroll } from 'lucide-react';
+import { Menu, Mail, Phone, Linkedin, Github, ExternalLink, Scroll, Copy, Check } from 'lucide-react';
 import { MobileMenu } from './MobileMenu';
 import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
@@ -49,7 +49,48 @@ const ROUTE_META: Record<string, { title: string; desc: string }> = {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
   const location = useLocation();
+
+  const copyEmailToClipboard = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const email = 'sarthakjalan06@gmail.com';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).catch(() => {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = email;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      });
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = email;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 3500);
+  };
+
+  const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // 1. Immediately copy to clipboard so that even if the iframe or OS mail client blocks mailto:, the email is secured
+    copyEmailToClipboard();
+
+    // 2. Safely trigger mailto with window.open or top navigation to avoid iframe protocol blocks
+    try {
+      window.open('mailto:sarthakjalan06@gmail.com', '_blank');
+    } catch {
+      // Handled by clipboard copy fallback
+    }
+  };
 
   // Route change: update title & meta description, scroll to top
   useEffect(() => {
@@ -290,15 +331,58 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 ✦ Connect
               </h3>
               <div className="flex flex-col gap-4">
-                <a
-                  href="mailto:sarthakjalan06@gmail.com"
-                  className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
-                >
-                  <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
-                    ✉
-                  </span>
-                  <span className="group-hover:translate-x-1 transition-transform">Email</span>
-                </a>
+                {/* Email with mailto + copy + webmail direct access */}
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <a
+                      href="mailto:sarthakjalan06@gmail.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleEmailClick}
+                      className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
+                      title="Send email to sarthakjalan06@gmail.com (opens mail client & copies address)"
+                    >
+                      <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
+                        {copiedEmail ? <Check size={14} className="text-emerald-400" /> : <Mail size={14} />}
+                      </span>
+                      <span className="group-hover:translate-x-1 transition-transform">
+                        {copiedEmail ? 'Email Copied!' : 'Email'}
+                      </span>
+                    </a>
+
+                    {/* Quick copy button */}
+                    <button
+                      type="button"
+                      onClick={copyEmailToClipboard}
+                      className="p-1.5 text-[var(--ash)] hover:text-[#e8c97a] hover:bg-[#e8c97a]/10 rounded border border-transparent hover:border-[#c8a860]/30 transition-all text-xs flex items-center gap-1"
+                      title="Copy email address to clipboard"
+                      aria-label="Copy email address"
+                    >
+                      {copiedEmail ? (
+                        <Check size={13} className="text-emerald-400" />
+                      ) : (
+                        <Copy size={13} />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Clarifying sub-row with direct address & Web Gmail compose link */}
+                  <div className="flex flex-wrap items-center gap-2 ml-11 text-xs font-garamond text-[var(--ash)]">
+                    <span className="text-[#c8a860]/90">sarthakjalan06@gmail.com</span>
+                    <span className="text-[var(--ash)]/50">·</span>
+                    <a
+                      href="https://mail.google.com/mail/?view=cm&fs=1&to=sarthakjalan06@gmail.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#e8c97a] hover:underline inline-flex items-center gap-1 hover:text-[var(--gold-light)] transition-colors"
+                      title="Compose email in Gmail web client"
+                    >
+                      <span>Open in Gmail</span>
+                      <ExternalLink size={10} />
+                    </a>
+                  </div>
+                </div>
+
                 <a
                   href="https://www.linkedin.com/in/sarthak-jalan-7685a7285/"
                   target="_blank"
@@ -306,7 +390,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
                 >
                   <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0 font-bold text-xs">
-                    in
+                    <Linkedin size={14} />
                   </span>
                   <span className="group-hover:translate-x-1 transition-transform">LinkedIn</span>
                 </a>
@@ -317,7 +401,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
                 >
                   <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
-                    ⚡
+                    <Github size={14} />
                   </span>
                   <span className="group-hover:translate-x-1 transition-transform">GitHub</span>
                 </a>
@@ -362,6 +446,27 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      {/* Email Copied Notification Toast */}
+      {copiedEmail && (
+        <aside
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 bg-[#0f0c08] border border-[#c8a860] text-[var(--parchment)] shadow-[0_0_30px_rgba(200,168,96,0.45)] backdrop-blur-md rounded-none transition-all"
+        >
+          <span className="w-6 h-6 rounded-full bg-emerald-950 border border-emerald-500/50 flex items-center justify-center shrink-0">
+            <Check size={14} className="text-emerald-400" />
+          </span>
+          <div className="flex flex-col">
+            <span className="font-cinzel text-xs uppercase tracking-wider text-[#e8c97a] font-semibold">
+              Email Address Copied
+            </span>
+            <span className="font-garamond text-sm text-[var(--parchment)]">
+              sarthakjalan06@gmail.com
+            </span>
+          </div>
+        </aside>
+      )}
     </div>
   );
 };

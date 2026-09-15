@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
 import { ResumeViewer } from '../components/ResumeViewer';
-import { Mail, Phone, Linkedin, Github, ExternalLink, MapPin } from 'lucide-react';
+import { Mail, Phone, Linkedin, Github, ExternalLink, MapPin, Copy, Check } from 'lucide-react';
 
 export const Contact: React.FC = () => {
   const accent = '#8fafc4'; // Stark Grey Direwolf / Ice
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const copyEmailToClipboard = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const email = 'sarthakjalan06@gmail.com';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).catch(() => {
+        const textarea = document.createElement('textarea');
+        textarea.value = email;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      });
+    }
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 3500);
+  };
+
+  const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    copyEmailToClipboard();
+    try {
+      window.open('mailto:sarthakjalan06@gmail.com', '_blank');
+    } catch {
+      // Handled by copy
+    }
+  };
 
   return (
     <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
