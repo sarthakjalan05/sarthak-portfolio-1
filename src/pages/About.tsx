@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Layers, Brain, ArrowRight, Code2, Sparkles } from 'lucide-react';
+import { Layers, Brain, ArrowRight, Code2, Sparkles, Terminal, Scroll, GitBranch, ChevronDown, ChevronUp } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
+import { GitHubActivity } from '../components/GitHubActivity';
+import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 export const About: React.FC = () => {
   const [imgError, setImgError] = useState(false);
+  const [showGitHubActivity, setShowGitHubActivity] = useState(false);
   const accent = 'var(--gold)';
 
   return (
@@ -54,6 +57,8 @@ export const About: React.FC = () => {
                 <img
                   src="/images/profile.jpg"
                   alt="Sarthak Jalan portrait"
+                  width={96}
+                  height={96}
                   onError={() => setImgError(true)}
                   className="w-full h-full object-cover rounded-full relative z-10"
                   style={{
@@ -210,6 +215,46 @@ export const About: React.FC = () => {
               HealthTech Finalist
             </span>
           </div>
+
+          {/* Live GitHub Activity Campaign Ledger (Collapsed by default so real work is prominent) */}
+          <div className="mt-8 pt-6 border-t border-[color-mix(in_srgb,var(--gold)_20%,transparent)]">
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => setShowGitHubActivity((prev) => !prev)}
+                className="got-cta-ghost inline-flex items-center gap-2.5 px-5 py-2.5 text-xs font-cinzel tracking-[0.2em] uppercase border border-[var(--gold-dim)]/50 hover:border-[var(--gold)] hover:bg-[var(--gold)]/10 transition-all cursor-pointer"
+                aria-expanded={showGitHubActivity}
+              >
+                <GitBranch size={14} className="text-[var(--gold)]" />
+                <span>{showGitHubActivity ? 'Conceal Public Git Ledger' : 'View Public Git Ledger (Recent Commits)'}</span>
+                {showGitHubActivity ? (
+                  <ChevronUp size={13} className="text-[var(--gold)]" />
+                ) : (
+                  <ChevronDown size={13} className="text-[var(--gold)]" />
+                )}
+              </button>
+            </div>
+
+            {showGitHubActivity && (
+              <div className="mt-6 animate-in fade-in duration-300">
+                <GitHubActivity />
+              </div>
+            )}
+          </div>
+
+          {/* Character Sheet Easter Egg Teaser (Remains small footer/about easter egg link) */}
+          <div className="mt-8 pt-6 border-t border-[color-mix(in_srgb,var(--gold)_20%,transparent)] flex items-center justify-center">
+            <Link
+              to="/character-sheet"
+              className="group/egg inline-flex items-center gap-2 font-cinzel text-xs text-[var(--gold-dim)] hover:text-[var(--gold)] transition-colors px-4 py-2 border border-dashed border-[var(--gold-dim)]/40 hover:border-[var(--gold)] bg-[#0d0905]/70"
+            >
+              <Scroll size={14} className="text-[var(--gold)] group-hover/egg:rotate-12 transition-transform" />
+              <span className="tracking-widest uppercase text-[10px] sm:text-xs">
+                Easter Egg: Inspect RPG Character Sheet &amp; Feats
+              </span>
+              <span className="text-[10px]">⚔</span>
+            </Link>
+          </div>
         </div>
 
         {/* Explore Realm Navigation Links */}
@@ -236,6 +281,21 @@ export const About: React.FC = () => {
             <span>Send A Raven</span>
             <ArrowRight size={14} />
           </Link>
+        </div>
+
+        {/* Low-key 'the full story lives here' signal */}
+        <div className="fade-up mt-10 mb-8 text-center">
+          <p className="font-fell italic text-sm text-[var(--ash)] inline-flex items-center gap-2">
+            <span>For the complete record,</span>
+            <a
+              href={RESUME_PATH}
+              download={RESUME_FILENAME}
+              className="text-[var(--gold)] hover:text-[var(--gold-light)] underline underline-offset-4 decoration-[var(--gold-dim)] hover:decoration-[var(--gold)] transition-colors not-italic font-cinzel text-xs uppercase tracking-wider inline-flex items-center gap-1"
+            >
+              <span>download the full resume</span>
+              <span>&darr;</span>
+            </a>
+          </p>
         </div>
       </div>
     </div>

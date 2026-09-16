@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, Mail, Phone, Linkedin, Github, ExternalLink, Scroll, Copy, Check } from 'lucide-react';
+import { Menu, Mail, Linkedin, Github, ExternalLink, Scroll, Copy, Check, Search, Sparkles } from 'lucide-react';
 import { MobileMenu } from './MobileMenu';
+import { CommandPalette } from './CommandPalette';
+import { EmberCursor } from './EmberCursor';
 import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 interface LayoutProps {
@@ -24,6 +26,38 @@ const ROUTE_META: Record<string, { title: string; desc: string }> = {
   '/projects': {
     title: 'Projects — House Targaryen | Sarthak Jalan',
     desc: "Sarthak Jalan's featured projects — House Targaryen's armory: Oral Cancer MedTech, VitalVision, and Serenity multimodal AI therapist.",
+  },
+  '/projects/oral-cancer-medtech': {
+    title: 'Oral Cancer MedTech Case Study | Sarthak Jalan',
+    desc: 'Deep dive into on-device TFLite neural risk assessment, sub-115ms edge inference, and clinical screening architectures.',
+  },
+  '/projects/vitalvision': {
+    title: 'VitalVision Case Study | Sarthak Jalan',
+    desc: 'Clinical AI triage and conversational assistant case study with PyTorch, Firebase, and responsive patient routing.',
+  },
+  '/projects/serenity': {
+    title: 'Serenity AI Companion Case Study | Sarthak Jalan',
+    desc: '60/40 multimodal affective therapeutic AI case study combining acoustic vocal features and facial valence detection.',
+  },
+  '/notes': {
+    title: "The Maester's Notes — Technical Scrolls | Sarthak Jalan",
+    desc: 'Technical essays on TFLite quantization, multimodal affective fusion, and scaling MERN microservices across the realm.',
+  },
+  '/notes/optimizing-tflite-edge-inference': {
+    title: 'Optimizing TFLite for Edge Diagnostics | The Maester’s Notes',
+    desc: 'Engineering sub-5MB quantized neural networks for real-time mobile clinical screening with zero cloud round-trips.',
+  },
+  '/notes/multimodal-affective-fusion-60-40': {
+    title: 'Calibrating 60/40 Multimodal Affective Fusion | The Maester’s Notes',
+    desc: 'Balancing acoustic vocal inflections against facial Action Units to eliminate emotion misclassification in therapeutic agents.',
+  },
+  '/notes/scaling-mern-microservices-westeros': {
+    title: 'Architectural Patterns for MERN Microservices | The Maester’s Notes',
+    desc: 'Connection pooling, ESR compound indexing, and Redis background queues for high-throughput Node.js architectures.',
+  },
+  '/character-sheet': {
+    title: 'RPG Character Sheet & Codex | Sarthak Jalan',
+    desc: 'Downloadable RPG-themed character sheet codex featuring Sarthak’s attributes, combat stats, relics, and achievements.',
   },
   '/skills': {
     title: 'Skills — House Baratheon | Sarthak Jalan',
@@ -60,7 +94,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     const email = 'sarthakjalan06@gmail.com';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(email).catch(() => {
-        // Fallback for older browsers
         const textarea = document.createElement('textarea');
         textarea.value = email;
         document.body.appendChild(textarea);
@@ -80,15 +113,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     setTimeout(() => setCopiedEmail(false), 3500);
   };
 
-  const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // 1. Immediately copy to clipboard so that even if the iframe or OS mail client blocks mailto:, the email is secured
+  const handleEmailClick = () => {
     copyEmailToClipboard();
-
-    // 2. Safely trigger mailto with window.open or top navigation to avoid iframe protocol blocks
     try {
       window.open('mailto:sarthakjalan06@gmail.com', '_blank');
     } catch {
-      // Handled by clipboard copy fallback
+      // Handled by clipboard fallback
     }
   };
 
@@ -112,6 +142,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     if (ogDesc) {
       ogDesc.setAttribute('content', meta.desc);
     }
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) {
+      ogImage.setAttribute('content', '/images/og-default.jpg');
+    }
 
     // Scroll to top on navigation
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -119,7 +153,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   // Universal IntersectionObserver for .fade-up animations across all pages
   useEffect(() => {
-    // Short timeout to allow new route DOM elements to mount
     const timer = setTimeout(() => {
       const elements = document.querySelectorAll('.fade-up:not(.visible)');
       if (!elements.length) return;
@@ -155,6 +188,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     { to: '/about', label: 'About' },
     { to: '/experience', label: 'Experience' },
     { to: '/projects', label: 'Projects' },
+    { to: '/notes', label: 'Notes' },
     { to: '/skills', label: 'Skills' },
     { to: '/education', label: 'Education' },
     { to: '/certifications', label: 'Certifications' },
@@ -164,6 +198,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-[#050403] text-[var(--parchment)] relative selection:bg-[var(--gold)] selection:text-[var(--ink)]">
+      {/* Ember Cursor particle trail (desktop only) */}
+      <EmberCursor />
+
+      {/* Send a Raven Command Palette (Cmd/Ctrl + K) */}
+      <CommandPalette />
+
       {/* Global Grain & Vignette */}
       <div className="got-grain" />
       <div className="got-vignette" />
@@ -177,6 +217,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           {/* Brand Logo */}
           <Link
             to="/"
+            viewTransition
             className="flex items-center gap-2 group text-decoration-none min-h-[44px]"
             aria-label="Sarthak Jalan Home"
           >
@@ -189,13 +230,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-5 lg:gap-7" aria-label="Main Navigation">
+          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
+                viewTransition
                 className={({ isActive }) =>
-                  `font-cinzel text-xs tracking-[0.22em] uppercase transition-colors relative min-h-[44px] flex items-center px-1.5 py-1 ${
+                  `font-cinzel text-xs tracking-[0.2em] uppercase transition-colors relative min-h-[44px] flex items-center px-1 cursor-pointer ${
                     isActive
                       ? 'text-[var(--gold-light)] font-semibold'
                       : 'text-[var(--ash)] hover:text-[var(--gold-light)]'
@@ -204,7 +246,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               >
                 {({ isActive }) => (
                   <>
-                    {link.label}
+                    <span>{link.label}</span>
                     {isActive && (
                       <span className="absolute bottom-2 left-0 right-0 h-[2px] bg-[var(--gold)] shadow-[0_0_8px_var(--gold)]" />
                     )}
@@ -214,24 +256,39 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             ))}
           </nav>
 
-          {/* Action: Resume Scroll on Desktop & Mobile Menu Toggle */}
-          <div className="flex items-center gap-3">
+          {/* Actions: Command Palette ⌘K, Resume Scroll, and Mobile Menu Toggle */}
+          <div className="flex items-center gap-2.5">
+            {/* Command Palette Trigger Button */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 border border-[var(--gold-dim)]/40 hover:border-[var(--gold)] bg-[#120d08] text-[var(--gold-light)] font-cinzel text-xs tracking-wider transition-all hover:bg-[var(--gold)]/10 cursor-pointer min-h-[38px]"
+              title="Search the realm (Press ⌘K or Ctrl+K)"
+              aria-label="Search the realm with Command K"
+            >
+              <Search size={13} className="text-[var(--gold)] shrink-0" />
+              <span className="hidden sm:inline">Raven</span>
+              <kbd className="text-[10px] bg-[#1e160e] border border-[var(--gold-dim)]/40 px-1 py-0.5 text-[var(--gold)] rounded-sm">
+                ⌘K
+              </kbd>
+            </button>
+
+            {/* Resume Button */}
             <a
               href={RESUME_PATH}
               download={RESUME_FILENAME}
-              className="got-cta-ghost text-[10px] tracking-[0.25em] py-2 px-3.5 hidden lg:inline-flex items-center gap-1.5 min-h-[38px]"
+              className="got-cta-ghost text-[10px] tracking-[0.25em] py-2 px-3 hidden lg:inline-flex items-center gap-1.5 min-h-[38px]"
               title="Download Curriculum Vitae Scroll"
               aria-label="Download Sarthak Jalan Resume Scroll"
             >
               <Scroll size={13} className="text-[var(--gold)] shrink-0" />
-              <span>The Scroll</span>
+              <span>Scroll</span>
             </a>
 
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open mobile navigation menu"
-              className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 border border-[var(--gold-dim)] text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-colors"
+              className="xl:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 border border-[var(--gold-dim)] text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-colors cursor-pointer"
             >
               <Menu size={20} />
             </button>
@@ -250,32 +307,27 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Persistent Footer */}
       <footer
-        className="relative z-20 bg-gradient-to-b from-[#0a0805] to-[#050403] py-24 sm:py-32 md:py-40 px-4 sm:px-8 overflow-hidden"
+        className="relative z-20 bg-gradient-to-b from-[#0a0805] to-[#050403] py-20 sm:py-28 px-4 sm:px-8 overflow-hidden"
         style={{ borderTop: '2px solid color-mix(in srgb, var(--gold) 45%, transparent)' }}
       >
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#e8c97a] opacity-3 blur-3xl rounded-full" />
-        </div>
-
         <div className="relative max-w-7xl mx-auto">
           {/* Top: Ornamental Divider */}
-          <div className="flex items-center justify-center gap-6 mb-16 sm:mb-24">
+          <div className="flex items-center justify-center gap-6 mb-14 sm:mb-20">
             <div className="flex-1 h-[1.5px] bg-gradient-to-r from-transparent to-[#c8a860]" />
-            <span className="text-2xl sm:text-3xl text-[#e8c97a] drop-shadow-[0_0_12px_rgba(232,201,122,0.4)]">✦</span>
+            <span className="text-xl sm:text-2xl text-[#e8c97a] drop-shadow-[0_0_12px_rgba(232,201,122,0.4)]">✦</span>
             <div className="flex-1 h-[1.5px] bg-gradient-to-l from-transparent to-[#c8a860]" />
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 mb-20 sm:mb-28">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-14 mb-16 sm:mb-20">
             {/* Left: Avatar Badge & Name + Description */}
             <div className="flex flex-col items-start justify-start md:col-span-1">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#e8c97a] via-[#d4b860] to-[#c8a860] flex items-center justify-center text-[#050403] font-cinzel-dec font-bold text-lg tracking-wider shadow-lg shadow-[#e8c97a]/30">
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#e8c97a] via-[#d4b860] to-[#c8a860] flex items-center justify-center text-[#050403] font-cinzel-dec font-bold text-base tracking-wider shadow-lg shadow-[#e8c97a]/30">
                   SJ
                 </div>
                 <div>
-                  <h2 className="font-cinzel-dec text-2xl sm:text-3xl font-bold text-[var(--gold-light)] tracking-wide drop-shadow-[0_0_15px_rgba(232,201,122,0.3)]">
+                  <h2 className="font-cinzel-dec text-2xl font-bold text-[var(--gold-light)] tracking-wide">
                     Sarthak
                   </h2>
                   <p className="font-cinzel text-xs tracking-[0.2em] text-[#c8a860] uppercase font-semibold">
@@ -283,166 +335,134 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </p>
                 </div>
               </div>
-              <p className="font-garamond text-base text-[var(--ash)] leading-[1.75] max-w-sm">
-                Full-Stack Engineer & AI Architect. Building intelligent, resilient systems across the realms of code and consciousness.
+              <p className="font-garamond text-sm text-[var(--ash)] leading-[1.75] max-w-sm mb-4">
+                Full-Stack Engineer &amp; AI Architect. Building resilient intelligent systems across the realms of code and consciousness.
               </p>
+
+              {/* Quick Search Shortcut Trigger */}
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+                className="inline-flex items-center gap-2 text-xs font-cinzel text-[var(--gold-dim)] hover:text-[var(--gold)] transition-colors"
+              >
+                <Search size={12} className="text-[var(--gold)]" />
+                <span>Press ⌘K or Ctrl+K to send a raven</span>
+              </button>
             </div>
 
             {/* Center: Main Navigation */}
             <div className="md:col-span-1">
-              <h3 className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#e8c97a] uppercase font-bold mb-8 block drop-shadow-[0_0_10px_rgba(232,201,122,0.2)]">
-                ✦ Navigation
+              <h3 className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#e8c97a] uppercase font-bold mb-6 block">
+                ✦ Citadel Navigation
               </h3>
-              <nav className="flex flex-col gap-4 text-sm sm:text-base font-cinzel">
-                <Link 
-                  to="/about" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
-                >
-                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  <span>About</span>
+              <nav className="grid grid-cols-2 gap-3 text-xs sm:text-sm font-cinzel">
+                <Link to="/about" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  About Sarthak
                 </Link>
-                <Link 
-                  to="/skills" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
-                >
-                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  <span>Skills</span>
+                <Link to="/experience" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  Experience
                 </Link>
-                <Link 
-                  to="/projects" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
-                >
-                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  <span>Projects</span>
+                <Link to="/projects" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  Projects
                 </Link>
-                <Link 
-                  to="/experience" 
-                  className="text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 hover:translate-x-1 flex items-center gap-2 group"
+                <Link to="/notes" viewTransition className="text-[var(--gold-light)] hover:text-[var(--gold)] transition-colors font-semibold">
+                  Maester Notes
+                </Link>
+                <Link to="/skills" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  Skills Arsenal
+                </Link>
+                <Link to="/achievements" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  Achievements
+                </Link>
+                <Link to="/education" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  Education
+                </Link>
+                <Link to="/contact" viewTransition className="text-[var(--ash)] hover:text-[#e8c97a] transition-colors">
+                  House Stark (Contact)
+                </Link>
+                <Link
+                  to="/character-sheet"
+                  viewTransition
+                  className="col-span-2 text-[var(--gold-dim)] hover:text-[var(--gold)] transition-colors flex items-center gap-1.5 text-xs italic"
                 >
-                  <span className="text-[#e8c97a] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  <span>Experience</span>
+                  <Sparkles size={11} className="text-[var(--gold)]" />
+                  <span>RPG Character Sheet (Easter Egg)</span>
                 </Link>
               </nav>
             </div>
 
             {/* Right: Connect & CTA */}
             <div className="md:col-span-1">
-              <h3 className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#e8c97a] uppercase font-bold mb-8 block drop-shadow-[0_0_10px_rgba(232,201,122,0.2)]">
-                ✦ Connect
+              <h3 className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#e8c97a] uppercase font-bold mb-6 block">
+                ✦ Dispatch
               </h3>
-              <div className="flex flex-col gap-4">
-                {/* Email with mailto + copy + webmail direct access */}
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2">
-                    <a
-                      href="mailto:sarthakjalan06@gmail.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={handleEmailClick}
-                      className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
-                      title="Send email to sarthakjalan06@gmail.com (opens mail client & copies address)"
-                    >
-                      <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
-                        {copiedEmail ? <Check size={14} className="text-emerald-400" /> : <Mail size={14} />}
-                      </span>
-                      <span className="group-hover:translate-x-1 transition-transform">
-                        {copiedEmail ? 'Email Copied!' : 'Email'}
-                      </span>
-                    </a>
-
-                    {/* Quick copy button */}
-                    <button
-                      type="button"
-                      onClick={copyEmailToClipboard}
-                      className="p-1.5 text-[var(--ash)] hover:text-[#e8c97a] hover:bg-[#e8c97a]/10 rounded border border-transparent hover:border-[#c8a860]/30 transition-all text-xs flex items-center gap-1"
-                      title="Copy email address to clipboard"
-                      aria-label="Copy email address"
-                    >
-                      {copiedEmail ? (
-                        <Check size={13} className="text-emerald-400" />
-                      ) : (
-                        <Copy size={13} />
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Clarifying sub-row with direct address & Web Gmail compose link */}
-                  <div className="flex flex-wrap items-center gap-2 ml-11 text-xs font-garamond text-[var(--ash)]">
-                    <span className="text-[#c8a860]/90">sarthakjalan06@gmail.com</span>
-                    <span className="text-[var(--ash)]/50">·</span>
-                    <a
-                      href="https://mail.google.com/mail/?view=cm&fs=1&to=sarthakjalan06@gmail.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#e8c97a] hover:underline inline-flex items-center gap-1 hover:text-[var(--gold-light)] transition-colors"
-                      title="Compose email in Gmail web client"
-                    >
-                      <span>Open in Gmail</span>
-                      <ExternalLink size={10} />
-                    </a>
-                  </div>
+              <div className="flex flex-col gap-3.5">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleEmailClick}
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-colors"
+                  >
+                    <Mail size={14} className="text-[var(--gold)]" />
+                    <span>{copiedEmail ? 'Email Copied!' : 'sarthakjalan06@gmail.com'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={copyEmailToClipboard}
+                    className="p-1 text-[var(--ash)] hover:text-[var(--gold)]"
+                    title="Copy email to clipboard"
+                    aria-label="Copy email address"
+                  >
+                    {copiedEmail ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                  </button>
                 </div>
 
                 <a
                   href="https://www.linkedin.com/in/sarthak-jalan-7685a7285/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-colors"
                 >
-                  <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0 font-bold text-xs">
-                    <Linkedin size={14} />
-                  </span>
-                  <span className="group-hover:translate-x-1 transition-transform">LinkedIn</span>
+                  <Linkedin size={14} className="text-[var(--gold)]" />
+                  <span>LinkedIn Profile</span>
                 </a>
+
                 <a
                   href="https://github.com/sarthakjalan05"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 text-sm sm:text-base font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-all duration-300 group"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-cinzel text-[var(--ash)] hover:text-[#e8c97a] transition-colors"
                 >
-                  <span className="w-8 h-8 rounded-full border border-[#c8a860] flex items-center justify-center text-[#e8c97a] group-hover:bg-[#e8c97a]/10 group-hover:border-[#e8c97a] transition-all shrink-0">
-                    <Github size={14} />
-                  </span>
-                  <span className="group-hover:translate-x-1 transition-transform">GitHub</span>
+                  <Github size={14} className="text-[var(--gold)]" />
+                  <span>GitHub Armory</span>
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Resume CTA Button - Prominent */}
-          <div className="flex justify-center mb-20 sm:mb-28">
+          {/* Resume CTA Button */}
+          <div className="flex justify-center mb-14 sm:mb-18">
             <a
               href={RESUME_PATH}
               download={RESUME_FILENAME}
-              className="got-cta-btn min-h-[56px] px-10 sm:px-14 py-4 flex items-center justify-center gap-3 text-xs sm:text-sm tracking-[0.25em] font-cinzel font-semibold shadow-[0_0_30px_rgba(201,168,76,0.4)] hover:shadow-[0_0_50px_rgba(201,168,76,0.6)] transition-all duration-300 hover:scale-105 group"
+              className="got-cta-btn min-h-[50px] px-8 sm:px-12 py-3 flex items-center justify-center gap-3 text-xs tracking-[0.25em] font-cinzel font-semibold shadow-[0_0_25px_rgba(201,168,76,0.35)] hover:shadow-[0_0_40px_rgba(201,168,76,0.55)] transition-all"
               aria-label="Download Sarthak Jalan Resume PDF"
             >
-              <Scroll size={20} className="shrink-0 group-hover:rotate-12 transition-transform" />
+              <Scroll size={17} className="shrink-0" />
               <span>DOWNLOAD THE SCROLL</span>
             </a>
           </div>
 
           {/* Dividers */}
-          <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#c8a860] to-transparent mb-10 sm:mb-16" />
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c8a860]/40 to-transparent mb-8" />
 
-          {/* Bottom Section: Copyright & Location - Bigger Text */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-            <div>
-              <p className="font-cinzel text-[11px] sm:text-xs tracking-[0.3em] text-[#e8c97a] uppercase font-semibold drop-shadow-[0_0_8px_rgba(232,201,122,0.2)]">
-                © {new Date().getFullYear()} SARTHAK JALAN
-              </p>
-              <p className="font-garamond text-sm text-[var(--ash)] mt-2">
-                All rights reserved across the realm
-              </p>
-            </div>
-            <div className="flex flex-col items-center sm:items-end gap-1">
-              <p className="font-cinzel text-sm sm:text-base text-[#c8a860] font-semibold">
-                📍 VIT Vellore
-              </p>
-              <p className="font-cinzel text-[10px] sm:text-xs tracking-[0.2em] text-[#9e927f] uppercase">
-                ECE (2023–2027) • Remote Ready
-              </p>
-            </div>
+          {/* Bottom Section */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-xs font-cinzel text-[var(--ash)]">
+            <p className="tracking-[0.25em] uppercase text-[#e8c97a]">
+              © {new Date().getFullYear()} SARTHAK JALAN · ALL RIGHTS RESERVED
+            </p>
+            <p className="text-[#c8a860]">
+              VIT Vellore · Remote Ready
+            </p>
           </div>
         </div>
       </footer>

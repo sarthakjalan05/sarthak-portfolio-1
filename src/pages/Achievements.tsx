@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ACHIEVEMENTS } from '../data/achievements';
-import { Trophy, ExternalLink, Flower2, Sparkles, Users } from 'lucide-react';
+import { AnimatedCounter } from '../components/AnimatedCounter';
+import { Trophy, ExternalLink, Flower2, Sparkles, Users, Award, Code, Swords, Scroll } from 'lucide-react';
+import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 export const Achievements: React.FC = () => {
   const accent = '#5a9e48'; // Tyrell Rose Green
+  const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (id: string) => {
+    setExpandedMap((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const keyStats = [
+    { label: 'LeetCode Contest Rating', value: 1550, suffix: '+', note: 'Top 30% Global Percentile' },
+    { label: 'Algorithmic Problems', value: 400, suffix: '+', note: 'Data Structures & Algorithms' },
+    { label: 'Hackathon Contenders', value: 400, suffix: '+', note: '1st Runner Up · Hack the Spring' },
+    { label: 'National Rank Percentile', value: 10, prefix: 'Top ', suffix: '%', note: 'Flipkart GRiD 6.0' },
+  ];
 
   return (
     <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
@@ -22,6 +36,38 @@ export const Achievements: React.FC = () => {
         accent={accent}
         sigilRune="🌹"
       />
+
+      {/* Numeric Stat Counters Bar (Refined: Small & Secondary in visual weight relative to titles) */}
+      <div className="relative z-10 max-w-5xl mx-auto px-2 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {keyStats.map((stat, idx) => (
+            <div
+              key={idx}
+              className="fade-up realm-card relative p-3 sm:p-3.5 border text-center bg-[#071305]/75 backdrop-blur-sm"
+              style={{
+                borderColor: 'rgba(90, 158, 72, 0.25)',
+              }}
+              data-delay={idx * 80}
+            >
+              <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
+              <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
+              <p className="font-cinzel text-[9px] uppercase tracking-widest text-[#8fd17f]/80 mb-0.5 font-semibold">
+                {stat.label}
+              </p>
+              <div className="font-cinzel text-base sm:text-lg font-bold text-[var(--parchment)] my-0.5">
+                <AnimatedCounter
+                  value={stat.value}
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                />
+              </div>
+              <p className="font-garamond text-[11px] text-[var(--ash)]/80 leading-tight">
+                {stat.note}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Achievement Cards with Staggered Entrance */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 max-w-5xl mx-auto px-2">
@@ -78,9 +124,38 @@ export const Achievements: React.FC = () => {
                 <div className="got-divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
               </div>
 
-              <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.75] mb-6">
+              {/* Tight 1-sentence description + Read More expander */}
+              <p className="font-garamond text-base text-[var(--ash)] leading-relaxed mb-3">
                 {item.description}
               </p>
+
+              {item.extendedDetails && (
+                <div className="mb-5">
+                  {expandedMap[item.id] ? (
+                    <div className="animate-in fade-in duration-200">
+                      <p className="font-garamond text-sm text-[#a8cca0] leading-relaxed pl-3 border-l-2 border-[#5a9e48]/60 my-2">
+                        {item.extendedDetails}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => toggleExpand(item.id)}
+                        className="text-[10px] font-cinzel tracking-wider uppercase text-[var(--gold-dim)] hover:text-[var(--gold)] cursor-pointer underline underline-offset-2"
+                      >
+                        Show less &uarr;
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => toggleExpand(item.id)}
+                      className="text-[10px] font-cinzel tracking-wider uppercase text-[#8fd17f] hover:text-[#a8cca0] cursor-pointer inline-flex items-center gap-1 hover:underline"
+                    >
+                      <span>Read more</span>
+                      <span>&darr;</span>
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Link if available */}
@@ -102,7 +177,7 @@ export const Achievements: React.FC = () => {
                   }}
                   aria-label={`Inspect Ledger for ${item.title}`}
                 >
-                  <span>Inspect Ledger & Proof</span>
+                  <span>Inspect Ledger &amp; Proof</span>
                   <ExternalLink size={13} className="shrink-0" />
                 </a>
               </div>
@@ -118,6 +193,21 @@ export const Achievements: React.FC = () => {
             )}
           </div>
         ))}
+      </div>
+
+      {/* Low-key 'the full story lives here' signal */}
+      <div className="fade-up mt-14 mb-8 text-center relative z-10">
+        <p className="font-fell italic text-sm text-[var(--ash)] inline-flex items-center gap-2">
+          <span>For the complete record,</span>
+          <a
+            href={RESUME_PATH}
+            download={RESUME_FILENAME}
+            className="text-[var(--gold)] hover:text-[var(--gold-light)] underline underline-offset-4 decoration-[var(--gold-dim)] hover:decoration-[var(--gold)] transition-colors not-italic font-cinzel text-xs uppercase tracking-wider inline-flex items-center gap-1"
+          >
+            <span>download the full resume</span>
+            <span>&darr;</span>
+          </a>
+        </p>
       </div>
     </div>
   );

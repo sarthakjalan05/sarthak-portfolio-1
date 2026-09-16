@@ -45,6 +45,23 @@ export interface ProjectItem {
   stack: string[];
   summary: string;
   description: string;
+  problem?: string;
+  approach?: string;
+  architecture?: string;
+  outcome?: string;
+  keyMetrics?: Array<{ label: string; value: string; numValue?: number; suffix?: string }>;
+  githubUrl?: string;
+  liveUrl?: string;
+}
+
+export interface NoteItem {
+  slug: string;
+  title: string;
+  date: string;
+  readingTime: string;
+  excerpt: string;
+  tags: string[];
+  body: string;
 }
 
 export interface SkillGroup {
@@ -80,5 +97,6 @@ export interface AchievementItem {
   period: string;
   url?: string;
   description: string;
+  extendedDetails?: string;
   badge: string;
 }

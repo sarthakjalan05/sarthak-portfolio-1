@@ -358,3 +358,31 @@ body {
   );
 }
 
+/* ── View Transitions API (Route Crossfades) ── */
+@media not (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) {
+    animation: 200ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 200ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-in;
+  }
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

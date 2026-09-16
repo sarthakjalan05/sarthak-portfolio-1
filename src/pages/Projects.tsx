@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import { PROJECTS } from '../data/projects';
 import { ProjectItem } from '../types';
-import { ExternalLink, Flame, ShieldCheck } from 'lucide-react';
+import { ExternalLink, Flame, ArrowRight, BookOpen, Scroll } from 'lucide-react';
+import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 interface ProjectCardProps {
   project: ProjectItem;
@@ -12,7 +14,6 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -20,151 +21,115 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, accent }) => 
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => el.classList.add('visible'), index * 120);
+          setTimeout(() => el.classList.add('visible'), index * 100);
           obs.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [index]);
 
+  // Keep 2-3 most distinguishing tech tags
+  const keyStack = project.stack.slice(0, 3);
+
   return (
     <div
       ref={cardRef}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="house-card fade-up group"
+      className="realm-card fade-up relative flex flex-col justify-between p-6 sm:p-7 border bg-[#120202]/90 backdrop-blur-sm group hover:border-[rgba(192,57,43,0.8)] transition-all duration-300 shadow-[0_0_25px_rgba(0,0,0,0.8)]"
       style={
         {
           '--accent': accent,
-          '--border': '#5a1212',
-          background: 'linear-gradient(135deg, #120202 0%, #200808 60%, #120202 100%)',
-          minHeight: '520px',
+          borderColor: 'rgba(192, 57, 43, 0.35)',
         } as React.CSSProperties
       }
     >
       {/* Corner brackets */}
-      <span className="corner corner-tl" />
-      <span className="corner corner-tr" />
-      <span className="corner corner-bl" />
-      <span className="corner corner-br" />
+      <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
+      <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
+      <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
+      <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
-      {/* Glow pulse */}
-      <div className="card-glow" />
-
-      {/* Dragon crest icon */}
-      <div className="house-sigil-wrap">
-        <div
-          className="w-20 h-20 rounded-full flex items-center justify-center border transition-all duration-300 group-hover:scale-105"
-          style={{
-            borderColor: accent,
-            background: 'radial-gradient(circle, #3d0505 0%, #0d0101 100%)',
-            boxShadow: `0 0 25px color-mix(in srgb, ${accent} 40%, transparent)`,
-            color: accent,
-          }}
-        >
-          <Flame size={36} />
-        </div>
-        <div className="sigil-ring" />
-      </div>
-
-      {/* Static Content State */}
-      <div className={`house-content ${hovered ? 'content-hidden' : ''}`}>
-        <p className="house-region" style={{ color: accent }}>
-          {project.date} · TARGARYEN FORGE
-        </p>
-
-        <div className="house-divider">
-          <span className="divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
-          <span className="divider-diamond" style={{ background: accent }} />
-          <span className="divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
-        </div>
-
-        <h3 className="house-name font-cinzel-dec text-xl sm:text-2xl text-[var(--parchment)] mb-3">
-          {project.title}
-        </h3>
-
-        <p className="font-garamond text-base text-[var(--ash)] leading-[1.7] max-w-xs mx-auto mb-4 line-clamp-3">
-          {project.summary}
-        </p>
-
-        {/* Tech badges */}
-        <div className="flex flex-wrap justify-center gap-1.5 max-w-xs mx-auto mb-4">
-          {project.stack.slice(0, 3).map((t) => (
-            <span
-              key={t}
-              className="text-[9px] font-cinzel uppercase px-2 py-0.5 bg-[#1a0404] text-[var(--parchment)]"
-              style={{ border: `1px solid color-mix(in srgb, ${accent} 35%, transparent)` }}
+      <div>
+        {/* Header with Date and External Link */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-9 h-9 rounded-full flex items-center justify-center border shrink-0 transition-transform duration-300 group-hover:scale-105"
+              style={{
+                borderColor: accent,
+                background: 'radial-gradient(circle, #3d0505 0%, #0d0101 100%)',
+                color: accent,
+              }}
             >
-              {t}
-            </span>
-          ))}
-          {project.stack.length > 3 && (
-            <span className="text-[9px] font-cinzel text-[var(--gold-dim)] px-1 py-0.5">
-              +{project.stack.length - 3} more
-            </span>
+              <Flame size={16} />
+            </div>
+            <div>
+              <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase font-semibold" style={{ color: accent }}>
+                {project.date}
+              </p>
+              <span className="font-cinzel text-[9px] text-[var(--gold-dim)] uppercase tracking-wider">
+                House Targaryen
+              </span>
+            </div>
+          </div>
+
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--ash)] hover:text-[var(--parchment)] p-1 transition-colors"
+              title="Open external deployment"
+              aria-label={`Open external deployment for ${project.title}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink size={14} />
+            </a>
           )}
         </div>
 
-        <div>
-          <span className="house-enter-chip" style={{ color: accent, borderColor: accent }}>
-            Hover for Scrolls ⚔
-          </span>
-        </div>
-      </div>
+        {/* Title */}
+        <h3 className="font-cinzel-dec text-lg sm:text-xl text-[var(--parchment)] mb-2.5 group-hover:text-[#ff9999] transition-colors leading-tight font-bold">
+          <Link to={`/projects/${project.id}`} className="hover:underline">
+            {project.title}
+          </Link>
+        </h3>
 
-      {/* Hover Reveal State */}
-      <div className={`house-hover-content ${hovered ? 'hover-visible' : ''}`}>
-        <p className="hover-words" style={{ color: accent }}>
-          {project.title}
+        {/* Single tight sentence summary */}
+        <p className="font-garamond text-sm sm:text-base text-[var(--ash)] leading-relaxed mb-4">
+          {project.summary}
         </p>
 
-        <div className="house-divider hover-divider">
-          <span className="divider-line" style={{ background: `linear-gradient(to right, transparent, ${accent})` }} />
-          <span className="divider-diamond" style={{ background: accent }} />
-          <span className="divider-line right" style={{ background: `linear-gradient(to left, transparent, ${accent})` }} />
-        </div>
-
-        <p className="hover-desc font-garamond text-sm sm:text-base leading-[1.75] mb-4 max-w-sm">
-          {project.description}
-        </p>
-
-        {/* Themed divider directly above the tech-tag row */}
-        <div
-          className="w-full max-w-[140px] mx-auto my-3"
-          style={{ borderTop: `1px solid color-mix(in srgb, ${accent} 35%, transparent)` }}
-        />
-
-        {/* All Tech tags on hover */}
-        <div className="flex flex-wrap justify-center gap-1.5 max-w-sm mb-6">
-          {project.stack.map((t) => (
+        {/* 2-3 Key Tech Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {keyStack.map((t) => (
             <span
               key={t}
-              className="text-[9px] font-cinzel uppercase px-2 py-0.5 bg-[#1f0505] text-[var(--parchment)]"
-              style={{ border: `1px solid color-mix(in srgb, ${accent} 35%, transparent)` }}
+              className="text-[9px] font-cinzel tracking-wider uppercase px-2.5 py-1 bg-[#1f0505] text-[#ffcccc] border border-[rgba(192,57,43,0.35)] font-medium"
             >
               {t}
             </span>
           ))}
         </div>
-
-        {/* External Link button with affordance */}
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="got-cta-btn text-xs py-2 px-6"
-          style={{ background: accent, color: '#050403' }}
-        >
-          <span>Inspect Project</span>
-          <ExternalLink size={13} />
-        </a>
       </div>
 
-      {/* Bottom accent bar */}
-      <div className="card-accent-bar" style={{ background: accent }} />
+      {/* Clear visual affordance: Click to open full details */}
+      <div className="pt-3 border-t border-[rgba(192,57,43,0.25)] mt-2">
+        <Link
+          to={`/projects/${project.id}`}
+          className="got-cta-ghost w-full justify-center text-xs py-2 px-3 group-hover:bg-[rgba(192,57,43,0.15)] group-hover:border-[rgba(192,57,43,0.7)] transition-all flex items-center gap-2"
+          style={{ borderColor: 'rgba(192, 57, 43, 0.45)', color: '#ffb3b3' }}
+        >
+          <BookOpen size={13} className="text-[#c0392b]" />
+          <span>Inspect Architecture &amp; Case Study</span>
+          <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+      </div>
+
+      {/* Bottom accent line */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: accent }} />
     </div>
   );
 };
@@ -184,16 +149,31 @@ export const Projects: React.FC = () => {
         title="Armory of"
         titleEm="Forged Projects"
         motto="Fire and Blood"
-        subtitle='"Built, not inherited — dragons hatched from Sarthak&apos;s own fire." Scaled on-device diagnostics, intelligent triage networks, and affective multimodal companions.'
+        subtitle='"Built, not inherited — dragons hatched from Sarthak&apos;s own fire." Explore architectural case studies across on-device diagnostics, triage routers, and multimodal emotional AI.'
         accent={accent}
         sigilRune="🐉"
       />
 
-      {/* Projects Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 max-w-7xl mx-auto px-2">
+      {/* Projects Grid: Compact, scannable tiles */}
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto px-2">
         {PROJECTS.map((project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} accent={accent} />
         ))}
+      </div>
+
+      {/* Low-key 'the full story lives here' signal */}
+      <div className="fade-up mt-14 mb-8 text-center relative z-10">
+        <p className="font-fell italic text-sm text-[var(--ash)] inline-flex items-center gap-2">
+          <span>For the complete record,</span>
+          <a
+            href={RESUME_PATH}
+            download={RESUME_FILENAME}
+            className="text-[var(--gold)] hover:text-[var(--gold-light)] underline underline-offset-4 decoration-[var(--gold-dim)] hover:decoration-[var(--gold)] transition-colors not-italic font-cinzel text-xs uppercase tracking-wider inline-flex items-center gap-1"
+          >
+            <span>download the full resume</span>
+            <span>&darr;</span>
+          </a>
+        </p>
       </div>
     </div>
   );

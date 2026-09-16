@@ -89,6 +89,8 @@ export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
             className={`house-sigil-img ${house.id === 'citadel' ? 'house-sigil-img--citadel' : ''}`}
             src={house.sigil_url}
             alt={`${house.name} Sigil`}
+            width={120}
+            height={120}
             loading="lazy"
             onError={() => setImgError(true)}
           />

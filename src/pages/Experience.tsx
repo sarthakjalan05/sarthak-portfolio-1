@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { PageHeader } from '../components/PageHeader';
+import { AnimatedCounter } from '../components/AnimatedCounter';
 import { EXPERIENCES } from '../data/experience';
-import { Briefcase, MapPin, Calendar, CheckCircle } from 'lucide-react';
+import { Briefcase, MapPin, Calendar, CheckCircle, Scroll } from 'lucide-react';
+import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 export const Experience: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,6 +29,13 @@ export const Experience: React.FC = () => {
 
   const accent = '#d4a84b'; // Lannister Gold
 
+  const lannisterStats = [
+    { label: 'ML Model Precision', value: 98.78, decimals: 2, suffix: '%', note: 'Exerted force predictions' },
+    { label: 'Dataset Volume', value: 1000000, suffix: '+', note: 'Experimental training records' },
+    { label: 'Creator Matches', value: 10000, suffix: '+', note: 'High-throughput algorithmic routing' },
+    { label: 'Commercial Deployments', value: 2, suffix: ' Platforms', note: 'Production MERN & ML backends' },
+  ];
+
   return (
     <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
       {/* Atmospheric Background Layers */}
@@ -43,6 +52,38 @@ export const Experience: React.FC = () => {
         accent={accent}
         sigilRune="🦁"
       />
+
+      {/* Lannister Measured Metrics Strip (Refined: Small & Secondary in visual weight relative to titles) */}
+      <div className="relative z-10 max-w-5xl mx-auto px-2 sm:px-4 md:px-6 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {lannisterStats.map((stat, idx) => (
+            <div
+              key={idx}
+              className="fade-up realm-card relative p-3 sm:p-3.5 border text-center bg-[#140e00]/75 backdrop-blur-sm"
+              style={{
+                borderColor: `color-mix(in srgb, ${accent} 25%, transparent)`,
+              }}
+              data-delay={idx * 80}
+            >
+              <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
+              <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
+              <p className="font-cinzel text-[9px] uppercase tracking-widest text-[#e8c97a]/80 mb-0.5 font-semibold">
+                {stat.label}
+              </p>
+              <div className="font-cinzel text-base sm:text-lg font-bold text-[var(--parchment)] my-0.5">
+                <AnimatedCounter
+                  value={stat.value}
+                  decimals={stat.decimals || 0}
+                  suffix={stat.suffix}
+                />
+              </div>
+              <p className="font-garamond text-[11px] text-[var(--ash)]/80 leading-tight">
+                {stat.note}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Vertical Timeline */}
       <div ref={containerRef} className="relative z-10 max-w-5xl mx-auto px-2 sm:px-4 md:px-6">
@@ -218,6 +259,21 @@ export const Experience: React.FC = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* Low-key 'the full story lives here' signal */}
+      <div className="fade-up mt-14 mb-8 text-center relative z-10">
+        <p className="font-fell italic text-sm text-[var(--ash)] inline-flex items-center gap-2">
+          <span>For the complete record,</span>
+          <a
+            href={RESUME_PATH}
+            download={RESUME_FILENAME}
+            className="text-[var(--gold)] hover:text-[var(--gold-light)] underline underline-offset-4 decoration-[var(--gold-dim)] hover:decoration-[var(--gold)] transition-colors not-italic font-cinzel text-xs uppercase tracking-wider inline-flex items-center gap-1"
+          >
+            <span>download the full resume</span>
+            <span>&darr;</span>
+          </a>
+        </p>
       </div>
     </div>
   );
