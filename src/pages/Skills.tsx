@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { CORE_SKILLS, SECONDARY_SKILLS } from '../data/skills';
-import { Shield, Sparkles, Cpu, Layers } from 'lucide-react';
+import { Shield, Sparkles, Cpu, Layers, Swords, ChevronDown, ChevronUp, Scroll } from 'lucide-react';
+import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 export const Skills: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const secondaryRef = useRef<HTMLDivElement>(null);
+  const [showArsenal, setShowArsenal] = useState(false);
 
   useEffect(() => {
     const cards = document.querySelectorAll('.skill-card');
@@ -103,69 +105,104 @@ export const Skills: React.FC = () => {
             </div>
           ))}
         </div>
-      </div>
 
-      {/* SECONDARY "ALSO WORKED WITH" GROUP (Visually Distinct & Secondary) */}
-      <div
-        ref={secondaryRef}
-        className="pt-20 max-w-7xl mx-auto px-2"
-        style={{
-          borderTop: `2px solid color-mix(in srgb, ${accent} 40%, transparent)`,
-        }}
-      >
-        <div className="text-center mb-16">
-          <span className="font-cinzel text-[12px] tracking-[0.35em] text-[#c8a860] uppercase block mb-3 drop-shadow-[0_0_8px_rgba(200,168,96,0.2)]">
-            ✦ Secondary Domain Battlegrounds ✦
-          </span>
-          <h2 className="font-cinzel-dec text-3xl sm:text-4xl text-[var(--gold-light)] mb-6 drop-shadow-[0_0_15px_rgba(232,201,122,0.3)]">
-            Also Worked With
-          </h2>
-          <p className="font-garamond text-base sm:text-lg text-[var(--ash)] max-w-2xl mx-auto leading-[1.75]">
-            Ecosystems, neural libraries, and server frameworks forged across applied machine learning and full-stack projects.
+        {/* Low-key 'the full story lives here' signal */}
+        <div className="fade-up mt-12 text-center">
+          <p className="font-fell italic text-sm text-[var(--ash)] inline-flex items-center gap-2">
+            <span>For the complete record,</span>
+            <a
+              href={RESUME_PATH}
+              download={RESUME_FILENAME}
+              className="text-[var(--gold)] hover:text-[var(--gold-light)] underline underline-offset-4 decoration-[var(--gold-dim)] hover:decoration-[var(--gold)] transition-colors not-italic font-cinzel text-xs uppercase tracking-wider inline-flex items-center gap-1"
+            >
+              <span>download the full resume</span>
+              <span>&darr;</span>
+            </a>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-          {SECONDARY_SKILLS.map((grp) => (
-            <div
-              key={grp.title}
-              className="skill-card fade-up p-8 sm:p-10 border-2 border-[#c8a860] bg-gradient-to-br from-[#1a150d] to-[#0f0c08] relative group hover:border-[#e8c97a] hover:shadow-[0_0_30px_rgba(232,201,122,0.3)] transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.6)]"
-            >
-              {/* Corner brackets - decorative */}
-              <span className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#e8c97a] opacity-70 group-hover:opacity-100 transition-opacity" />
-              <span className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#e8c97a] opacity-70 group-hover:opacity-100 transition-opacity" />
-              <span className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#e8c97a] opacity-70 group-hover:opacity-100 transition-opacity" />
-              <span className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#e8c97a] opacity-70 group-hover:opacity-100 transition-opacity" />
-
-              <div className="flex items-start gap-3 mb-6">
-                <span className="text-2xl sm:text-3xl text-[#e8c97a] group-hover:scale-125 transition-transform duration-300 shrink-0">
-                  {grp.sigil}
-                </span>
-                <h3 className="font-cinzel text-base sm:text-lg tracking-[0.15em] uppercase text-[var(--parchment)] group-hover:text-[#e8c97a] transition-colors font-semibold leading-tight">
-                  {grp.title}
-                </h3>
-              </div>
-              
-              <div className="h-[1px] bg-gradient-to-r from-[#c8a860] to-transparent mb-6 opacity-50 group-hover:opacity-100 transition-opacity" />
-              
-              <p className="font-garamond text-sm text-[var(--ash)] group-hover:text-[#e8c97a] transition-colors mb-6 leading-[1.75]">
-                {grp.motto || 'Supporting technologies'}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {grp.skills.map((s) => (
-                  <span
-                    key={s}
-                    className="text-[11px] sm:text-xs font-cinzel tracking-[0.08em] px-3 py-2 bg-[#201809] border border-[#c8a860] text-[#e8c97a] group-hover:bg-[#c8a860]/10 group-hover:border-[#e8c97a] group-hover:text-[#e8c97a] transition-all duration-300 font-semibold"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+        {/* Themed Accordion Toggle to Reveal/Conceal Full Arsenal */}
+        <div className="fade-up mt-8 text-center">
+          <button
+            type="button"
+            onClick={() => setShowArsenal((prev) => !prev)}
+            className="got-cta-ghost inline-flex items-center gap-3 px-6 sm:px-8 py-3 text-xs font-cinzel tracking-[0.25em] uppercase border border-[var(--gold-dim)]/60 hover:border-[var(--gold)] hover:bg-[var(--gold)]/10 transition-all cursor-pointer"
+            aria-expanded={showArsenal}
+          >
+            <Swords size={15} className="text-[var(--gold)]" />
+            <span>{showArsenal ? 'Conceal Secondary Arsenal' : 'Reveal the Full Arsenal (Also Worked With)'}</span>
+            {showArsenal ? (
+              <ChevronUp size={14} className="text-[var(--gold)]" />
+            ) : (
+              <ChevronDown size={14} className="text-[var(--gold)]" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* SECONDARY "ALSO WORKED WITH" GROUP (Collapsed by default behind disclosure) */}
+      {showArsenal && (
+        <div
+          ref={secondaryRef}
+          className="pt-16 max-w-7xl mx-auto px-2 animate-in fade-in slide-in-from-top-4 duration-300"
+          style={{
+            borderTop: `1px solid color-mix(in srgb, ${accent} 35%, transparent)`,
+          }}
+        >
+          <div className="text-center mb-12">
+            <span className="font-cinzel text-[11px] tracking-[0.35em] text-[#c8a860] uppercase block mb-2 drop-shadow-[0_0_8px_rgba(200,168,96,0.2)]">
+              ✦ Secondary Domain Battlegrounds ✦
+            </span>
+            <h2 className="font-cinzel-dec text-2xl sm:text-3xl text-[var(--gold-light)] mb-4">
+              Also Worked With
+            </h2>
+            <p className="font-garamond text-sm sm:text-base text-[var(--ash)] max-w-2xl mx-auto leading-relaxed">
+              Supporting ecosystems, neural libraries, and server frameworks forged across applied machine learning and full-stack projects.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16">
+            {SECONDARY_SKILLS.map((grp) => (
+              <div
+                key={grp.title}
+                className="p-6 sm:p-7 border border-[#c8a860]/50 bg-gradient-to-br from-[#1a150d] to-[#0f0c08] relative group hover:border-[#e8c97a] hover:shadow-[0_0_25px_rgba(232,201,122,0.2)] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.6)]"
+              >
+                {/* Corner brackets */}
+                <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-[#e8c97a]/70 group-hover:border-[#e8c97a] transition-colors" />
+                <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-[#e8c97a]/70 group-hover:border-[#e8c97a] transition-colors" />
+                <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-[#e8c97a]/70 group-hover:border-[#e8c97a] transition-colors" />
+                <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-[#e8c97a]/70 group-hover:border-[#e8c97a] transition-colors" />
+
+                <div className="flex items-start gap-3 mb-4">
+                  <span className="text-xl sm:text-2xl text-[#e8c97a] shrink-0">
+                    {grp.sigil}
+                  </span>
+                  <h3 className="font-cinzel text-sm tracking-[0.12em] uppercase text-[var(--parchment)] group-hover:text-[#e8c97a] transition-colors font-semibold leading-tight">
+                    {grp.title}
+                  </h3>
+                </div>
+                
+                <div className="h-[1px] bg-gradient-to-r from-[#c8a860] to-transparent mb-4 opacity-40 group-hover:opacity-100 transition-opacity" />
+                
+                <p className="font-garamond text-xs text-[var(--ash)] group-hover:text-[#e8c97a] transition-colors mb-4 leading-relaxed">
+                  {grp.motto || 'Supporting technologies'}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {grp.skills.map((s) => (
+                    <span
+                      key={s}
+                      className="text-[10px] font-cinzel tracking-[0.05em] px-2.5 py-1.5 bg-[#201809] border border-[#c8a860]/60 text-[#e8c97a] font-medium"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@
 
 <br />
 
-[Explore The Live Realm](https://sarthak-jalan-portfolio.vercel.app/) • [Send a Raven](mailto:sarthakjalan06@gmail.com) • [LinkedIn](https://www.linkedin.com/in/sarthak-jalan-7685a7285/) • [GitHub](https://github.com/sarthakjalan05)
+[Explore The Live Realm](https://ais-pre-7ououtbk5nafew3qjjhcos-818719146038.asia-east1.run.app) • [Send a Raven](mailto:sarthakjalan06@gmail.com) • [LinkedIn](https://www.linkedin.com/in/sarthak-jalan-7685a7285/) • [GitHub](https://github.com/sarthakjalan06)
 
 ---
 
@@ -249,7 +249,7 @@ Have an ambitious project, an engineering role, or an AI research challenge? Sen
 - **📧 Email**: [sarthakjalan06@gmail.com](mailto:sarthakjalan06@gmail.com) *(Click to copy or launch)*
 - **🌐 Compose in Gmail**: [Launch Webmail Direct](https://mail.google.com/mail/?view=cm&fs=1&to=sarthakjalan06@gmail.com)
 - **💼 LinkedIn**: [linkedin.com/in/sarthak-jalan-7685a7285](https://www.linkedin.com/in/sarthak-jalan-7685a7285/)
-- **🐙 GitHub**: [github.com/sarthakjalan05](https://github.com/sarthakjalan05)
+- **🐙 GitHub**: [github.com/sarthakjalan06](https://github.com/sarthakjalan06)
 - **📍 Seat of Learning**: Vellore Institute of Technology, Tamil Nadu, India
 
 ---

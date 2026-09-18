@@ -86,22 +86,63 @@ export const Contact: React.FC = () => {
 
               <div className="space-y-5">
                 {/* Clickable Email */}
-                <a
-                  href="mailto:sarthakjalan06@gmail.com"
-                  className="flex items-center gap-4 p-4 sm:p-5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[56px] group"
-                >
-                  <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
-                    <Mail size={18} />
+                <div className="border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] transition-all duration-300 group">
+                  <div className="flex items-center justify-between p-4 sm:p-5">
+                    <a
+                      href="mailto:sarthakjalan06@gmail.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleEmailClick}
+                      className="flex items-center gap-4 min-w-0 flex-1"
+                      title="Send email via default client & copy address"
+                    >
+                      <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
+                        {copiedEmail ? <Check size={18} className="text-emerald-400" /> : <Mail size={18} />}
+                      </div>
+                      <div className="min-w-0">
+                        <span className="font-cinzel text-[11px] tracking-widest text-[#8fafc4] uppercase block">
+                          Raven Mail {copiedEmail && <span className="text-emerald-400 lowercase font-normal ml-2">· Copied to clipboard!</span>}
+                        </span>
+                        <span className="font-cinzel text-sm sm:text-base text-[var(--parchment)] font-semibold truncate block group-hover:text-white transition-colors">
+                          sarthakjalan06@gmail.com
+                        </span>
+                      </div>
+                    </a>
+
+                    <div className="flex items-center gap-2 shrink-0 ml-3">
+                      <button
+                        type="button"
+                        onClick={copyEmailToClipboard}
+                        className="px-2.5 py-1.5 border border-[#354b66] bg-[#0c131d] hover:border-[#8fafc4] hover:text-[#8fafc4] text-xs font-cinzel tracking-wider text-[var(--ash)] flex items-center gap-1.5 transition-colors"
+                        title="Copy email to clipboard"
+                        aria-label="Copy email address"
+                      >
+                        {copiedEmail ? (
+                          <>
+                            <Check size={13} className="text-emerald-400" />
+                            <span className="text-emerald-400 hidden sm:inline">Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={13} />
+                            <span className="hidden sm:inline">Copy</span>
+                          </>
+                        )}
+                      </button>
+
+                      <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=sarthakjalan06@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1.5 border border-[#354b66] bg-[#0c131d] hover:border-[#8fafc4] text-[#8fafc4] hover:text-white text-xs font-cinzel tracking-wider flex items-center gap-1 transition-colors"
+                        title="Open in Gmail web client"
+                      >
+                        <span className="hidden sm:inline">Gmail</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <span className="font-cinzel text-[11px] tracking-widest text-[#8fafc4] uppercase block">
-                      Raven Mail
-                    </span>
-                    <span className="font-cinzel text-sm sm:text-base text-[var(--parchment)] font-semibold truncate block">
-                      sarthakjalan06@gmail.com
-                    </span>
-                  </div>
-                </a>
+                </div>
 
                 {/* Clickable Phone */}
                 <a
