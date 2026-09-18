@@ -48,19 +48,20 @@ export const EmberCursor: React.FC = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    const colors = ['#f0c75e', '#d4a84b', '#ff9944', '#ffde7a'];
+    // Cyberpunk neon palette
+    const colors = ['#00f0ff', '#00c8ff', '#ff2bd6', '#0a7a82', '#ffffff'];
 
-    const spawnEmber = (x: number, y: number) => {
-      const pCount = Math.random() > 0.4 ? 1 : 2;
+    const spawnParticle = (x: number, y: number) => {
+      const pCount = Math.random() > 0.5 ? 1 : 2;
       for (let i = 0; i < pCount; i++) {
         particlesRef.current.push({
-          x: x + (Math.random() - 0.5) * 8,
-          y: y + (Math.random() - 0.5) * 8,
-          vx: (Math.random() - 0.5) * 0.7,
-          vy: -0.6 - Math.random() * 0.9, // Gentle upward drift like hero embers
-          alpha: 0.65 + Math.random() * 0.25,
-          size: 1.2 + Math.random() * 1.8,
-          maxLife: 35 + Math.random() * 25,
+          x: x + (Math.random() - 0.5) * 6,
+          y: y + (Math.random() - 0.5) * 6,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: -0.4 - Math.random() * 0.8, // subtle upward drift
+          alpha: 0.7 + Math.random() * 0.3,
+          size: 1.0 + Math.random() * 1.5,
+          maxLife: 30 + Math.random() * 20,
           life: 0,
           color: colors[Math.floor(Math.random() * colors.length)],
         });
@@ -75,9 +76,8 @@ export const EmberCursor: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       const now = performance.now();
       if (now - lastSpawnRef.current > 35) {
-        // ~28 spawns/sec max to keep it subtle and light
         lastSpawnRef.current = now;
-        spawnEmber(e.clientX, e.clientY);
+        spawnParticle(e.clientX, e.clientY);
         if (!animFrameIdRef.current) {
           animFrameIdRef.current = requestAnimationFrame(render);
         }
@@ -109,7 +109,7 @@ export const EmberCursor: React.FC = () => {
         ctx.globalAlpha = currentAlpha;
         ctx.fillStyle = p.color;
         ctx.shadowColor = p.color;
-        ctx.shadowBlur = 6;
+        ctx.shadowBlur = 8;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();

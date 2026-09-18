@@ -5,7 +5,7 @@ import { ResumeViewer } from '../components/ResumeViewer';
 import { Mail, Phone, Linkedin, Github, ExternalLink, MapPin, Copy, Check } from 'lucide-react';
 
 export const Contact: React.FC = () => {
-  const accent = '#8fafc4'; // Stark Grey Direwolf / Ice
+  const accent = '#00f0ff'; // Cyber Cyan
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const copyEmailToClipboard = (e?: React.MouseEvent) => {
@@ -25,7 +25,7 @@ export const Contact: React.FC = () => {
       });
     }
     setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 3500);
+    setTimeout(() => setCopiedEmail(false), 3000);
   };
 
   const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -39,92 +39,90 @@ export const Contact: React.FC = () => {
 
   return (
     <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
-      {/* Atmospheric Background Layers */}
+      {/* Background Grid & Glow */}
       <div className="realm-bg-texture" />
       <div className="realm-bg-vignette" />
 
       <PageHeader
-        sectionLabel="Contact"
-        eyebrow="HOUSE STARK · WINTERFELL"
-        title="Ravens to"
-        titleEm="The North"
-        motto="Winter Is Coming"
-        subtitle='"The pack that answers when called." Send your dispatches to Winterfell for engineering inquiries, advisory roles, or alliances across the realm.'
+        sectionLabel="COMMUNICATION TERMINAL"
+        eyebrow="SYS://COMMUNICATION.UPLINK"
+        title="Direct"
+        titleEm="Transmission"
+        motto="CONNECT // TRANSMIT // COLLABORATE"
+        subtitle="Establish communication coordinates for engineering roles, technical advisory, distributed platform projects, or code collaboration."
         accent={accent}
-        sigilRune="🐺"
+        sigilRune="✦"
       />
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-5xl mx-auto space-y-16 sm:space-y-20 px-2">
-        {/* Requirement 4: Grand Maester's Ledger Full Inline Resume Viewer */}
-        <section aria-label="Grand Maester's Ledger - Official Resume Scroll">
+        {/* Full Inline Resume Viewer */}
+        <section aria-label="Official Resume Dossier">
           <ResumeViewer accent={accent} />
         </section>
 
-        {/* Communication Coordinates & Raven Dispatch Form */}
+        {/* Transmission Coordinates & Contact Form */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
-          {/* Left Column: Direct Communication Channels & Seat Note */}
-          <div className="lg:col-span-5 space-y-8">
-            {/* Raven Registry Card */}
+          {/* Left Column: Direct Communication Channels */}
+          <div className="lg:col-span-5 space-y-6">
             <div
-              className="fade-up realm-card p-8 sm:p-10 border bg-[#0d121a]/90 backdrop-blur-sm relative"
-              style={{ '--accent': accent, borderColor: 'rgba(143, 175, 196, 0.35)' } as React.CSSProperties}
+              className="fade-up realm-card p-8 sm:p-9 border bg-[#0d1017]/95 backdrop-blur-md relative rounded shadow-[0_0_40px_rgba(0,0,0,0.85)]"
+              style={{ '--accent': accent, borderColor: 'rgba(0, 240, 255, 0.3)' } as React.CSSProperties}
               data-delay="200"
             >
-              {/* Corner brackets */}
               <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
               <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
               <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
               <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
-              <h3 className="font-cinzel-dec text-2xl font-bold text-[var(--parchment)] mb-3">
-                Direct Inscriptions
+              <h3 className="font-orbitron text-lg sm:text-xl font-bold text-[var(--text)] mb-2">
+                Direct Channels
               </h3>
-              <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.75] mb-8">
-                When haste is imperative, summon the raven post directly through verified coordinates.
+              <p className="font-space text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed mb-6">
+                For prioritized correspondence, connect via verified endpoints below.
               </p>
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {/* Clickable Email */}
-                <div className="border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] transition-all duration-300 group">
-                  <div className="flex items-center justify-between p-4 sm:p-5">
+                <div className="border border-[rgba(0,240,255,0.2)] bg-[#07080c] hover:border-[var(--cyan)] transition-all duration-300 rounded group">
+                  <div className="flex items-center justify-between p-3.5 sm:p-4">
                     <a
                       href="mailto:sarthakjalan06@gmail.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={handleEmailClick}
-                      className="flex items-center gap-4 min-w-0 flex-1"
-                      title="Send email via default client & copy address"
+                      className="flex items-center gap-3.5 min-w-0 flex-1"
+                      title="Send email & copy address"
                     >
-                      <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
-                        {copiedEmail ? <Check size={18} className="text-emerald-400" /> : <Mail size={18} />}
+                      <div className="w-9 h-9 rounded border border-[var(--cyan-dim)] flex items-center justify-center text-[var(--cyan)] group-hover:border-[var(--cyan)] group-hover:bg-[#0d1017] transition-colors shrink-0">
+                        {copiedEmail ? <Check size={16} className="text-emerald-400" /> : <Mail size={16} />}
                       </div>
                       <div className="min-w-0">
-                        <span className="font-cinzel text-[11px] tracking-widest text-[#8fafc4] uppercase block">
-                          Raven Mail {copiedEmail && <span className="text-emerald-400 lowercase font-normal ml-2">· Copied to clipboard!</span>}
+                        <span className="font-chakra text-[10px] tracking-widest text-[var(--cyan)] uppercase block font-semibold">
+                          EMAIL TERMINAL {copiedEmail && <span className="text-emerald-400 lowercase font-normal ml-1.5">· copied!</span>}
                         </span>
-                        <span className="font-cinzel text-sm sm:text-base text-[var(--parchment)] font-semibold truncate block group-hover:text-white transition-colors">
+                        <span className="font-space text-xs sm:text-sm text-[var(--text)] font-medium truncate block group-hover:text-white transition-colors">
                           sarthakjalan06@gmail.com
                         </span>
                       </div>
                     </a>
 
-                    <div className="flex items-center gap-2 shrink-0 ml-3">
+                    <div className="flex items-center gap-1.5 shrink-0 ml-2">
                       <button
                         type="button"
                         onClick={copyEmailToClipboard}
-                        className="px-2.5 py-1.5 border border-[#354b66] bg-[#0c131d] hover:border-[#8fafc4] hover:text-[#8fafc4] text-xs font-cinzel tracking-wider text-[var(--ash)] flex items-center gap-1.5 transition-colors"
+                        className="px-2 py-1 border border-[rgba(0,240,255,0.25)] bg-[#0d1017] hover:border-[var(--cyan)] hover:text-[var(--cyan)] text-xs font-chakra tracking-wider text-[var(--text-muted)] flex items-center gap-1 transition-colors rounded"
                         title="Copy email to clipboard"
                         aria-label="Copy email address"
                       >
                         {copiedEmail ? (
                           <>
-                            <Check size={13} className="text-emerald-400" />
+                            <Check size={12} className="text-emerald-400" />
                             <span className="text-emerald-400 hidden sm:inline">Copied</span>
                           </>
                         ) : (
                           <>
-                            <Copy size={13} />
+                            <Copy size={12} />
                             <span className="hidden sm:inline">Copy</span>
                           </>
                         )}
@@ -134,29 +132,29 @@ export const Contact: React.FC = () => {
                         href="https://mail.google.com/mail/?view=cm&fs=1&to=sarthakjalan06@gmail.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1.5 border border-[#354b66] bg-[#0c131d] hover:border-[#8fafc4] text-[#8fafc4] hover:text-white text-xs font-cinzel tracking-wider flex items-center gap-1 transition-colors"
+                        className="px-2 py-1 border border-[rgba(0,240,255,0.25)] bg-[#0d1017] hover:border-[var(--cyan)] text-[var(--cyan)] hover:text-white text-xs font-chakra tracking-wider flex items-center gap-1 transition-colors rounded"
                         title="Open in Gmail web client"
                       >
                         <span className="hidden sm:inline">Gmail</span>
-                        <ExternalLink size={12} />
+                        <ExternalLink size={11} />
                       </a>
                     </div>
                   </div>
                 </div>
 
-                {/* Clickable Phone */}
+                {/* Phone */}
                 <a
                   href="tel:+919874255221"
-                  className="flex items-center gap-3.5 p-3 sm:p-3.5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[52px] group"
+                  className="flex items-center gap-3.5 p-3.5 border border-[rgba(0,240,255,0.2)] bg-[#07080c] hover:border-[var(--cyan)] transition-all duration-300 rounded group"
                 >
-                  <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
-                    <Phone size={18} />
+                  <div className="w-9 h-9 rounded border border-[var(--cyan-dim)] flex items-center justify-center text-[var(--cyan)] group-hover:border-[var(--cyan)] group-hover:bg-[#0d1017] transition-colors shrink-0">
+                    <Phone size={16} />
                   </div>
                   <div>
-                    <span className="font-cinzel text-[10px] tracking-widest text-[#8fafc4] uppercase block">
-                      Signal Horn (Phone)
+                    <span className="font-chakra text-[10px] tracking-widest text-[var(--cyan)] uppercase block font-semibold">
+                      VOICE COMM (PHONE)
                     </span>
-                    <span className="font-cinzel text-xs sm:text-sm text-[var(--parchment)] font-semibold">
+                    <span className="font-space text-xs sm:text-sm text-[var(--text)] font-medium">
                       +91-9874255221
                     </span>
                   </div>
@@ -167,22 +165,22 @@ export const Contact: React.FC = () => {
                   href="https://www.linkedin.com/in/sarthak-jalan-7685a7285/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 sm:p-3.5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[52px] group"
+                  className="flex items-center justify-between p-3.5 border border-[rgba(0,240,255,0.2)] bg-[#07080c] hover:border-[var(--cyan)] transition-all duration-300 rounded group"
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
-                      <Linkedin size={18} />
+                    <div className="w-9 h-9 rounded border border-[var(--cyan-dim)] flex items-center justify-center text-[var(--cyan)] group-hover:border-[var(--cyan)] group-hover:bg-[#0d1017] transition-colors shrink-0">
+                      <Linkedin size={16} />
                     </div>
                     <div className="min-w-0">
-                      <span className="font-cinzel text-[10px] tracking-widest text-[#8fafc4] uppercase block">
-                        Guild Network
+                      <span className="font-chakra text-[10px] tracking-widest text-[var(--cyan)] uppercase block font-semibold">
+                        PROFESSIONAL NETWORK
                       </span>
-                      <span className="font-cinzel text-xs sm:text-sm text-[var(--parchment)] font-semibold truncate block">
+                      <span className="font-space text-xs sm:text-sm text-[var(--text)] font-medium truncate block">
                         linkedin.com/in/sarthak-jalan-7685a7285
                       </span>
                     </div>
                   </div>
-                  <ExternalLink size={14} className="text-[#8fafc4] opacity-70 group-hover:opacity-100 shrink-0 ml-2" />
+                  <ExternalLink size={13} className="text-[var(--cyan)] opacity-70 group-hover:opacity-100 shrink-0 ml-2" />
                 </a>
 
                 {/* GitHub */}
@@ -190,42 +188,42 @@ export const Contact: React.FC = () => {
                   href="https://github.com/sarthakjalan05"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 sm:p-3.5 border border-[#223042] bg-[#111a26] hover:border-[#8fafc4] hover:shadow-[0_0_20px_rgba(143,175,196,0.25)] hover:-translate-y-0.5 transition-all duration-300 min-h-[52px] group"
+                  className="flex items-center justify-between p-3.5 border border-[rgba(0,240,255,0.2)] bg-[#07080c] hover:border-[var(--cyan)] transition-all duration-300 rounded group"
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-10 h-10 rounded-full border border-[#354b66] flex items-center justify-center text-[#8fafc4] group-hover:border-[#8fafc4] group-hover:bg-[#1a2638] transition-colors shrink-0">
-                      <Github size={18} />
+                    <div className="w-9 h-9 rounded border border-[var(--cyan-dim)] flex items-center justify-center text-[var(--cyan)] group-hover:border-[var(--cyan)] group-hover:bg-[#0d1017] transition-colors shrink-0">
+                      <Github size={16} />
                     </div>
                     <div className="min-w-0">
-                      <span className="font-cinzel text-[10px] tracking-widest text-[#8fafc4] uppercase block">
-                        Code Fortress
+                      <span className="font-chakra text-[10px] tracking-widest text-[var(--cyan)] uppercase block font-semibold">
+                        CODE REPOSITORY
                       </span>
-                      <span className="font-cinzel text-xs sm:text-sm text-[var(--parchment)] font-semibold truncate block">
+                      <span className="font-space text-xs sm:text-sm text-[var(--text)] font-medium truncate block">
                         github.com/sarthakjalan05
                       </span>
                     </div>
                   </div>
-                  <ExternalLink size={14} className="text-[#8fafc4] opacity-70 group-hover:opacity-100 shrink-0 ml-2" />
+                  <ExternalLink size={13} className="text-[var(--cyan)] opacity-70 group-hover:opacity-100 shrink-0 ml-2" />
                 </a>
               </div>
             </div>
 
-            {/* Winterfell Seat Posture note */}
+            {/* Location Note */}
             <div
-              className="fade-up p-5 sm:p-6 border border-[#26374d] bg-[#090e14] text-sm font-garamond text-[var(--ash)] leading-[1.75] relative"
+              className="fade-up p-5 border border-[rgba(0,240,255,0.2)] bg-[#0d1017]/80 rounded text-xs font-space text-[var(--text-muted)] leading-relaxed relative"
               data-delay="300"
             >
-              <div className="flex items-center gap-2 mb-2 font-cinzel text-[#8fafc4] uppercase tracking-wider">
-                <MapPin size={14} className="shrink-0" />
-                <span>Seat: The North · Remote Realms & Relocation</span>
+              <div className="flex items-center gap-2 mb-2 font-chakra text-[var(--cyan)] uppercase tracking-wider font-semibold">
+                <MapPin size={13} className="shrink-0" />
+                <span>LOCATION: BANGALORE &amp; VELLORE, INDIA</span>
               </div>
-              <p className="leading-[1.75]">
-                Anchored in Vellore &amp; Bangalore (India). Ready to dispatch code, lead engineering campaigns, and consult across the kingdoms.
+              <p>
+                Available for high-impact full-stack engineering roles, distributed systems development, and remote or hybrid team collaboration worldwide.
               </p>
             </div>
           </div>
 
-          {/* Right Column: Working Contact Form with Validations */}
+          {/* Right Column: Contact Form */}
           <div className="fade-up lg:col-span-7" data-delay="150">
             <ContactForm />
           </div>

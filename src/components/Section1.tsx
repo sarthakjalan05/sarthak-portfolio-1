@@ -1,5 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Briefcase,
+  FolderCode,
+  Cpu,
+  GraduationCap,
+  Award,
+  Trophy,
+  Mail,
+  Terminal,
+  ArrowRight,
+} from 'lucide-react';
 import { HOUSES } from '../data/houses';
 import { House } from '../types';
 import '../styles/section1.css';
@@ -9,11 +20,37 @@ interface HouseCardProps {
   index: number;
 }
 
+const getModuleIcon = (name?: string, accent?: string) => {
+  const iconProps = {
+    size: 40,
+    className: 'transition-transform duration-300 group-hover:scale-110',
+    style: { color: accent || 'var(--cyan)' },
+  };
+
+  switch (name) {
+    case 'Briefcase':
+      return <Briefcase {...iconProps} />;
+    case 'FolderCode':
+      return <FolderCode {...iconProps} />;
+    case 'Cpu':
+      return <Cpu {...iconProps} />;
+    case 'GraduationCap':
+      return <GraduationCap {...iconProps} />;
+    case 'Award':
+      return <Award {...iconProps} />;
+    case 'Trophy':
+      return <Trophy {...iconProps} />;
+    case 'Mail':
+      return <Mail {...iconProps} />;
+    default:
+      return <Terminal {...iconProps} />;
+  }
+};
+
 export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const sigilRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
-  const [imgError, setImgError] = useState(!house.sigil_url);
 
   // Staggered entrance via IntersectionObserver
   useEffect(() => {
@@ -22,7 +59,7 @@ export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => el.classList.add('visible'), index * 100);
+          setTimeout(() => el.classList.add('visible'), index * 80);
           obs.disconnect();
         }
       },
@@ -32,36 +69,24 @@ export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
     return () => obs.disconnect();
   }, [index]);
 
-  // 3D Sigil tilt on hover
+  // Subtle 3D tilt on hover
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current || !sigilRef.current) return;
+    if (!cardRef.current || !iconRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 14;
-    sigilRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.06)`;
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+    iconRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.08)`;
   };
 
   const handleMouseLeave = () => {
-    if (sigilRef.current) sigilRef.current.style.transform = '';
+    if (iconRef.current) iconRef.current.style.transform = '';
     setHovered(false);
-  };
-
-  /**
-   * Determine Sigil Fallback Glyph:
-   * NOTE ON CITADEL SIGIL TREATMENT:
-   * As specified, no pre-rendered image asset exists in the original codebase
-   * for The Citadel. It gracefully defaults to the glowing chain-link glyph '⛓'
-   * in parchment/silver-grey inside .house-sigil-fallback.
-   */
-  const getFallbackGlyph = () => {
-    if (house.id === 'citadel') return '⛓';
-    return house.sigil[0] || '✦';
   };
 
   const cardContent = (
     <div
       ref={cardRef}
-      className={`house-card house-card--${house.id} ${!house.isNavigable ? 'non-navigable' : ''}`}
+      className={`house-card group house-card--${house.id} ${!house.isNavigable ? 'non-navigable' : ''}`}
       style={
         {
           '--accent': house.accent,
@@ -73,82 +98,84 @@ export const HouseCard: React.FC<HouseCardProps> = ({ house, index }) => {
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {/* Corner Ornaments */}
+      {/* HUD Corner Brackets */}
       <span className="corner corner-tl" />
       <span className="corner corner-tr" />
       <span className="corner corner-bl" />
       <span className="corner corner-br" />
 
-      {/* Glow pulse on hover */}
+      {/* Ambient glow pulse on hover */}
       <div className="card-glow" />
 
-      {/* Sigil with 3D tilt */}
-      <div ref={sigilRef} className="house-sigil-wrap">
-        {!imgError && house.sigil_url ? (
-          <img
-            className={`house-sigil-img ${house.id === 'citadel' ? 'house-sigil-img--citadel' : ''}`}
-            src={house.sigil_url}
-            alt={`${house.name} Sigil`}
-            width={120}
-            height={120}
-            loading="lazy"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="house-sigil-fallback">{getFallbackGlyph()}</div>
-        )}
-        <div className="sigil-ring" />
+      {/* Module Icon Container */}
+      <div ref={iconRef} className="house-sigil-wrap">
+        <div
+          className="cyber-icon-frame"
+          style={{
+            borderColor: `color-mix(in srgb, ${house.accent} 40%, transparent)`,
+            boxShadow: `0 0 20px color-mix(in srgb, ${house.accent} 25%, transparent)`,
+          }}
+        >
+          {getModuleIcon(house.iconName, house.accent)}
+        </div>
+        <div
+          className="sigil-ring"
+          style={{
+            borderColor: `color-mix(in srgb, ${house.accent} 20%, transparent)`,
+          }}
+        />
       </div>
 
-      {/* Static content with routing chip */}
+      {/* Static content */}
       <div className={`house-content ${hovered ? 'content-hidden' : ''}`}>
         <p className="house-region">{house.region}</p>
         <div className="house-divider">
           <span className="divider-line" />
-          <span className="divider-diamond" />
+          <span className="divider-dot" />
           <span className="divider-line" />
         </div>
         <h2 className="house-name">{house.name}</h2>
         <p className="house-seat">{house.seat}</p>
-        <p className="house-sigil-label">{house.sigil}</p>
+        <p className="house-sigil-label">{house.section}</p>
 
-        {/* Visual navigation affordance chip */}
+        {/* Action chip */}
         <div className="pt-2">
           <span className="house-enter-chip">
-            {house.routingLabel || 'Enter →'}
+            {house.routingLabel || 'ACCESS →'}
           </span>
         </div>
       </div>
 
-      {/* Hover reveal: motto + description */}
+      {/* Hover reveal: status + description */}
       <div className={`house-hover-content ${hovered ? 'hover-visible' : ''}`}>
         <p className="hover-words">{house.words}</p>
         <div className="house-divider hover-divider">
           <span className="divider-line" />
-          <span className="divider-diamond" />
+          <span className="divider-dot" />
           <span className="divider-line" />
         </div>
         <h3 className="hover-name">{house.section || house.name}</h3>
         <p className="hover-desc">{house.description}</p>
         {house.isNavigable && (
           <span className="hover-enter-cta">
-            {house.routingLabel || 'Inspect Ledger →'}
+            <span>{house.routingLabel || 'ACCESS SUBSYSTEM →'}</span>
+            <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
           </span>
         )}
       </div>
 
-      {/* Bottom accent bar */}
+      {/* Bottom neon accent line */}
       <div className="card-accent-bar" />
     </div>
   );
 
-  // Wrap navigable house cards in React Router Link at outermost layer
+  // Wrap navigable cards in React Router Link
   if (house.isNavigable && house.route) {
     return (
       <Link
         to={house.route}
         className="house-card-link"
-        aria-label={`Explore ${house.section || house.name} (${house.name}) - ${house.words}`}
+        aria-label={`Access ${house.section || house.name} (${house.name})`}
       >
         {cardContent}
       </Link>
@@ -169,12 +196,12 @@ export const Section1: React.FC = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           els.forEach((el, i) =>
-            setTimeout(() => el.classList.add('visible'), i * 150)
+            setTimeout(() => el.classList.add('visible'), i * 120)
           );
           obs.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
@@ -182,39 +209,39 @@ export const Section1: React.FC = () => {
 
   return (
     <section id="houses-navigation" ref={sectionRef} className="section1">
-      {/* Ambient background texture */}
+      {/* Background cyber grid & glow */}
       <div className="section1-bg-texture" />
       <div className="section1-bg-vignette" />
 
       {/* Section header */}
       <header className="section1-header">
         <p ref={subRef} className="section1-eyebrow fade-up">
-          THE REALM ARCHITECTURE & NAVIGATION
+          SYS://NAVIGATION.CORE
         </p>
         <div className="header-ornament">
           <span className="ornament-line" />
-          <span className="ornament-rune">✦</span>
+          <span className="ornament-dot" />
           <span className="ornament-line" />
         </div>
         <h2 ref={headingRef} className="section1-title fade-up">
-          Houses & <em>Orders</em>
+          System <em>Modules</em>
         </h2>
         <p className="section1-subtitle fade-up">
-          Seven halls of deeds, dragons, oaths, and craftsmanship. Select your path.
+          Seven operational subsystems cataloging production engineering, distributed platforms, verified credentials, and communication lines.
         </p>
       </header>
 
-      {/* Houses grid */}
+      {/* Modules grid */}
       <div className="houses-grid">
         {HOUSES.map((house, i) => (
           <HouseCard key={house.id} house={house} index={i} />
         ))}
       </div>
 
-      {/* Section footer ornament */}
+      {/* Section footer terminal indicator */}
       <div className="section1-footer-ornament">
         <span className="footer-line" />
-        <span className="footer-sigil">⚔</span>
+        <span className="footer-terminal-tag">SYS://ALL_SYSTEMS_ONLINE</span>
         <span className="footer-line" />
       </div>
     </section>

@@ -24,27 +24,27 @@ export const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Validate fields with themed error copy
+  // Validate fields with clean technical error copy
   const validate = (): boolean => {
     const errs: FormErrors = {};
 
     if (!formData.name.trim()) {
-      errs.name = 'Declare your name and house, traveler.';
+      errs.name = 'Please provide your name or organization identity.';
     } else if (formData.name.trim().length < 2) {
-      errs.name = 'Your moniker must be at least two runes long.';
+      errs.name = 'Name must be at least two characters.';
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      errs.email = 'The raven requires an address to carry your scroll.';
+      errs.email = 'Please provide a valid contact email.';
     } else if (!emailRegex.test(formData.email.trim())) {
-      errs.email = 'The raven could not find that address. Provide a valid email.';
+      errs.email = 'Format invalid. Please enter a valid email address.';
     }
 
     if (!formData.message.trim()) {
-      errs.message = 'The parchment cannot remain blank. Inscribe your message.';
+      errs.message = 'Please input your transmission message.';
     } else if (formData.message.trim().length < 10) {
-      errs.message = 'A raven flies not for fewer than ten characters.';
+      errs.message = 'Transmission body must contain at least 10 characters.';
     }
 
     setErrors(errs);
@@ -57,32 +57,16 @@ export const ContactForm: React.FC = () => {
 
     setIsSubmitting(true);
 
-    /**
-     * ─── FORMSPREE / EMAILJS INTEGRATION POINT ──────────────────────────────
-     * Currently runs a client-side mock flight with actual timeout.
-     * To connect Formspree:
-     *   Replace the endpoint URL below with your Formspree form ID:
-     *   const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-     *     method: "POST",
-     *     headers: { "Content-Type": "application/json" },
-     *     body: JSON.stringify(formData)
-     *   });
-     *
-     * Or for EmailJS:
-     *   import emailjs from '@emailjs/browser';
-     *   await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_PUBLIC_KEY');
-     * ────────────────────────────────────────────────────────────────────────
-     */
     try {
-      // Simulated raven flight delay
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      // Simulated uplink latency
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       setIsSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
       setErrors({});
     } catch {
       setErrors({
-        message: 'The winds beyond the Wall were too fierce. Please try again.',
+        message: 'Transmission network error. Please verify and retry.',
       });
     } finally {
       setIsSubmitting(false);
@@ -99,36 +83,36 @@ export const ContactForm: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="relative p-8 md:p-12 border border-[#4a6380] bg-[#0d1117] text-center overflow-hidden">
-        <span className="corner corner-tl" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
-        <span className="corner corner-tr" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
-        <span className="corner corner-bl" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
-        <span className="corner corner-br" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
+      <div className="relative p-8 md:p-12 border border-[rgba(0,240,255,0.4)] bg-[#0d1017] text-center overflow-hidden rounded">
+        <span className="corner corner-tl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-tr" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-bl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-br" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
 
-        <div className="w-16 h-16 mx-auto mb-6 rounded-full border border-[#8fafc4] flex items-center justify-center bg-[#1a2332] text-[#8fafc4] shadow-[0_0_25px_rgba(143,175,196,0.3)]">
+        <div className="w-16 h-16 mx-auto mb-5 rounded border border-[var(--cyan)] flex items-center justify-center bg-[#07080c] text-[var(--cyan)] shadow-[0_0_25px_rgba(0,240,255,0.3)]">
           <CheckCircle2 size={32} />
         </div>
 
-        <h3 className="font-cinzel-dec text-2xl md:text-3xl text-[var(--parchment)] mb-3">
-          Your Raven Has Taken Flight
+        <h3 className="font-orbitron text-xl md:text-2xl text-[var(--text)] mb-3 font-bold">
+          Transmission Received
         </h3>
 
-        <div className="got-divider max-w-xs mx-auto mb-4">
-          <div className="got-divider-line" style={{ background: 'linear-gradient(to right, transparent, #8fafc4)' }} />
-          <div className="got-divider-diamond" style={{ background: '#8fafc4' }} />
-          <div className="got-divider-line right" style={{ background: 'linear-gradient(to left, transparent, #8fafc4)' }} />
+        <div className="flex items-center justify-center gap-3 max-w-xs mx-auto mb-4">
+          <span className="w-12 h-px bg-gradient-to-r from-transparent to-[var(--cyan)]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--cyan)]" />
+          <span className="w-12 h-px bg-gradient-to-l from-transparent to-[var(--cyan)]" />
         </div>
 
-        <p className="font-garamond text-base md:text-lg text-[var(--ash)] max-w-md mx-auto mb-8 leading-[1.75]">
-          The scroll has been dispatched across the Seven Kingdoms to Winterfell. Sarthak will review your words and send a reply posthaste.
+        <p className="font-space text-sm sm:text-base text-[var(--text-muted)] max-w-md mx-auto mb-8 leading-relaxed">
+          Your transmission packet has been encrypted and delivered directly to Sarthak Jalan&apos;s communication terminal.
         </p>
 
         <button
           onClick={() => setIsSubmitted(false)}
-          className="got-cta-ghost min-h-[44px]"
-          style={{ borderColor: '#8fafc4', color: '#8fafc4' }}
+          className="cyber-ghost min-h-[44px] px-6 py-2.5 text-xs font-chakra tracking-wider uppercase rounded"
+          style={{ borderColor: 'var(--cyan)', color: 'var(--cyan)' }}
         >
-          Send Another Raven
+          Send Another Message
         </button>
       </div>
     );
@@ -138,37 +122,37 @@ export const ContactForm: React.FC = () => {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="relative p-6 sm:p-8 md:p-10 border-2 border-[#384f6b] bg-[#0c131d]/95 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.85)]"
+      className="relative p-6 sm:p-8 md:p-10 border border-[rgba(0,240,255,0.3)] bg-[#0d1017]/95 backdrop-blur-md shadow-[0_0_50px_rgba(0,0,0,0.85)] rounded"
     >
-      <span className="corner corner-tl" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
-      <span className="corner corner-tr" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
-      <span className="corner corner-bl" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
-      <span className="corner corner-br" style={{ '--accent': '#8fafc4' } as React.CSSProperties} />
+      <span className="corner corner-tl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+      <span className="corner corner-tr" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+      <span className="corner corner-bl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+      <span className="corner corner-br" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
 
       <div className="mb-8 text-center">
-        <span className="font-cinzel text-xs tracking-[0.35em] text-[#8fafc4] uppercase block mb-1">
-          Dispatch to Winterfell
+        <span className="font-chakra text-xs tracking-[0.3em] text-[var(--cyan)] uppercase block mb-1 font-semibold">
+          SYS://TRANSMISSION.DISPATCH
         </span>
-        <h3 className="font-cinzel-dec text-2xl sm:text-3xl text-[var(--parchment)] drop-shadow-[0_0_15px_rgba(245,241,232,0.15)]">
-          Send a Raven
+        <h3 className="font-orbitron text-xl sm:text-2xl text-[var(--text)] font-bold">
+          Send Message
         </h3>
-        <p className="font-garamond text-sm sm:text-base text-[#a2b5c7] mt-1.5 max-w-md mx-auto leading-relaxed">
-          Inscribe your missive below. Your message is dispatched directly to Sarthak Jalan.
+        <p className="font-space text-xs sm:text-sm text-[var(--text-muted)] mt-1.5 max-w-md mx-auto leading-relaxed">
+          Inscribe your message below. Dispatched directly to Sarthak Jalan.
         </p>
       </div>
 
       {/* Name Field */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
           <label
             htmlFor="contact-name"
-            className="flex items-center gap-2 font-cinzel text-xs sm:text-sm uppercase tracking-wider text-[#e6f0fa] font-semibold"
+            className="flex items-center gap-2 font-chakra text-xs uppercase tracking-wider text-[var(--text)] font-semibold"
           >
-            <User size={16} className="text-[#8fafc4] shrink-0" />
-            <span>Your Name &amp; House / Company</span>
-            <span className="text-[#8fafc4] font-bold" title="Required">*</span>
+            <User size={15} className="text-[var(--cyan)] shrink-0" />
+            <span>Identity / Organization</span>
+            <span className="text-[var(--cyan)] font-bold" title="Required">*</span>
           </label>
-          <span className="font-garamond text-xs text-[#8ca4bd] italic">
+          <span className="font-space text-xs text-[var(--text-muted)]">
             Required
           </span>
         </div>
@@ -178,34 +162,34 @@ export const ContactForm: React.FC = () => {
           type="text"
           value={formData.name}
           onChange={handleChange}
-          placeholder="e.g. Lord Eddard / Alex Vance (Stark Enterprises)"
-          className={`w-full min-h-[48px] px-4 py-3 bg-[#131d2b] border-2 ${
+          placeholder="e.g. Elena Rostova (NeuralTech Corp)"
+          className={`w-full min-h-[46px] px-4 py-2.5 bg-[#07080c] border ${
             errors.name
               ? 'border-red-500 bg-red-950/20'
-              : 'border-[#3b526d] hover:border-[#6787a8] hover:bg-[#162335] focus:border-[#a8cbe6] focus:bg-[#19283c] focus:shadow-[0_0_20px_rgba(168,203,230,0.35)] focus:ring-1 focus:ring-[#a8cbe6]'
-          } rounded-none font-garamond text-base sm:text-lg text-[#f7f5f0] placeholder:text-[#95abc0] placeholder:opacity-100 focus:outline-none transition-all`}
+              : 'border-[rgba(0,240,255,0.25)] hover:border-[var(--cyan-dim)] focus:border-[var(--cyan)] focus:ring-1 focus:ring-[var(--cyan)]'
+          } rounded font-space text-sm text-[var(--text)] placeholder:text-[var(--text-muted)]/60 focus:outline-none transition-all`}
         />
         {errors.name && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-red-400 font-garamond">
-            <AlertCircle size={15} className="shrink-0" />
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-space">
+            <AlertCircle size={14} className="shrink-0" />
             {errors.name}
           </p>
         )}
       </div>
 
       {/* Email Field */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
           <label
             htmlFor="contact-email"
-            className="flex items-center gap-2 font-cinzel text-xs sm:text-sm uppercase tracking-wider text-[#e6f0fa] font-semibold"
+            className="flex items-center gap-2 font-chakra text-xs uppercase tracking-wider text-[var(--text)] font-semibold"
           >
-            <Mail size={16} className="text-[#8fafc4] shrink-0" />
-            <span>Your Email Address (For Reply)</span>
-            <span className="text-[#8fafc4] font-bold" title="Required">*</span>
+            <Mail size={15} className="text-[var(--cyan)] shrink-0" />
+            <span>Transmission Email</span>
+            <span className="text-[var(--cyan)] font-bold" title="Required">*</span>
           </label>
-          <span className="font-garamond text-xs text-[#8ca4bd] italic">
-            Where to send reply
+          <span className="font-space text-xs text-[var(--text-muted)]">
+            Required
           </span>
         </div>
         <input
@@ -214,34 +198,34 @@ export const ContactForm: React.FC = () => {
           type="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="e.g. yourname@company.com or lord@realm.org"
-          className={`w-full min-h-[48px] px-4 py-3 bg-[#131d2b] border-2 ${
+          placeholder="e.g. contact@domain.com"
+          className={`w-full min-h-[46px] px-4 py-2.5 bg-[#07080c] border ${
             errors.email
               ? 'border-red-500 bg-red-950/20'
-              : 'border-[#3b526d] hover:border-[#6787a8] hover:bg-[#162335] focus:border-[#a8cbe6] focus:bg-[#19283c] focus:shadow-[0_0_20px_rgba(168,203,230,0.35)] focus:ring-1 focus:ring-[#a8cbe6]'
-          } rounded-none font-garamond text-base sm:text-lg text-[#f7f5f0] placeholder:text-[#95abc0] placeholder:opacity-100 focus:outline-none transition-all`}
+              : 'border-[rgba(0,240,255,0.25)] hover:border-[var(--cyan-dim)] focus:border-[var(--cyan)] focus:ring-1 focus:ring-[var(--cyan)]'
+          } rounded font-space text-sm text-[var(--text)] placeholder:text-[var(--text-muted)]/60 focus:outline-none transition-all`}
         />
         {errors.email && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-red-400 font-garamond">
-            <AlertCircle size={15} className="shrink-0" />
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-space">
+            <AlertCircle size={14} className="shrink-0" />
             {errors.email}
           </p>
         )}
       </div>
 
       {/* Message Field */}
-      <div className="mb-7">
+      <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
           <label
             htmlFor="contact-message"
-            className="flex items-center gap-2 font-cinzel text-xs sm:text-sm uppercase tracking-wider text-[#e6f0fa] font-semibold"
+            className="flex items-center gap-2 font-chakra text-xs uppercase tracking-wider text-[var(--text)] font-semibold"
           >
-            <MessageSquare size={16} className="text-[#8fafc4] shrink-0" />
-            <span>Your Message / Inscription</span>
-            <span className="text-[#8fafc4] font-bold" title="Required">*</span>
+            <MessageSquare size={15} className="text-[var(--cyan)] shrink-0" />
+            <span>Message Content</span>
+            <span className="text-[var(--cyan)] font-bold" title="Required">*</span>
           </label>
-          <span className="font-garamond text-xs text-[#8ca4bd] italic">
-            Inscribe your scroll
+          <span className="font-space text-xs text-[var(--text-muted)]">
+            Min 10 chars
           </span>
         </div>
         <textarea
@@ -250,33 +234,40 @@ export const ContactForm: React.FC = () => {
           rows={5}
           value={formData.message}
           onChange={handleChange}
-          placeholder="Inscribe your proposition, project collaboration, opportunity, or greeting..."
-          className={`w-full px-4 py-3.5 bg-[#131d2b] border-2 ${
+          placeholder="Detail technical requirements, opportunity specifications, or scheduling requests..."
+          className={`w-full p-4 bg-[#07080c] border ${
             errors.message
               ? 'border-red-500 bg-red-950/20'
-              : 'border-[#3b526d] hover:border-[#6787a8] hover:bg-[#162335] focus:border-[#a8cbe6] focus:bg-[#19283c] focus:shadow-[0_0_20px_rgba(168,203,230,0.35)] focus:ring-1 focus:ring-[#a8cbe6]'
-          } rounded-none font-garamond text-base sm:text-lg text-[#f7f5f0] placeholder:text-[#95abc0] placeholder:opacity-100 focus:outline-none transition-all resize-y leading-[1.7]`}
+              : 'border-[rgba(0,240,255,0.25)] hover:border-[var(--cyan-dim)] focus:border-[var(--cyan)] focus:ring-1 focus:ring-[var(--cyan)]'
+          } rounded font-space text-sm text-[var(--text)] placeholder:text-[var(--text-muted)]/60 focus:outline-none transition-all resize-none`}
         />
         {errors.message && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-red-400 font-garamond">
-            <AlertCircle size={15} className="shrink-0" />
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-space">
+            <AlertCircle size={14} className="shrink-0" />
             {errors.message}
           </p>
         )}
       </div>
 
       {/* Submit Button */}
-      <div className="text-center pt-2">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="got-cta-btn w-full sm:w-auto min-h-[48px] px-8 text-sm sm:text-base font-semibold tracking-wider hover:shadow-[0_0_25px_rgba(143,175,196,0.45)] transition-all duration-300"
-          style={{ background: '#8fafc4', color: '#050c14' }}
-        >
-          <Send size={16} />
-          {isSubmitting ? 'The Raven Prepares Flight...' : 'Release The Raven'}
-        </button>
-      </div>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="got-cta-btn w-full justify-center min-h-[48px] text-xs font-chakra tracking-widest uppercase flex items-center gap-2.5 transition-all disabled:opacity-60"
+        style={{ background: 'var(--cyan)', color: '#07080c' }}
+      >
+        {isSubmitting ? (
+          <>
+            <span className="w-4 h-4 border-2 border-[#07080c] border-t-transparent rounded-full animate-spin" />
+            <span>ENCRYPTING &amp; DISPATCHING...</span>
+          </>
+        ) : (
+          <>
+            <Send size={15} />
+            <span>DISPATCH TRANSMISSION</span>
+          </>
+        )}
+      </button>
     </form>
   );
 };

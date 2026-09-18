@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Scroll } from 'lucide-react';
+import { FileText, Github, ChevronDown, Terminal } from 'lucide-react';
 import { CHAPTERS } from '../data/chapters';
 import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 import '../styles/hero.css';
@@ -275,8 +275,8 @@ export const Hero: React.FC = () => {
     <>
       {/* Loading Overlay */}
       <div className={`got-loading ${videoReady ? 'hidden' : ''}`}>
-        <div className="got-loading-logo">Sarthak Jalan</div>
-        <div className="got-loading-sub">A Chronicle of Code & Craft</div>
+        <div className="got-loading-logo">SARTHAK JALAN</div>
+        <div className="got-loading-sub">INITIALIZING NEURAL SYSTEMS & INTERFACES</div>
         <div className="got-loading-bar-wrap">
           <div className="got-loading-bar-fill" />
         </div>
@@ -306,7 +306,7 @@ export const Hero: React.FC = () => {
             <img
               className="got-video got-mobile-poster"
               src="/video/one-poster.jpg"
-              alt="The Realm of Sarthak Jalan"
+              alt="Sarthak Jalan Systems"
               loading="eager"
             />
           )}
@@ -316,28 +316,25 @@ export const Hero: React.FC = () => {
           <div ref={overlayRef} className="got-overlay" />
           <div className="got-grain-local" />
 
-          {/* Corner Ornaments */}
+          {/* Corner HUD Reticle Brackets */}
           {!isMobile &&
             ['tl', 'tr', 'bl', 'br'].map((pos) => (
               <div key={pos} className={`got-corner got-corner-${pos}`}>
                 <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 2 L2 20 M2 2 L20 2" stroke="#c9a84c" strokeWidth="1" strokeOpacity="0.6" />
-                  <path d="M2 2 L8 8" stroke="#c9a84c" strokeWidth="0.5" strokeOpacity="0.4" />
+                  <path d="M2 2 L2 18 M2 2 L18 2" stroke="var(--cyan)" strokeWidth="1.5" strokeOpacity="0.8" />
                   <rect
-                    x="1"
-                    y="1"
-                    width="4"
-                    height="4"
-                    fill="none"
-                    stroke="#c9a84c"
-                    strokeWidth="0.5"
-                    strokeOpacity="0.7"
+                    x="2"
+                    y="2"
+                    width="3"
+                    height="3"
+                    fill="var(--cyan)"
+                    opacity="0.9"
                   />
                 </svg>
               </div>
             ))}
 
-          {/* Rune decorative tick bar */}
+          {/* Cyber tick bar */}
           <div ref={runeBarRef} className="got-rune-bar">
             {Array.from({ length: 60 }).map((_, i) => (
               <div key={i} className="rune-tick" />
@@ -346,38 +343,39 @@ export const Hero: React.FC = () => {
 
           {/* Main Hero Content */}
           <div className="got-content">
-            <span ref={sigilRef} className="got-sigil">
-              ✦
+            <span ref={sigilRef} className="got-sigil font-chakra text-xs tracking-widest px-2.5 py-1 bg-[#0d1017]/80 border border-[var(--cyan-dim)] text-[var(--cyan)] rounded inline-block w-fit">
+              SYS://CORE.01
             </span>
-            <div className="got-divider">
+            <div className="got-divider my-3">
               <div className="got-divider-line" />
               <div className="got-divider-diamond" />
               <div className="got-divider-line right" />
             </div>
             <span ref={subtitleRef} className="got-subtitle">
-              A CHRONICLE OF CODE AND CRAFT
+              FULL-STACK ARCHITECTURE & MACHINE LEARNING
             </span>
             <h1 ref={titleRef} className="got-title">
-              The Realm of Sarthak Jalan
+              Sarthak Jalan
             </h1>
             <p ref={bodyRef} className="got-body">
-              Full-Stack Developer and AI Engineer forging resilient platforms, intelligent models, and seamless user experiences across the digital kingdoms.
+              Full-Stack Developer and AI Systems Engineer architecting resilient distributed platforms, edge machine learning, and high-performance reactive interfaces.
             </p>
 
             {/* CTAs */}
             <div className="got-cta-row">
               <button onClick={scrollToHouses} className="got-cta-btn">
-                Explore the Realm
+                <span>Explore Modules</span>
+                <ChevronDown size={14} />
               </button>
 
               <a
                 href={RESUME_PATH}
                 download={RESUME_FILENAME}
                 className="got-cta-ghost flex items-center gap-2"
-                aria-label="Download Sarthak Jalan Resume Scroll PDF"
+                aria-label="Download Sarthak Jalan Resume PDF"
               >
-                <Scroll size={14} className="text-[var(--gold)]" />
-                <span>Download the Scroll</span>
+                <FileText size={14} className="text-[var(--cyan)]" />
+                <span>Download Resume</span>
               </a>
 
               <a
@@ -387,8 +385,8 @@ export const Hero: React.FC = () => {
                 className="got-cta-ghost"
                 aria-label="View Sarthak Jalan code on GitHub"
               >
-                <span>View on GitHub</span>
-                <span className="text-xs">⚔</span>
+                <Github size={14} />
+                <span>GitHub</span>
               </a>
             </div>
           </div>
@@ -396,7 +394,7 @@ export const Hero: React.FC = () => {
           {/* Right Side Vertical Panel (Desktop only) */}
           {!isMobile && (
             <div className="got-right-panel">
-              <div ref={chapterLabelRef} className="got-chapter-label">
+              <div ref={chapterLabelRef} className="got-chapter-label font-chakra">
                 01 / 06
               </div>
               <div className="got-vert-line" />
@@ -419,7 +417,7 @@ export const Hero: React.FC = () => {
           {/* Scroll Hint */}
           {!isMobile && (
             <div className="got-scroll-hint">
-              <span>Scroll</span>
+              <span className="font-chakra">SCROLL</span>
               <div className="arrow" />
             </div>
           )}

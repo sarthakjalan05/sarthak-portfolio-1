@@ -1,17 +1,17 @@
 import React from 'react';
 import { EmptyState } from '../components/EmptyState';
-import { Compass } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 
 export const NotFound: React.FC = () => {
   return (
     <div className="realm-page flex items-center justify-center min-h-[75vh]">
       <EmptyState
-        icon={<Compass size={36} />}
-        heading="Beyond the Wall"
-        body="You have wandered past the frozen boundaries of the Seven Kingdoms into the icy wastes of the Land of Always Winter. No scrolls, castles, or code reside here — only cold winds and shadows."
-        ctaText="Journey Back to the Realm"
+        icon={<Terminal size={36} />}
+        heading="SYS://404 · Node Unreachable"
+        body="You have navigated to an unmapped subnet address in the network grid. No system service, matrix record, or telemetry log resides at this endpoint."
+        ctaText="Return to System Root"
         ctaLink="/"
-        accentColor="#5ca0d3"
+        accentColor="var(--cyan)"
       />
     </div>
   );

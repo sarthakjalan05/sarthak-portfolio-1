@@ -6,6 +6,7 @@ export interface House {
   words: string;
   region: string;
   sigil: string;
+  iconName?: string;
   colors: string[];
   accent: string;
   description: string;

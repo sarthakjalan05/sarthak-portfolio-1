@@ -1,23 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import {
   Download,
   Shield,
-  Swords,
-  Sparkles,
   Award,
-  BookOpen,
   ArrowLeft,
   Check,
-  Flame,
   Zap,
   Cpu,
-  Star,
+  Terminal,
 } from 'lucide-react';
 
 export const CharacterSheet: React.FC = () => {
-  const accent = '#d4a84b'; // Lannister / Valyrian Gold
+  const accent = 'var(--cyan)';
   const [downloading, setDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
@@ -27,21 +23,21 @@ export const CharacterSheet: React.FC = () => {
     { name: 'Predictive Model Precision', score: 99, desc: '98.78% accuracy on 1M+ row force predictions' },
     { name: 'Edge Inference & Quantization', score: 94, desc: 'Sub-115ms on-device INT8 TFLite classification' },
     { name: 'Algorithmic Problem Solving', score: 92, desc: 'LeetCode 1550+ contest rating, 400+ problems' },
-    { name: 'Hackathon Grit & Speed', score: 94, desc: '1st Runner Up (400+ teams) & Flipkart Top 10%' },
+    { name: 'Hackathon Execution & Speed', score: 94, desc: '1st Runner Up (400+ teams) & Flipkart Top 10%' },
   ];
 
   const gear = [
-    { name: 'Valyrian TypeScript Blade', type: 'Primary Weapon', desc: 'React 19, TypeScript, state orchestration' },
-    { name: 'TFLite Dragon Heart', type: 'Artifact', desc: '4.8MB quantized mobile neural network' },
-    { name: 'Affective Acoustic Amulet', type: 'Relic', desc: 'SenseVoice, Deepgram, and Gemini integration' },
-    { name: 'MERN Fortress Aegis', type: 'Armor', desc: 'Node.js, Express, MongoDB connection pooling' },
-    { name: 'AWS Cloud Sigil', type: 'Accessory', desc: 'Cloud Practitioner, S3, EC2, automated workflows' },
+    { name: 'TypeScript & React Interface', type: 'Primary Stack', desc: 'React 19, TypeScript, state orchestration' },
+    { name: 'TFLite Edge Core Engine', type: 'Neural Runtime', desc: '4.8MB quantized mobile neural network' },
+    { name: 'Affective Acoustic Substrate', type: 'AI Pipeline', desc: 'SenseVoice, Deepgram, and Gemini integration' },
+    { name: 'MERN Microservices Architecture', type: 'Backend Cluster', desc: 'Node.js, Express, MongoDB connection pooling' },
+    { name: 'AWS Cloud Infrastructure', type: 'Deployment Node', desc: 'Cloud Practitioner, S3, EC2, automated workflows' },
   ];
 
   const feats = [
     { title: '1st Runner Up', event: 'Hack the Spring 2025', desc: 'Ranked #2 out of 400+ contending engineering teams' },
     { title: 'Top 10% National Rank', event: 'Flipkart GRiD 6.0', desc: 'Advanced to national semi-finals in HealthTech track' },
-    { title: 'LeetCode Top 30%', event: 'Algorithmic Arena', desc: '1550+ contest rating with 400+ problems vanquished' },
+    { title: 'LeetCode Top 30%', event: 'Algorithmic Arena', desc: '1550+ contest rating with 400+ problems solved' },
     { title: 'Executive Committee', event: 'Apple Developers Group', desc: 'Led technical design and iOS/web initiatives at VIT' },
   ];
 
@@ -55,64 +51,63 @@ export const CharacterSheet: React.FC = () => {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Background
-      ctx.fillStyle = '#080604';
+      // Dark cyber background
+      ctx.fillStyle = '#07080c';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Gradient overlay
-      const grad = ctx.createRadialGradient(600, 400, 50, 600, 775, 800);
-      grad.addColorStop(0, 'rgba(212, 168, 75, 0.12)');
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0.95)');
+      // Cyan radial glow
+      const grad = ctx.createRadialGradient(600, 350, 50, 600, 775, 850);
+      grad.addColorStop(0, 'rgba(0, 240, 255, 0.12)');
+      grad.addColorStop(1, 'rgba(7, 8, 12, 0.98)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Gold Outer Border
-      ctx.strokeStyle = '#d4a84b';
-      ctx.lineWidth = 4;
+      // Cyan Outer Border
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 3;
       ctx.strokeRect(40, 40, 1120, 1470);
 
       // Inner Border
-      ctx.strokeStyle = 'rgba(212, 168, 75, 0.35)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.25)';
       ctx.lineWidth = 1;
       ctx.strokeRect(52, 52, 1096, 1446);
 
-      // Corner Diamonds
-      const drawDiamond = (cx: number, cy: number, size: number) => {
-        ctx.fillStyle = '#d4a84b';
+      // Corner HUD brackets
+      const drawBracket = (x: number, y: number, size: number, dx: number, dy: number) => {
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.moveTo(cx, cy - size);
-        ctx.lineTo(cx + size, cy);
-        ctx.lineTo(cx, cy + size);
-        ctx.lineTo(cx - size, cy);
-        ctx.closePath();
-        ctx.fill();
+        ctx.moveTo(x + dx * size, y);
+        ctx.lineTo(x, y);
+        ctx.lineTo(x, y + dy * size);
+        ctx.stroke();
       };
 
-      drawDiamond(40, 40, 12);
-      drawDiamond(1160, 40, 12);
-      drawDiamond(40, 1510, 12);
-      drawDiamond(1160, 1510, 12);
+      drawBracket(60, 60, 20, 1, 1);
+      drawBracket(1140, 60, 20, -1, 1);
+      drawBracket(60, 1490, 20, 1, -1);
+      drawBracket(1140, 1490, 20, -1, -1);
 
       // Header Text
-      ctx.fillStyle = '#d4a84b';
-      ctx.font = 'bold 20px serif';
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 18px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('CHARACTER CODEX · THE REALM OF WESTEROS', 600, 95);
+      ctx.fillText('SYS://SYSTEM.CODEX · TELEMETRY SPECIFICATION', 600, 95);
 
-      ctx.fillStyle = '#f5ede0';
-      ctx.font = 'bold 44px serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 42px monospace';
       ctx.fillText('SARTHAK JALAN', 600, 150);
 
-      ctx.fillStyle = '#c9a84c';
-      ctx.font = '18px serif';
-      ctx.fillText('LEVEL 22 · ARCHMAGE OF FULL-STACK & AI SYSTEMS', 600, 185);
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 16px monospace';
+      ctx.fillText('LEVEL 22 · SYSTEMS ARCHITECT & APPLIED AI ENGINEER', 600, 185);
 
-      ctx.fillStyle = '#a89f91';
-      ctx.font = '16px serif';
-      ctx.fillText('House Allegiance: Targaryen & Lannister · Guild: Vellore Institute of Technology', 600, 215);
+      ctx.fillStyle = '#7d8fa9';
+      ctx.font = '14px monospace';
+      ctx.fillText('Origin: Vellore Institute of Technology · Substrate: Distributed Web & Edge AI', 600, 215);
 
       // Divider line
-      ctx.strokeStyle = 'rgba(212, 168, 75, 0.5)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
       ctx.beginPath();
       ctx.moveTo(150, 240);
       ctx.lineTo(1050, 240);
@@ -120,32 +115,32 @@ export const CharacterSheet: React.FC = () => {
 
       // Section: Core Attributes
       ctx.textAlign = 'left';
-      ctx.fillStyle = '#d4a84b';
-      ctx.font = 'bold 24px serif';
-      ctx.fillText('⚔ CORE ATTRIBUTES', 100, 285);
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText('// CORE ATTRIBUTES & TELEMETRY', 100, 285);
 
       let yPos = 325;
       attributes.forEach((attr) => {
-        ctx.fillStyle = '#f5ede0';
-        ctx.font = 'bold 18px serif';
+        ctx.fillStyle = '#e8f4ff';
+        ctx.font = 'bold 16px monospace';
         ctx.fillText(attr.name, 100, yPos);
 
-        ctx.fillStyle = '#d4a84b';
-        ctx.font = 'bold 18px serif';
+        ctx.fillStyle = '#00f0ff';
+        ctx.font = 'bold 16px monospace';
         ctx.textAlign = 'right';
         ctx.fillText(`${attr.score}/100`, 1100, yPos);
         ctx.textAlign = 'left';
 
         // Stat bar background
-        ctx.fillStyle = '#221910';
+        ctx.fillStyle = '#0d1017';
         ctx.fillRect(100, yPos + 10, 1000, 10);
 
         // Stat bar fill
-        ctx.fillStyle = '#d4a84b';
+        ctx.fillStyle = '#00f0ff';
         ctx.fillRect(100, yPos + 10, (1000 * attr.score) / 100, 10);
 
-        ctx.fillStyle = '#8e8679';
-        ctx.font = '13px serif';
+        ctx.fillStyle = '#7d8fa9';
+        ctx.font = '13px monospace';
         ctx.fillText(attr.desc, 100, yPos + 35);
 
         yPos += 60;
@@ -153,53 +148,53 @@ export const CharacterSheet: React.FC = () => {
 
       // Divider line
       yPos += 15;
-      ctx.strokeStyle = 'rgba(212, 168, 75, 0.4)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
       ctx.beginPath();
       ctx.moveTo(150, yPos);
       ctx.lineTo(1050, yPos);
       ctx.stroke();
 
-      // Section: Equipped Gear
+      // Section: Equipped Stack
       yPos += 45;
-      ctx.fillStyle = '#d4a84b';
-      ctx.font = 'bold 24px serif';
-      ctx.fillText('🛡 EQUIPPED ARSENAL & RELICS', 100, yPos);
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText('// PRODUCTION TECH ARSENAL', 100, yPos);
 
       yPos += 35;
       gear.forEach((item) => {
-        ctx.fillStyle = '#f5ede0';
-        ctx.font = 'bold 17px serif';
-        ctx.fillText(`• ${item.name} (${item.type})`, 100, yPos);
+        ctx.fillStyle = '#e8f4ff';
+        ctx.font = 'bold 15px monospace';
+        ctx.fillText(`• ${item.name} [${item.type}]`, 100, yPos);
 
-        ctx.fillStyle = '#a89f91';
-        ctx.font = '15px serif';
-        ctx.fillText(`— ${item.desc}`, 420, yPos);
+        ctx.fillStyle = '#7d8fa9';
+        ctx.font = '14px monospace';
+        ctx.fillText(`— ${item.desc}`, 480, yPos);
 
         yPos += 34;
       });
 
       // Divider line
       yPos += 15;
-      ctx.strokeStyle = 'rgba(212, 168, 75, 0.4)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
       ctx.beginPath();
       ctx.moveTo(150, yPos);
       ctx.lineTo(1050, yPos);
       ctx.stroke();
 
-      // Section: Feats & Quests
+      // Section: Milestones & Benchmarks
       yPos += 45;
-      ctx.fillStyle = '#d4a84b';
-      ctx.font = 'bold 24px serif';
-      ctx.fillText('🏆 FEATS OF VALOR', 100, yPos);
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText('// SYSTEM BENCHMARKS & HONORS', 100, yPos);
 
       yPos += 35;
       feats.forEach((feat) => {
-        ctx.fillStyle = '#ffde7a';
-        ctx.font = 'bold 17px serif';
+        ctx.fillStyle = '#ff2bd6';
+        ctx.font = 'bold 15px monospace';
         ctx.fillText(`✦ ${feat.title} · ${feat.event}`, 100, yPos);
 
-        ctx.fillStyle = '#a89f91';
-        ctx.font = '15px serif';
+        ctx.fillStyle = '#7d8fa9';
+        ctx.font = '13px monospace';
         ctx.fillText(feat.desc, 120, yPos + 22);
 
         yPos += 48;
@@ -207,18 +202,18 @@ export const CharacterSheet: React.FC = () => {
 
       // Footer Seal
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#c9a84c';
-      ctx.font = 'italic 16px serif';
-      ctx.fillText('"Forged with Valyrian Precision · Verified across Westeros & Silicon Valley"', 600, 1445);
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = '14px monospace';
+      ctx.fillText('"Engineered for resilience · Scaled for real-world production constraints"', 600, 1445);
 
-      ctx.fillStyle = '#6e6559';
+      ctx.fillStyle = '#7d8fa9';
       ctx.font = '12px monospace';
       ctx.fillText('github.com/sarthakjalan05 · linkedin.com/in/sarthak-jalan-7685a7285', 600, 1475);
 
       // Trigger download
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = 'sarthak-jalan-character-sheet.png';
+      link.download = 'sarthak-jalan-system-codex.png';
       link.href = dataUrl;
       link.click();
 
@@ -236,15 +231,15 @@ export const CharacterSheet: React.FC = () => {
       className="realm-page relative overflow-hidden"
       style={{ '--accent': accent } as React.CSSProperties}
     >
-      {/* Atmospheric Background Layers */}
+      {/* Background Grid & Vignette */}
       <div className="realm-bg-texture" />
       <div className="realm-bg-vignette" />
 
       {/* Breadcrumb Bar */}
-      <div className="relative z-10 max-w-4xl mx-auto mb-6 px-2 flex items-center justify-between">
+      <div className="relative z-10 max-w-4xl mx-auto mb-6 px-4 flex items-center justify-between">
         <Link
           to="/about"
-          className="inline-flex items-center gap-2 font-cinzel text-xs uppercase tracking-widest text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors py-2"
+          className="inline-flex items-center gap-2 font-chakra text-xs uppercase tracking-wider text-[var(--cyan)] hover:text-white transition-colors py-2"
         >
           <ArrowLeft size={14} />
           <span>Return to About</span>
@@ -253,67 +248,63 @@ export const CharacterSheet: React.FC = () => {
         <button
           onClick={handleDownloadCanvas}
           disabled={downloading}
-          className="got-cta-btn text-xs py-2 px-5 inline-flex items-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(212,168,75,0.4)]"
-          style={{ background: accent, color: '#000' }}
+          className="got-cta-btn text-xs py-2 px-5 inline-flex items-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)] rounded font-chakra font-bold"
+          style={{ background: 'var(--cyan)', color: '#07080c' }}
         >
           {downloadSuccess ? (
             <>
               <Check size={14} />
-              <span>Parchment Exported!</span>
+              <span>Dossier Exported!</span>
             </>
           ) : (
             <>
               <Download size={14} />
-              <span>{downloading ? 'Engraving...' : 'Download Character Sheet (PNG)'}</span>
+              <span>{downloading ? 'Rendering...' : 'Export Telemetry (PNG)'}</span>
             </>
           )}
         </button>
       </div>
 
       <PageHeader
-        sectionLabel="Character Codex"
-        eyebrow="EASTER EGG · CODEX OF VALYRIA"
-        title="RPG Character"
-        titleEm="Sheet & Feats"
-        motto="Forged in Code · Tempered by AI"
-        subtitle='An RPG character sheet translating Sarthak&apos;s real-world skills, achievements, and technical arsenal into a Westerosi adventurer profile.'
+        sectionLabel="SYSTEM CODEX"
+        eyebrow="SYS://EASTER_EGG.ATTRIBUTES"
+        title="System"
+        titleEm="Codex & Telemetry"
+        motto="Grounded in Engineering Metrics · Proven in Production"
+        subtitle="A system specification sheet translating Sarthak's technical competencies, benchmark stats, and platform arsenal into an interactive dossier."
         accent={accent}
-        sigilRune="🛡"
+        sigilRune="//"
       />
 
       {/* Main Character Sheet Card */}
-      <div className="relative z-10 max-w-4xl mx-auto px-2 sm:px-4 mb-16">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 mb-16">
         <div
-          className="fade-up realm-card relative p-7 sm:p-12 border bg-[#0b0805]/95 backdrop-blur-sm shadow-[0_0_60px_rgba(0,0,0,0.9)]"
-          style={{
-            borderColor: 'rgba(212, 168, 75, 0.45)',
-          }}
+          className="fade-up realm-card relative p-6 sm:p-10 md:p-12 border border-[rgba(0,240,255,0.25)] bg-[#0d1017]/95 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.9)] rounded"
         >
-          {/* Corner Ornaments */}
+          {/* Corner HUD Brackets */}
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
           {/* Profile Header Box */}
-          <div className="border-b border-[var(--gold-dim)]/40 pb-8 mb-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="border-b border-[rgba(0,240,255,0.15)] pb-6 mb-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex flex-col sm:flex-row items-center gap-5">
               <div
-                className="w-20 h-20 rounded-full border-2 flex items-center justify-center font-cinzel-dec text-3xl font-bold bg-[#140e08] shadow-[0_0_20px_rgba(212,168,75,0.4)]"
-                style={{ borderColor: accent, color: accent }}
+                className="w-16 h-16 rounded border-2 border-[var(--cyan)] flex items-center justify-center font-orbitron text-2xl font-bold bg-[#07080c] text-[var(--cyan)] shadow-[0_0_20px_rgba(0,240,255,0.3)]"
               >
                 SJ
               </div>
 
               <div>
-                <span className="font-cinzel text-[10px] uppercase tracking-[0.3em] text-[var(--gold)] font-semibold">
-                  CLASS: LEVEL 22 ARCHMAGE / SYSTEMS ARCHITECT
+                <span className="font-chakra text-[10px] uppercase tracking-wider text-[var(--cyan)] font-semibold">
+                  CLASS: LEVEL 22 SYSTEMS ARCHITECT &amp; AI PRACTITIONER
                 </span>
-                <h1 className="font-cinzel-dec text-2xl sm:text-3xl font-bold text-[var(--parchment)] my-1">
+                <h1 className="font-orbitron text-2xl sm:text-3xl font-extrabold text-[var(--text)] my-1">
                   Sarthak Jalan
                 </h1>
-                <p className="font-garamond text-sm text-[var(--ash)]">
-                  Affiliation: House Targaryen &amp; The Citadel · Origin: Vellore Institute of Technology
+                <p className="font-space text-xs sm:text-sm text-[var(--text-muted)]">
+                  Affiliation: Vellore Institute of Technology · Focus: Applied AI &amp; Cloud Systems
                 </p>
               </div>
             </div>
@@ -321,7 +312,8 @@ export const CharacterSheet: React.FC = () => {
             <button
               onClick={handleDownloadCanvas}
               disabled={downloading}
-              className="got-cta-ghost text-xs py-2.5 px-4 inline-flex items-center gap-2 cursor-pointer self-stretch sm:self-auto justify-center"
+              className="cyber-ghost text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer self-stretch sm:self-auto justify-center font-chakra font-semibold rounded"
+              style={{ borderColor: 'rgba(0, 240, 255, 0.4)', color: 'var(--cyan)' }}
             >
               <Download size={14} />
               <span>Export PNG</span>
@@ -330,90 +322,90 @@ export const CharacterSheet: React.FC = () => {
 
           {/* Section: Core Attributes */}
           <div className="mb-10">
-            <h2 className="font-cinzel-dec text-lg sm:text-xl font-bold text-[var(--parchment)] mb-4 flex items-center gap-2">
-              <Swords size={18} className="text-[var(--gold)]" />
-              <span>Core Attributes &amp; Combat Proficiency</span>
+            <h2 className="font-orbitron text-base sm:text-lg font-bold text-[var(--text)] mb-4 flex items-center gap-2">
+              <Zap size={16} className="text-[var(--cyan)]" />
+              <span>Core Telemetry &amp; Technical Attributes</span>
             </h2>
 
-            <div className="space-y-5">
+            <div className="space-y-4">
               {attributes.map((attr) => (
                 <div key={attr.name}>
-                  <div className="flex items-center justify-between text-xs sm:text-sm font-cinzel mb-1.5">
-                    <span className="text-[var(--parchment)] font-semibold">{attr.name}</span>
-                    <span className="text-[var(--gold)] font-bold">{attr.score} / 100</span>
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-chakra mb-1">
+                    <span className="text-[var(--text)] font-semibold">{attr.name}</span>
+                    <span className="text-[var(--cyan)] font-bold">{attr.score} / 100</span>
                   </div>
                   {/* Visual Bar */}
-                  <div className="w-full h-2 bg-[#1b140c] rounded-full overflow-hidden border border-[var(--gold-dim)]/30">
+                  <div className="w-full h-2 bg-[#07080c] rounded overflow-hidden border border-[rgba(0,240,255,0.2)]">
                     <div
-                      className="h-full bg-gradient-to-r from-[#d4a84b] to-[#ffde7a] transition-all duration-1000"
+                      className="h-full bg-gradient-to-r from-[var(--cyan-dim)] to-[var(--cyan)] transition-all duration-1000 shadow-[0_0_8px_var(--cyan)]"
                       style={{ width: `${attr.score}%` }}
                     />
                   </div>
-                  <p className="font-garamond text-xs text-[var(--ash)] mt-1">{attr.desc}</p>
+                  <p className="font-space text-xs text-[var(--text-muted)] mt-1">{attr.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Section: Equipped Arsenal */}
-          <div className="mb-10 pt-8 border-t border-[var(--gold-dim)]/30">
-            <h2 className="font-cinzel-dec text-lg sm:text-xl font-bold text-[var(--parchment)] mb-4 flex items-center gap-2">
-              <Shield size={18} className="text-[var(--gold)]" />
-              <span>Equipped Arsenal &amp; Relics</span>
+          <div className="mb-10 pt-6 border-t border-[rgba(0,240,255,0.15)]">
+            <h2 className="font-orbitron text-base sm:text-lg font-bold text-[var(--text)] mb-4 flex items-center gap-2">
+              <Cpu size={16} className="text-[var(--cyan)]" />
+              <span>Equipped Technology Arsenal</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {gear.map((item) => (
                 <div
                   key={item.name}
-                  className="p-4 border border-[var(--gold-dim)]/25 bg-[#120d08]/80 rounded-sm"
+                  className="p-4 border border-[rgba(0,240,255,0.2)] bg-[#07080c]/80 rounded"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <h3 className="font-cinzel text-xs font-bold text-[var(--gold-light)]">
+                    <h3 className="font-chakra text-xs font-bold text-[var(--text)]">
                       {item.name}
                     </h3>
-                    <span className="font-cinzel text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-[#1f160e] text-[var(--gold-dim)] border border-[var(--gold-dim)]/20">
+                    <span className="font-chakra text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-[#0d1017] text-[var(--cyan)] border border-[rgba(0,240,255,0.2)] rounded">
                       {item.type}
                     </span>
                   </div>
-                  <p className="font-garamond text-xs text-[var(--ash)]">{item.desc}</p>
+                  <p className="font-space text-xs text-[var(--text-muted)]">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Section: Feats of Valor */}
-          <div className="pt-8 border-t border-[var(--gold-dim)]/30">
-            <h2 className="font-cinzel-dec text-lg sm:text-xl font-bold text-[var(--parchment)] mb-4 flex items-center gap-2">
-              <Award size={18} className="text-[var(--gold)]" />
-              <span>Feats of Valor &amp; Quests Vanquished</span>
+          {/* Section: Benchmarks & Honors */}
+          <div className="pt-6 border-t border-[rgba(0,240,255,0.15)]">
+            <h2 className="font-orbitron text-base sm:text-lg font-bold text-[var(--text)] mb-4 flex items-center gap-2">
+              <Award size={16} className="text-[var(--magenta)]" />
+              <span>System Milestones &amp; Benchmarks</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {feats.map((feat) => (
                 <div
                   key={feat.title}
-                  className="p-4 border border-[var(--gold-dim)]/25 bg-[#120d08]/80 rounded-sm"
+                  className="p-4 border border-[rgba(0,240,255,0.2)] bg-[#07080c]/80 rounded"
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[var(--gold)] text-xs">✦</span>
-                    <h3 className="font-cinzel text-xs font-bold text-[var(--parchment)]">
+                    <span className="text-[var(--magenta)] text-xs">✦</span>
+                    <h3 className="font-chakra text-xs font-bold text-[var(--text)]">
                       {feat.title}
                     </h3>
                   </div>
-                  <p className="font-cinzel text-[10px] text-[var(--gold-dim)] uppercase tracking-wider mb-1">
+                  <p className="font-chakra text-[10px] text-[var(--cyan)] uppercase tracking-wider mb-1">
                     {feat.event}
                   </p>
-                  <p className="font-garamond text-xs text-[var(--ash)]">{feat.desc}</p>
+                  <p className="font-space text-xs text-[var(--text-muted)]">{feat.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Card Footer */}
-          <div className="mt-10 pt-6 border-t border-[var(--gold-dim)]/30 text-center">
-            <p className="font-garamond italic text-xs text-[var(--ash)]">
-              &quot;A Lannister always ships on time, and dragons hatch from Sarthak&apos;s own fire.&quot;
+          <div className="mt-8 pt-4 border-t border-[rgba(0,240,255,0.15)] text-center">
+            <p className="font-space text-xs text-[var(--text-muted)]">
+              &quot;Engineered with sub-millisecond precision · Built for scale and verified in production.&quot;
             </p>
           </div>
         </div>

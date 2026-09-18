@@ -7,19 +7,17 @@ import {
   ExternalLink,
   ArrowLeft,
   ArrowRight,
-  Flame,
-  AlertTriangle,
   Cpu,
+  AlertTriangle,
   Layers,
-  Award,
+  CheckCircle2,
   Calendar,
-  CheckCircle,
   Github,
 } from 'lucide-react';
 
 export const ProjectCaseStudy: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const accent = '#c0392b'; // Targaryen Blood Crimson
+  const accent = '#ff2bd6'; // Cyber Magenta
 
   const projectIndex = PROJECTS.findIndex((p) => p.id === slug);
   const project = PROJECTS[projectIndex];
@@ -36,7 +34,7 @@ export const ProjectCaseStudy: React.FC = () => {
       className="realm-page relative overflow-hidden"
       style={{ '--accent': accent } as React.CSSProperties}
     >
-      {/* Atmospheric Background Layers */}
+      {/* Background Grid & Glow */}
       <div className="realm-bg-texture" />
       <div className="realm-bg-vignette" />
 
@@ -44,30 +42,30 @@ export const ProjectCaseStudy: React.FC = () => {
       <div className="relative z-10 max-w-5xl mx-auto mb-6 px-2">
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 font-cinzel text-xs uppercase tracking-widest text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors py-2"
+          className="inline-flex items-center gap-2 font-chakra text-xs uppercase tracking-widest text-[var(--cyan)] hover:text-white transition-colors py-2"
         >
           <ArrowLeft size={14} />
-          <span>Return to Armory of Projects</span>
+          <span>Return to Software Projects</span>
         </Link>
       </div>
 
       <PageHeader
-        sectionLabel="Case Study"
-        eyebrow="HOUSE TARGARYEN · DRAGONSTONE FORGE"
+        sectionLabel="TECHNICAL CASE STUDY"
+        eyebrow={`SYS://CASE_STUDY.${project.id.toUpperCase()}`}
         title="Case Study:"
         titleEm={project.title}
-        motto="Fire and Blood"
+        motto="ARCHITECTURE // BENCHMARKS // TELEMETRY"
         subtitle={project.summary}
         accent={accent}
-        sigilRune="🐉"
+        sigilRune="✦"
       />
 
       <div className="relative z-10 max-w-5xl mx-auto px-2 sm:px-4 space-y-10">
         {/* Project Meta & External Links Bar */}
         <div
-          className="fade-up realm-card relative p-6 sm:p-8 border bg-[#140202]/90 backdrop-blur-sm flex flex-col md:flex-row items-center justify-between gap-6"
+          className="fade-up realm-card relative p-6 sm:p-8 border bg-[#0d1017]/95 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-6"
           style={{
-            borderColor: 'rgba(192, 57, 43, 0.4)',
+            borderColor: 'rgba(255, 43, 214, 0.35)',
           }}
         >
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
@@ -75,13 +73,13 @@ export const ProjectCaseStudy: React.FC = () => {
           <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
-          <div className="flex flex-wrap items-center gap-4 text-sm font-cinzel">
-            <span className="flex items-center gap-2 text-[#ff9999] font-bold tracking-wider uppercase">
-              <Calendar size={16} className="shrink-0" />
+          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-chakra">
+            <span className="flex items-center gap-2 text-[var(--magenta)] font-bold tracking-wider uppercase">
+              <Calendar size={15} className="shrink-0" />
               {project.date}
             </span>
-            <span className="text-[var(--gold-dim)]">◆</span>
-            <span className="text-[var(--parchment)]">Targaryen Masterwork</span>
+            <span className="text-[var(--cyan-dim)]">◆</span>
+            <span className="text-[var(--text)] tracking-wider">PRODUCTION ARCHITECTURE</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
@@ -90,10 +88,10 @@ export const ProjectCaseStudy: React.FC = () => {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="got-cta-ghost text-xs py-2.5 px-5"
+                className="cyber-ghost text-xs py-2.5 px-5 flex items-center gap-2"
                 style={{
-                  borderColor: 'rgba(192, 57, 43, 0.6)',
-                  color: 'var(--parchment)',
+                  borderColor: 'rgba(255, 43, 214, 0.45)',
+                  color: 'var(--text)',
                 }}
               >
                 <Github size={14} />
@@ -104,7 +102,7 @@ export const ProjectCaseStudy: React.FC = () => {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="got-cta-btn text-xs py-2.5 px-6"
+              className="got-cta-btn text-xs py-2.5 px-6 inline-flex items-center gap-2"
               style={{ background: accent, color: '#ffffff' }}
             >
               <span>Live Demonstration</span>
@@ -119,18 +117,18 @@ export const ProjectCaseStudy: React.FC = () => {
             {project.keyMetrics.map((metric, idx) => (
               <div
                 key={idx}
-                className="fade-up realm-card relative p-5 border text-center bg-[#180303]/85"
+                className="fade-up realm-card relative p-5 border text-center bg-[#0d1017]/90"
                 style={{
-                  borderColor: 'rgba(192, 57, 43, 0.35)',
+                  borderColor: 'rgba(255, 43, 214, 0.28)',
                 }}
                 data-delay={idx * 80}
               >
                 <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
                 <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
-                <p className="font-cinzel text-[10px] uppercase tracking-widest text-[#d87c7c] mb-2 font-semibold">
+                <p className="font-chakra text-[10px] uppercase tracking-widest text-[var(--magenta)] mb-2 font-semibold">
                   {metric.label}
                 </p>
-                <div className="font-cinzel-dec text-2xl sm:text-3xl font-bold text-[var(--parchment)]">
+                <div className="font-orbitron text-xl sm:text-2xl font-bold text-[var(--text)]">
                   {metric.numValue !== undefined ? (
                     <AnimatedCounter
                       value={metric.numValue}
@@ -148,8 +146,8 @@ export const ProjectCaseStudy: React.FC = () => {
 
         {/* 1. Problem Subsection */}
         <section
-          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#110202]/95 backdrop-blur-sm"
-          style={{ borderColor: 'rgba(192, 57, 43, 0.35)' }}
+          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#0d1017]/95 backdrop-blur-md"
+          style={{ borderColor: 'rgba(255, 43, 214, 0.28)' }}
         >
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
@@ -158,36 +156,36 @@ export const ProjectCaseStudy: React.FC = () => {
 
           <div className="flex items-center gap-3 mb-4">
             <div
-              className="w-10 h-10 rounded-full border flex items-center justify-center bg-[#250505]"
+              className="w-10 h-10 rounded border flex items-center justify-center bg-[rgba(255,43,214,0.1)]"
               style={{ borderColor: accent, color: accent }}
             >
               <AlertTriangle size={18} />
             </div>
             <div>
-              <span className="font-cinzel text-[10px] uppercase tracking-[0.25em] text-[#d87c7c] font-semibold">
-                Phase I · The Challenge
+              <span className="font-chakra text-[10px] uppercase tracking-[0.25em] text-[var(--magenta)] font-semibold">
+                PHASE I · THE CHALLENGE
               </span>
-              <h2 className="font-cinzel-dec text-xl sm:text-2xl text-[var(--parchment)] font-bold">
+              <h2 className="font-orbitron text-lg sm:text-xl text-[var(--text)] font-bold">
                 Problem Domain
               </h2>
             </div>
           </div>
 
-          <div className="got-divider mb-6" style={{ justifyContent: 'flex-start' }}>
-            <div className="got-divider-line" style={{ maxWidth: '60px', background: `linear-gradient(to right, transparent, ${accent})` }} />
-            <div className="got-divider-diamond" style={{ background: accent }} />
-            <div className="got-divider-line right" style={{ maxWidth: '60px', background: `linear-gradient(to left, transparent, ${accent})` }} />
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-12 h-px bg-[var(--magenta)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--magenta)]" />
+            <span className="w-12 h-px bg-gradient-to-r from-[var(--magenta)] to-transparent" />
           </div>
 
-          <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.8] max-w-4xl">
+          <p className="font-space text-sm sm:text-base text-[var(--text-muted)] leading-[1.8] max-w-4xl">
             {project.problem || project.description}
           </p>
         </section>
 
         {/* 2. Approach Subsection */}
         <section
-          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#110202]/95 backdrop-blur-sm"
-          style={{ borderColor: 'rgba(192, 57, 43, 0.35)' }}
+          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#0d1017]/95 backdrop-blur-md"
+          style={{ borderColor: 'rgba(255, 43, 214, 0.28)' }}
         >
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
@@ -196,36 +194,36 @@ export const ProjectCaseStudy: React.FC = () => {
 
           <div className="flex items-center gap-3 mb-4">
             <div
-              className="w-10 h-10 rounded-full border flex items-center justify-center bg-[#250505]"
+              className="w-10 h-10 rounded border flex items-center justify-center bg-[rgba(255,43,214,0.1)]"
               style={{ borderColor: accent, color: accent }}
             >
-              <Flame size={18} />
+              <Cpu size={18} />
             </div>
             <div>
-              <span className="font-cinzel text-[10px] uppercase tracking-[0.25em] text-[#d87c7c] font-semibold">
-                Phase II · Engineering Strategy
+              <span className="font-chakra text-[10px] uppercase tracking-[0.25em] text-[var(--magenta)] font-semibold">
+                PHASE II · ENGINEERING STRATEGY
               </span>
-              <h2 className="font-cinzel-dec text-xl sm:text-2xl text-[var(--parchment)] font-bold">
+              <h2 className="font-orbitron text-lg sm:text-xl text-[var(--text)] font-bold">
                 Technical Approach
               </h2>
             </div>
           </div>
 
-          <div className="got-divider mb-6" style={{ justifyContent: 'flex-start' }}>
-            <div className="got-divider-line" style={{ maxWidth: '60px', background: `linear-gradient(to right, transparent, ${accent})` }} />
-            <div className="got-divider-diamond" style={{ background: accent }} />
-            <div className="got-divider-line right" style={{ maxWidth: '60px', background: `linear-gradient(to left, transparent, ${accent})` }} />
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-12 h-px bg-[var(--magenta)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--magenta)]" />
+            <span className="w-12 h-px bg-gradient-to-r from-[var(--magenta)] to-transparent" />
           </div>
 
-          <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.8] max-w-4xl">
+          <p className="font-space text-sm sm:text-base text-[var(--text-muted)] leading-[1.8] max-w-4xl">
             {project.approach || project.summary}
           </p>
         </section>
 
         {/* 3. Architecture & Stack Subsection */}
         <section
-          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#110202]/95 backdrop-blur-sm"
-          style={{ borderColor: 'rgba(192, 57, 43, 0.35)' }}
+          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#0d1017]/95 backdrop-blur-md"
+          style={{ borderColor: 'rgba(255, 43, 214, 0.28)' }}
         >
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
@@ -234,40 +232,40 @@ export const ProjectCaseStudy: React.FC = () => {
 
           <div className="flex items-center gap-3 mb-4">
             <div
-              className="w-10 h-10 rounded-full border flex items-center justify-center bg-[#250505]"
+              className="w-10 h-10 rounded border flex items-center justify-center bg-[rgba(255,43,214,0.1)]"
               style={{ borderColor: accent, color: accent }}
             >
               <Layers size={18} />
             </div>
             <div>
-              <span className="font-cinzel text-[10px] uppercase tracking-[0.25em] text-[#d87c7c] font-semibold">
-                Phase III · System Architecture
+              <span className="font-chakra text-[10px] uppercase tracking-[0.25em] text-[var(--magenta)] font-semibold">
+                PHASE III · SYSTEM ARCHITECTURE
               </span>
-              <h2 className="font-cinzel-dec text-xl sm:text-2xl text-[var(--parchment)] font-bold">
+              <h2 className="font-orbitron text-lg sm:text-xl text-[var(--text)] font-bold">
                 Architecture &amp; Tech Stack
               </h2>
             </div>
           </div>
 
-          <div className="got-divider mb-6" style={{ justifyContent: 'flex-start' }}>
-            <div className="got-divider-line" style={{ maxWidth: '60px', background: `linear-gradient(to right, transparent, ${accent})` }} />
-            <div className="got-divider-diamond" style={{ background: accent }} />
-            <div className="got-divider-line right" style={{ maxWidth: '60px', background: `linear-gradient(to left, transparent, ${accent})` }} />
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-12 h-px bg-[var(--magenta)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--magenta)]" />
+            <span className="w-12 h-px bg-gradient-to-r from-[var(--magenta)] to-transparent" />
           </div>
 
-          <p className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.8] max-w-4xl mb-6">
+          <p className="font-space text-sm sm:text-base text-[var(--text-muted)] leading-[1.8] max-w-4xl mb-6">
             {project.architecture || project.description}
           </p>
 
-          <h3 className="font-cinzel text-xs uppercase tracking-widest text-[#ff9999] font-bold mb-3">
-            Equipped Technologies &amp; Frameworks
+          <h3 className="font-chakra text-xs uppercase tracking-widest text-[var(--text)] font-bold mb-3">
+            System Stack &amp; Frameworks
           </h3>
           <div className="flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="text-[11px] font-cinzel uppercase px-3 py-1.5 bg-[#250606] text-[var(--parchment)] border"
-                style={{ borderColor: 'rgba(192, 57, 43, 0.45)' }}
+                className="text-[11px] font-chakra uppercase px-3 py-1.5 bg-[rgba(255,43,214,0.06)] text-[var(--text)] border rounded"
+                style={{ borderColor: 'rgba(255, 43, 214, 0.35)' }}
               >
                 {tech}
               </span>
@@ -277,8 +275,8 @@ export const ProjectCaseStudy: React.FC = () => {
 
         {/* 4. Outcome Subsection */}
         <section
-          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#110202]/95 backdrop-blur-sm"
-          style={{ borderColor: 'rgba(192, 57, 43, 0.35)' }}
+          className="fade-up realm-card relative p-7 sm:p-10 border bg-[#0d1017]/95 backdrop-blur-md"
+          style={{ borderColor: 'rgba(255, 43, 214, 0.28)' }}
         >
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
@@ -287,39 +285,39 @@ export const ProjectCaseStudy: React.FC = () => {
 
           <div className="flex items-center gap-3 mb-4">
             <div
-              className="w-10 h-10 rounded-full border flex items-center justify-center bg-[#250505]"
+              className="w-10 h-10 rounded border flex items-center justify-center bg-[rgba(255,43,214,0.1)]"
               style={{ borderColor: accent, color: accent }}
             >
-              <CheckCircle size={18} />
+              <CheckCircle2 size={18} />
             </div>
             <div>
-              <span className="font-cinzel text-[10px] uppercase tracking-[0.25em] text-[#d87c7c] font-semibold">
-                Phase IV · Measured Impact
+              <span className="font-chakra text-[10px] uppercase tracking-[0.25em] text-[var(--magenta)] font-semibold">
+                PHASE IV · MEASURED IMPACT
               </span>
-              <h2 className="font-cinzel-dec text-xl sm:text-2xl text-[var(--parchment)] font-bold">
-                Outcome &amp; Proven Results
+              <h2 className="font-orbitron text-lg sm:text-xl text-[var(--text)] font-bold">
+                Outcome &amp; Results
               </h2>
             </div>
           </div>
 
-          <div className="got-divider mb-6" style={{ justifyContent: 'flex-start' }}>
-            <div className="got-divider-line" style={{ maxWidth: '60px', background: `linear-gradient(to right, transparent, ${accent})` }} />
-            <div className="got-divider-diamond" style={{ background: accent }} />
-            <div className="got-divider-line right" style={{ maxWidth: '60px', background: `linear-gradient(to left, transparent, ${accent})` }} />
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-12 h-px bg-[var(--magenta)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--magenta)]" />
+            <span className="w-12 h-px bg-gradient-to-r from-[var(--magenta)] to-transparent" />
           </div>
 
-          <p className="font-garamond text-base sm:text-lg text-[var(--parchment)] leading-[1.8] max-w-4xl">
+          <p className="font-space text-sm sm:text-base text-[var(--text)] leading-[1.8] max-w-4xl">
             {project.outcome || project.summary}
           </p>
         </section>
 
         {/* Next / Previous Project Navigation */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[rgba(192,57,43,0.3)]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[rgba(255,43,214,0.25)]">
           {prevProject ? (
             <Link
               to={`/projects/${prevProject.id}`}
-              className="got-cta-ghost text-xs tracking-wider py-3 px-6 flex items-center gap-2 w-full sm:w-auto justify-center"
-              style={{ borderColor: 'rgba(192, 57, 43, 0.5)', color: 'var(--parchment)' }}
+              className="cyber-ghost text-xs tracking-wider py-3 px-6 flex items-center gap-2 w-full sm:w-auto justify-center"
+              style={{ borderColor: 'rgba(255, 43, 214, 0.45)', color: 'var(--text)' }}
             >
               <ArrowLeft size={14} />
               <span>Previous: {prevProject.title}</span>
@@ -331,8 +329,8 @@ export const ProjectCaseStudy: React.FC = () => {
           {nextProject ? (
             <Link
               to={`/projects/${nextProject.id}`}
-              className="got-cta-ghost text-xs tracking-wider py-3 px-6 flex items-center gap-2 w-full sm:w-auto justify-center"
-              style={{ borderColor: 'rgba(192, 57, 43, 0.5)', color: 'var(--parchment)' }}
+              className="cyber-ghost text-xs tracking-wider py-3 px-6 flex items-center gap-2 w-full sm:w-auto justify-center"
+              style={{ borderColor: 'rgba(255, 43, 214, 0.45)', color: 'var(--text)' }}
             >
               <span>Next: {nextProject.title}</span>
               <ArrowRight size={14} />

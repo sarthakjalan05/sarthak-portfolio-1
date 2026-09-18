@@ -5,22 +5,24 @@ import {
   ArrowRight,
   ExternalLink,
   FileText,
-  Flame,
-  Crown,
+  Terminal,
+  Cpu,
   BookOpen,
-  Scroll,
+  Briefcase,
+  Layers,
   Send,
   Github,
   Linkedin,
-  Shield,
+  Award,
+  Trophy,
   X,
-  Compass,
+  User,
 } from 'lucide-react';
 
 interface SearchItem {
   id: string;
   title: string;
-  category: 'Page' | 'Case Study' | 'Maester Scroll' | 'Action';
+  category: 'Page' | 'Case Study' | 'Technical Note' | 'Action';
   description: string;
   route?: string;
   action?: () => void;
@@ -36,7 +38,7 @@ export const CommandPalette: React.FC = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Listen for global open event
+  // Listen for global shortcut
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -76,102 +78,102 @@ export const CommandPalette: React.FC = () => {
     // Pages
     {
       id: 'page-home',
-      title: 'Seat of the Realm (Home)',
+      title: 'System Root (Home)',
       category: 'Page',
-      description: 'The Seven Houses, Hero video, and navigation citadel.',
+      description: 'Hero telemetry, primary system modules, and architecture index.',
       route: '/',
-      icon: <Crown size={15} className="text-[var(--gold)]" />,
-      keywords: ['home', 'houses', 'landing', 'realm', 'seven kingdoms'],
+      icon: <Terminal size={15} className="text-[var(--cyan)]" />,
+      keywords: ['home', 'root', 'landing', 'start', 'index'],
     },
     {
       id: 'page-about',
       title: 'About Sarthak Jalan',
       category: 'Page',
-      description: 'The Architect’s story, live GitHub campaign ledger, and background.',
+      description: 'Engineer profile, live GitHub telemetry stream, and technical background.',
       route: '/about',
-      icon: <Compass size={15} className="text-[var(--gold)]" />,
+      icon: <User size={15} className="text-[var(--cyan)]" />,
       keywords: ['about', 'bio', 'who', 'sarthak', 'github', 'story'],
     },
     {
       id: 'page-experience',
-      title: 'House Lannister · Experience',
+      title: 'Experience Log · Work History',
       category: 'Page',
-      description: 'Weatherford AI/ML engineering, Collabify.ai, and production ledgers.',
+      description: 'Weatherford AI/ML engineering, Collabify.ai, and production deployments.',
       route: '/experience',
-      icon: <Shield size={15} className="text-[#d4a84b]" />,
-      keywords: ['experience', 'work', 'job', 'weatherford', 'collabify', 'lannister'],
+      icon: <Briefcase size={15} className="text-[var(--cyan)]" />,
+      keywords: ['experience', 'work', 'job', 'weatherford', 'collabify', 'career'],
     },
     {
       id: 'page-projects',
-      title: 'House Targaryen · Projects Armory',
+      title: 'Projects Matrix · Applications',
       category: 'Page',
-      description: 'Forged AI platforms, MedTech diagnostics, and clinical triage.',
+      description: 'Production AI platforms, Edge MedTech diagnostics, and clinical triage.',
       route: '/projects',
-      icon: <Flame size={15} className="text-[#c0392b]" />,
-      keywords: ['projects', 'armory', 'targaryen', 'code', 'software'],
+      icon: <Layers size={15} className="text-[var(--cyan)]" />,
+      keywords: ['projects', 'apps', 'software', 'code', 'deployments'],
     },
     {
       id: 'page-skills',
-      title: 'House Baratheon · Skills & Arsenal',
+      title: 'Technical Skills · Capabilities',
       category: 'Page',
-      description: 'Machine Learning, Full-Stack MERN, Cloud architectures, and tools.',
+      description: 'Machine Learning, Full-Stack MERN, Cloud architectures, and toolchains.',
       route: '/skills',
-      icon: <Shield size={15} className="text-[#c99700]" />,
-      keywords: ['skills', 'arsenal', 'tech stack', 'python', 'react', 'baratheon'],
+      icon: <Cpu size={15} className="text-[var(--cyan)]" />,
+      keywords: ['skills', 'arsenal', 'tech stack', 'python', 'react', 'typescript'],
     },
     {
       id: 'page-notes',
-      title: 'The Maester’s Notes · Technical Scrolls',
+      title: 'Technical Notes · Engineering Articles',
       category: 'Page',
-      description: 'Deep dives on TFLite quantization, 60/40 affective fusion, and MERN.',
+      description: 'Deep dives on TFLite quantization, 60/40 affective fusion, and distributed MERN.',
       route: '/notes',
-      icon: <Scroll size={15} className="text-[#9aa5b1]" />,
-      keywords: ['notes', 'blog', 'writing', 'articles', 'scrolls', 'citadel', 'maester'],
+      icon: <BookOpen size={15} className="text-[var(--cyan)]" />,
+      keywords: ['notes', 'blog', 'writing', 'articles', 'engineering', 'research'],
     },
     {
       id: 'page-character-sheet',
-      title: 'RPG Character Sheet (Easter Egg)',
+      title: 'System Stat Sheet (Easter Egg)',
       category: 'Page',
-      description: 'Downloadable character card with Sarthak’s attributes, feats, and stats.',
+      description: 'Engineering attributes, skills matrix, and capability stats.',
       route: '/character-sheet',
-      icon: <Scroll size={15} className="text-[var(--gold)]" />,
-      keywords: ['rpg', 'character', 'sheet', 'stats', 'easter egg', 'download', 'game'],
+      icon: <FileText size={15} className="text-[var(--cyan)]" />,
+      keywords: ['rpg', 'character', 'sheet', 'stats', 'easter egg', 'attributes'],
     },
     {
       id: 'page-education',
-      title: 'The Citadel · Education',
+      title: 'Academic Records · Education',
       category: 'Page',
-      description: 'Vellore Institute of Technology (VIT) CSE curriculum and academics.',
+      description: 'Vellore Institute of Technology (VIT) CSE curriculum and credentials.',
       route: '/education',
-      icon: <BookOpen size={15} className="text-[#8e9aaf]" />,
-      keywords: ['education', 'college', 'vit', 'degree', 'citadel', 'studies'],
+      icon: <BookOpen size={15} className="text-[var(--cyan)]" />,
+      keywords: ['education', 'college', 'vit', 'degree', 'academics'],
     },
     {
       id: 'page-certifications',
-      title: 'House Greyjoy · Certifications & Oaths',
+      title: 'Certifications · Verified Credentials',
       category: 'Page',
       description: 'AWS Cloud, Google Cloud, Deep Learning, and Postman honors.',
       route: '/certifications',
-      icon: <Shield size={15} className="text-[#1b7a82]" />,
-      keywords: ['certifications', 'aws', 'cloud', 'oaths', 'greyjoy', 'credentials'],
+      icon: <Award size={15} className="text-[var(--cyan)]" />,
+      keywords: ['certifications', 'aws', 'cloud', 'credentials', 'licenses'],
     },
     {
       id: 'page-achievements',
-      title: 'House Tyrell · Achievements & Banners',
+      title: 'Achievements · Benchmarks & Honors',
       category: 'Page',
-      description: 'LeetCode 1550+, Hack the Spring Finalist, Flipkart GRiD 6.0.',
+      description: 'LeetCode 1550+, Hack the Spring Finalist, Flipkart GRiD 6.0 Top 10%.',
       route: '/achievements',
-      icon: <Crown size={15} className="text-[#5a9e48]" />,
-      keywords: ['achievements', 'leetcode', 'hackathon', 'awards', 'tyrell', 'honors'],
+      icon: <Trophy size={15} className="text-[var(--cyan)]" />,
+      keywords: ['achievements', 'leetcode', 'hackathon', 'awards', 'rank'],
     },
     {
       id: 'page-contact',
-      title: 'House Stark · Send a Raven (Contact)',
+      title: 'Contact Terminal · Transmission Uplink',
       category: 'Page',
-      description: 'Dispatch messages directly to Sarthak via electronic raven.',
+      description: 'Dispatch messages directly to Sarthak via secure communication terminal.',
       route: '/contact',
-      icon: <Send size={15} className="text-[#708090]" />,
-      keywords: ['contact', 'email', 'raven', 'message', 'stark', 'reach'],
+      icon: <Send size={15} className="text-[var(--cyan)]" />,
+      keywords: ['contact', 'email', 'message', 'reach', 'connect'],
     },
 
     // Case Studies
@@ -181,7 +183,7 @@ export const CommandPalette: React.FC = () => {
       category: 'Case Study',
       description: 'On-device TFLite neural risk assessment with sub-115ms latency.',
       route: '/projects/oral-cancer-medtech',
-      icon: <Flame size={15} className="text-[#c0392b]" />,
+      icon: <Layers size={15} className="text-[var(--magenta)]" />,
       keywords: ['oral cancer', 'tflite', 'django', 'supabase', 'healthtech', 'medtech'],
     },
     {
@@ -190,7 +192,7 @@ export const CommandPalette: React.FC = () => {
       category: 'Case Study',
       description: 'Intelligent medical conversational assistant and ML doctor triage.',
       route: '/projects/vitalvision',
-      icon: <Flame size={15} className="text-[#c0392b]" />,
+      icon: <Layers size={15} className="text-[var(--magenta)]" />,
       keywords: ['vitalvision', 'triage', 'doctor', 'hospital', 'pytorch', 'firebase'],
     },
     {
@@ -199,82 +201,82 @@ export const CommandPalette: React.FC = () => {
       category: 'Case Study',
       description: '60/40 acoustic-visual affective multimodal distress perception.',
       route: '/projects/serenity',
-      icon: <Flame size={15} className="text-[#c0392b]" />,
+      icon: <Layers size={15} className="text-[var(--magenta)]" />,
       keywords: ['serenity', 'multimodal', 'emotion', 'therapy', 'gemini', 'deepgram'],
     },
 
-    // Scrolls / Notes
+    // Notes
     {
       id: 'note-tflite',
-      title: 'Scroll: Optimizing TFLite for Edge Diagnostics',
-      category: 'Maester Scroll',
+      title: 'Note: Optimizing TFLite for Edge Diagnostics',
+      category: 'Technical Note',
       description: 'Quantizing neural weights to sub-5MB for zero cloud latency.',
       route: '/notes/optimizing-tflite-edge-inference',
-      icon: <Scroll size={15} className="text-[var(--gold)]" />,
-      keywords: ['tflite', 'quantization', 'mobile', 'edge ai', 'note', 'scroll'],
+      icon: <FileText size={15} className="text-[var(--cyan)]" />,
+      keywords: ['tflite', 'quantization', 'mobile', 'edge ai', 'note'],
     },
     {
       id: 'note-affective',
-      title: 'Scroll: Calibrating 60/40 Multimodal Affective Fusion',
-      category: 'Maester Scroll',
+      title: 'Note: Calibrating 60/40 Multimodal Affective Fusion',
+      category: 'Technical Note',
       description: 'Weighting vocal acoustics against facial affect in therapeutic AI.',
       route: '/notes/multimodal-affective-fusion-60-40',
-      icon: <Scroll size={15} className="text-[var(--gold)]" />,
-      keywords: ['multimodal', 'fusion', 'affective', '60/40', 'gemini', 'scroll'],
+      icon: <FileText size={15} className="text-[var(--cyan)]" />,
+      keywords: ['multimodal', 'fusion', 'affective', '60/40', 'gemini'],
     },
     {
       id: 'note-mern',
-      title: 'Scroll: Architectural Patterns for MERN Services',
-      category: 'Maester Scroll',
+      title: 'Note: Architectural Patterns for MERN Services',
+      category: 'Technical Note',
       description: 'Connection pooling, ESR indexing, and Redis workers in Node.js.',
       route: '/notes/scaling-mern-microservices-westeros',
-      icon: <Scroll size={15} className="text-[var(--gold)]" />,
-      keywords: ['mern', 'node', 'mongodb', 'redis', 'scaling', 'scroll'],
+      icon: <FileText size={15} className="text-[var(--cyan)]" />,
+      keywords: ['mern', 'node', 'mongodb', 'redis', 'scaling'],
     },
 
     // Quick Actions
     {
       id: 'action-resume',
-      title: 'Procure Valyrian Resume (PDF)',
+      title: 'Download Resume Dossier (PDF)',
       category: 'Action',
-      description: 'Download Sarthak’s official curriculum vitae parchment.',
+      description: 'Download Sarthak Jalan’s complete technical curriculum vitae.',
       action: () => {
         window.open('/resume/sarthak_resume.pdf', '_blank');
       },
-      icon: <FileText size={15} className="text-[var(--gold)]" />,
+      icon: <FileText size={15} className="text-[var(--cyan)]" />,
       keywords: ['resume', 'cv', 'pdf', 'download', 'curriculum vitae'],
     },
     {
       id: 'action-github',
-      title: 'Inspect GitHub Battlefield',
+      title: 'Inspect GitHub Repositories',
       category: 'Action',
       description: 'View public open source code, repositories, and commits.',
       action: () => {
         window.open('https://github.com/sarthakjalan05', '_blank');
       },
-      icon: <Github size={15} className="text-[var(--parchment)]" />,
+      icon: <Github size={15} className="text-[var(--text)]" />,
       keywords: ['github', 'code', 'git', 'repo', 'open source'],
     },
     {
       id: 'action-linkedin',
-      title: 'Connect on LinkedIn Guild',
+      title: 'Connect on LinkedIn',
       category: 'Action',
-      description: 'Professional networking and recommendations ledger.',
+      description: 'Professional networking and recommendations profile.',
       action: () => {
         window.open('https://www.linkedin.com/in/sarthak-jalan-7685a7285/', '_blank');
       },
-      icon: <Linkedin size={15} className="text-[#5dade2]" />,
+      icon: <Linkedin size={15} className="text-[var(--cyan)]" />,
       keywords: ['linkedin', 'social', 'network', 'profile'],
     },
     {
       id: 'action-email',
-      title: 'Dispatch Email Raven Directly',
+      title: 'Send Direct Email',
       category: 'Action',
-      description: 'Send electronic dispatch to sarthakjalan05@gmail.com',
+      description: 'Direct dispatch to sarthakjalan06@gmail.com',
       action: () => {
-        window.location.href = 'mailto:sarthakjalan05@gmail.com';
+        window.location.href = 'mailto:sarthakjalan06@gmail.com';
       },
-      icon: <Send size={15} className="text-[var(--gold-light)]" />,
+      icon: <Send size={15} className="text-[var(--cyan)]" />,
       keywords: ['email', 'mail', 'write', 'message'],
     },
   ];
@@ -330,26 +332,26 @@ export const CommandPalette: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-[9999] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/85 backdrop-blur-md animate-fade-in"
       onClick={() => setIsOpen(false)}
       role="dialog"
       aria-modal="true"
-      aria-label="Send a Raven Command Palette"
+      aria-label="Command Terminal Palette"
     >
       <div
-        className="realm-card relative w-full max-w-2xl bg-[#0e0a07] border border-[var(--gold)]/60 shadow-[0_0_50px_rgba(201,168,76,0.25)] overflow-hidden flex flex-col"
+        className="realm-card relative w-full max-w-2xl bg-[#0d1017] border border-[rgba(0,240,255,0.45)] shadow-[0_0_50px_rgba(0,240,255,0.2)] overflow-hidden flex flex-col rounded"
         style={{ maxHeight: 'calc(100vh - 120px)' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Corner Ornaments */}
-        <span className="corner corner-tl" />
-        <span className="corner corner-tr" />
-        <span className="corner corner-bl" />
-        <span className="corner corner-br" />
+        <span className="corner corner-tl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-tr" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-bl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-br" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
 
         {/* Input Bar */}
-        <div className="relative flex items-center gap-3 px-5 py-4 border-b border-[var(--gold-dim)]/40 bg-[#140e0a]">
-          <Search size={18} className="text-[var(--gold)] shrink-0" />
+        <div className="relative flex items-center gap-3 px-5 py-4 border-b border-[rgba(0,240,255,0.2)] bg-[#07080c]">
+          <Search size={18} className="text-[var(--cyan)] shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -359,21 +361,21 @@ export const CommandPalette: React.FC = () => {
               setSelectedIndex(0);
             }}
             onKeyDown={handleInputKeyDown}
-            placeholder="Send a Raven — Search houses, scrolls, projects, or deeds..."
-            className="w-full bg-transparent text-[var(--parchment)] placeholder-[var(--ash)]/70 text-sm sm:text-base font-cinzel outline-none tracking-wide"
-            aria-label="Search the realm"
+            placeholder="SYS://SEARCH — Execute command, jump to page, or filter projects..."
+            className="w-full bg-transparent text-[var(--text)] placeholder-[var(--text-muted)] text-sm sm:text-base font-chakra outline-none tracking-wide"
+            aria-label="Search system modules"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="text-[var(--ash)] hover:text-[var(--parchment)] text-xs p-1"
+              className="text-[var(--text-muted)] hover:text-white text-xs p-1"
             >
               Clear
             </button>
           )}
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 text-[var(--ash)] hover:text-[var(--parchment)] transition-colors"
+            className="p-1 text-[var(--text-muted)] hover:text-white transition-colors"
             aria-label="Close command palette"
           >
             <X size={18} />
@@ -381,14 +383,14 @@ export const CommandPalette: React.FC = () => {
         </div>
 
         {/* Results List */}
-        <div ref={listRef} className="overflow-y-auto p-2 divide-y divide-[var(--gold-dim)]/15">
+        <div ref={listRef} className="overflow-y-auto p-2 divide-y divide-[rgba(0,240,255,0.08)]">
           {filtered.length === 0 ? (
             <div className="p-8 text-center">
-              <p className="font-cinzel text-xs uppercase tracking-widest text-[var(--gold-dim)]">
-                No ravens found matching &quot;{query}&quot;
+              <p className="font-chakra text-xs uppercase tracking-widest text-[var(--cyan)]">
+                No commands found matching &quot;{query}&quot;
               </p>
-              <p className="font-garamond text-xs text-[var(--ash)] mt-1">
-                Try searching for &quot;Projects&quot;, &quot;Notes&quot;, &quot;Resume&quot;, or &quot;MedTech&quot;.
+              <p className="font-space text-xs text-[var(--text-muted)] mt-1">
+                Try searching for &quot;Projects&quot;, &quot;Experience&quot;, &quot;Resume&quot;, or &quot;Skills&quot;.
               </p>
             </div>
           ) : (
@@ -400,26 +402,26 @@ export const CommandPalette: React.FC = () => {
                   data-selected={isSelected}
                   onMouseEnter={() => setSelectedIndex(idx)}
                   onClick={() => handleSelect(item)}
-                  className={`flex items-center justify-between gap-3 p-3.5 rounded-sm cursor-pointer transition-colors ${
+                  className={`flex items-center justify-between gap-3 p-3 rounded cursor-pointer transition-colors ${
                     isSelected
-                      ? 'bg-[var(--gold)]/15 border-l-2 border-[var(--gold)] text-[var(--parchment)]'
-                      : 'text-[var(--ash)] hover:bg-[#18120c] hover:text-[var(--parchment)]'
+                      ? 'bg-[rgba(0,240,255,0.12)] border-l-2 border-[var(--cyan)] text-[var(--text)]'
+                      : 'text-[var(--text-muted)] hover:bg-[#07080c] hover:text-[var(--text)]'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="p-2 rounded bg-[#1a140e] border border-[var(--gold-dim)]/40 shrink-0">
+                    <div className="p-2 rounded bg-[#07080c] border border-[rgba(0,240,255,0.25)] shrink-0">
                       {item.icon}
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-cinzel text-xs sm:text-sm font-bold text-[var(--parchment)] truncate">
+                        <span className="font-chakra text-xs sm:text-sm font-bold text-[var(--text)] truncate">
                           {item.title}
                         </span>
-                        <span className="font-cinzel text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#201812] border border-[var(--gold-dim)]/30 text-[var(--gold-light)] shrink-0">
+                        <span className="font-chakra text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#07080c] border border-[rgba(0,240,255,0.25)] text-[var(--cyan)] shrink-0">
                           {item.category}
                         </span>
                       </div>
-                      <p className="font-garamond text-xs text-[var(--ash)] truncate mt-0.5">
+                      <p className="font-space text-xs text-[var(--text-muted)] truncate mt-0.5">
                         {item.description}
                       </p>
                     </div>
@@ -427,9 +429,9 @@ export const CommandPalette: React.FC = () => {
 
                   <div className="flex items-center gap-2 shrink-0">
                     {item.action ? (
-                      <ExternalLink size={13} className="text-[var(--gold-dim)]" />
+                      <ExternalLink size={13} className="text-[var(--cyan)]" />
                     ) : (
-                      <ArrowRight size={13} className="text-[var(--gold-dim)]" />
+                      <ArrowRight size={13} className="text-[var(--cyan)]" />
                     )}
                   </div>
                 </div>
@@ -439,32 +441,32 @@ export const CommandPalette: React.FC = () => {
         </div>
 
         {/* Footer shortcuts hint */}
-        <div className="px-4 py-2.5 bg-[#090604] border-t border-[var(--gold-dim)]/30 flex items-center justify-between text-[10px] font-cinzel text-[var(--ash)]">
+        <div className="px-4 py-2.5 bg-[#07080c] border-t border-[rgba(0,240,255,0.2)] flex items-center justify-between text-[10px] font-chakra text-[var(--text-muted)]">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[#1a140e] border border-[var(--gold-dim)]/30 rounded text-[var(--gold)]">
+              <kbd className="px-1.5 py-0.5 bg-[#0d1017] border border-[rgba(0,240,255,0.3)] rounded text-[var(--cyan)]">
                 ↑
               </kbd>
-              <kbd className="px-1.5 py-0.5 bg-[#1a140e] border border-[var(--gold-dim)]/30 rounded text-[var(--gold)]">
+              <kbd className="px-1.5 py-0.5 bg-[#0d1017] border border-[rgba(0,240,255,0.3)] rounded text-[var(--cyan)]">
                 ↓
               </kbd>
               <span>Navigate</span>
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[#1a140e] border border-[var(--gold-dim)]/30 rounded text-[var(--gold)]">
+              <kbd className="px-1.5 py-0.5 bg-[#0d1017] border border-[rgba(0,240,255,0.3)] rounded text-[var(--cyan)]">
                 ↵
               </kbd>
-              <span>Select</span>
+              <span>Execute</span>
             </span>
             <span className="hidden sm:inline-flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[#1a140e] border border-[var(--gold-dim)]/30 rounded text-[var(--gold)]">
+              <kbd className="px-1.5 py-0.5 bg-[#0d1017] border border-[rgba(0,240,255,0.3)] rounded text-[var(--cyan)]">
                 ESC
               </kbd>
               <span>Dismiss</span>
             </span>
           </div>
 
-          <span className="text-[var(--gold-dim)]">The Realm Search</span>
+          <span className="text-[var(--cyan)] tracking-wider">SYS://CMD_NAV</span>
         </div>
       </div>
     </div>

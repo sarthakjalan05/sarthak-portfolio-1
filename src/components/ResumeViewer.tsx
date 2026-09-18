@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Scroll, Download, ExternalLink, RotateCw, ShieldCheck } from 'lucide-react';
+import { FileText, Download, ExternalLink, RotateCw, ShieldCheck } from 'lucide-react';
 import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 interface ResumeViewerProps {
   accent?: string;
 }
 
-export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = '#8fafc4' }) => {
+export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = 'var(--cyan)' }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -26,7 +26,6 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = '#8fafc4' }
     setIsRefreshing(true);
     setReloadKey((prev) => prev + 1);
 
-    // If iframe element exists, directly refresh its source to bypass cache
     if (iframeRef.current) {
       const currentSrc = iframeRef.current.src.split('&t=')[0];
       iframeRef.current.src = `${currentSrc}&t=${Date.now()}`;
@@ -41,8 +40,8 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = '#8fafc4' }
 
   return (
     <div
-      className="fade-up realm-card p-5 sm:p-7 md:p-8 border bg-[#0d121a]/95 backdrop-blur-md relative shadow-[0_0_50px_rgba(0,0,0,0.85)]"
-      style={{ '--accent': accent, borderColor: 'rgba(143, 175, 196, 0.4)' } as React.CSSProperties}
+      className="fade-up realm-card p-5 sm:p-7 md:p-8 border bg-[#0d1017]/95 backdrop-blur-md relative shadow-[0_0_50px_rgba(0,0,0,0.85)] rounded"
+      style={{ '--accent': accent, borderColor: 'rgba(0, 240, 255, 0.35)' } as React.CSSProperties}
       data-delay="100"
     >
       {/* Corner brackets */}
@@ -53,119 +52,109 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({ accent = '#8fafc4' }
 
       {/* Header Info */}
       <div
-        className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-5"
-        style={{
-          borderBottom: `1px solid color-mix(in srgb, ${accent} 25%, transparent)`,
-        }}
+        className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-5 border-b border-[rgba(0,240,255,0.2)]"
       >
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <Scroll size={18} style={{ color: accent }} />
-            <span className="font-cinzel text-[10px] tracking-[0.3em] uppercase text-[#8fafc4] font-semibold">
-              Grand Maester's Ledger
+            <FileText size={16} style={{ color: accent }} />
+            <span className="font-chakra text-[10px] tracking-[0.3em] uppercase text-[var(--cyan)] font-semibold">
+              SYS://RESUME.VIEWER
             </span>
           </div>
-          <h2 className="font-cinzel-dec text-xl sm:text-2xl font-bold text-[var(--parchment)]">
-            The Official Scroll (Resume)
+          <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-[var(--text)]">
+            Technical Resume Dossier
           </h2>
-          <p className="font-garamond text-sm sm:text-base text-[var(--ash)] leading-[1.7] mt-1">
-            Archival parchment chronicling technical campaigns, production platforms, and engineering masteries.
+          <p className="font-space text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed mt-1">
+            Complete dossier chronicling production engineering, AI model architectures, and distributed systems.
           </p>
         </div>
 
         {/* Control Bar */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0 pt-1 md:pt-0">
-          {/* Open in New Tab Button */}
           <a
             href={RESUME_PATH}
             target="_blank"
             rel="noopener noreferrer"
-            className="got-cta-ghost min-h-[38px] px-3.5 py-1.5 text-xs flex items-center gap-1.5 transition-all duration-300 hover:shadow-[0_0_15px_rgba(143,175,196,0.3)]"
-            style={{ borderColor: 'rgba(143, 175, 196, 0.45)', color: accent }}
-            aria-label="Open Resume Scroll in New Tab"
+            className="cyber-ghost min-h-[38px] px-3.5 py-1.5 text-xs flex items-center gap-1.5 transition-all"
+            style={{ borderColor: 'rgba(0, 240, 255, 0.4)', color: 'var(--text)' }}
+            aria-label="Open Resume in New Tab"
           >
             <ExternalLink size={13} className="shrink-0" />
             <span>Open in New Tab</span>
           </a>
 
-          {/* Download PDF Button */}
           <a
             href={RESUME_PATH}
             download={RESUME_FILENAME}
-            className="got-cta-btn min-h-[38px] px-3.5 py-1.5 text-xs flex items-center gap-1.5 transition-all duration-300"
-            style={{ background: accent, color: '#050403' }}
-            aria-label="Download Sarthak Jalan Resume Scroll PDF"
+            className="got-cta-btn min-h-[38px] px-3.5 py-1.5 text-xs flex items-center gap-1.5 transition-all"
+            style={{ background: accent, color: '#07080c' }}
+            aria-label="Download Sarthak Jalan Resume PDF"
           >
             <Download size={13} className="shrink-0" />
             <span>Download PDF</span>
           </a>
 
-          {/* Refresh/Reload Button (Only on desktop/iframe view) */}
           {!isMobile && (
             <button
               type="button"
               onClick={handleRefresh}
-              className="min-h-[38px] min-w-[38px] p-2 border border-[#223042] bg-[#111a26] text-[var(--ash)] hover:text-[var(--parchment)] hover:border-[#8fafc4] hover:shadow-[0_0_15px_rgba(143,175,196,0.25)] flex items-center justify-center transition-all duration-300 cursor-pointer"
-              title="Reload Ledger Scroll"
-              aria-label="Reload Ledger Scroll"
+              className="min-h-[38px] min-w-[38px] p-2 border border-[rgba(0,240,255,0.3)] bg-[#07080c] text-[var(--text-muted)] hover:text-white hover:border-[var(--cyan)] flex items-center justify-center transition-all cursor-pointer rounded"
+              title="Reload Resume View"
+              aria-label="Reload Resume View"
             >
-              <RotateCw size={14} className={isRefreshing ? 'animate-spin text-[#8fafc4]' : ''} />
+              <RotateCw size={14} className={isRefreshing ? 'animate-spin text-[var(--cyan)]' : ''} />
             </button>
           )}
         </div>
       </div>
 
-      {/* Viewer Chamber: Desktop Embedded IFrame vs Mobile Fallback Card */}
+      {/* Viewer Chamber */}
       {!isMobile ? (
-        <div className="relative border border-[#223042] bg-[#070b10] overflow-hidden shadow-inner">
-          {/* Subtle Top Status Bar */}
-          <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#0e1622] border-b border-[#1f2d3d] text-[10px] font-cinzel text-[var(--ash)]">
+        <div className="relative border border-[rgba(0,240,255,0.25)] bg-[#07080c] overflow-hidden rounded">
+          <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#0d1017] border-b border-[rgba(0,240,255,0.2)] text-[10px] font-chakra text-[var(--text-muted)]">
             <div className="flex items-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#8fafc4] shadow-[0_0_8px_#8fafc4]" />
-              <span className="tracking-wider uppercase">ARCHIVAL MANUSCRIPT · INLINE PREVIEW</span>
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--cyan)] shadow-[0_0_8px_var(--cyan)]" />
+              <span className="tracking-wider uppercase">SYS://LIVE_PDF_PREVIEW</span>
             </div>
-            <span className="tracking-widest opacity-60">OLDTOWN SEAL VALIDATED</span>
+            <span className="tracking-widest opacity-80">VERIFIED_CHECKSUM_OK</span>
           </div>
 
-          {/* PDF Viewer Iframe */}
           <iframe
             ref={iframeRef}
             key={reloadKey}
             src={iframeSrc}
-            title="Sarthak Jalan Official Resume Scroll"
-            className="w-full h-[540px] sm:h-[620px] lg:h-[680px] border-0 bg-[#0c0d10]"
+            title="Sarthak Jalan Official Resume"
+            className="w-full h-[680px] bg-[#07080c] border-none"
+            loading="lazy"
           />
         </div>
       ) : (
-        /* Mobile Fallback Chamber */
-        <div className="p-6 sm:p-8 border border-[#223042] bg-[#0c131c] text-center">
-          <div className="w-14 h-14 mx-auto rounded-full border border-[#354b66] flex items-center justify-center mb-4 bg-[#111a26] text-[#8fafc4]">
-            <ShieldCheck size={26} />
+        <div className="p-6 border border-[rgba(0,240,255,0.25)] bg-[#07080c] text-center rounded">
+          <div className="w-12 h-12 mx-auto mb-3 rounded border border-[var(--cyan-dim)] flex items-center justify-center text-[var(--cyan)] bg-[#0d1017]">
+            <ShieldCheck size={24} />
           </div>
-          <h3 className="font-cinzel-dec text-base font-bold text-[var(--parchment)] mb-2">
-            Archival Parchment Available
+          <h3 className="font-orbitron text-base font-bold text-[var(--text)] mb-2">
+            Mobile Document Interface
           </h3>
-          <p className="font-garamond text-sm text-[var(--ash)] max-w-md mx-auto mb-5 leading-[1.75]">
-            The Grand Maester's ledger is formatted for royal desk displays. For the clearest reading experience on handheld scrolls, open directly in a dedicated tab or download the file.
+          <p className="font-space text-xs text-[var(--text-muted)] leading-relaxed max-w-md mx-auto mb-5">
+            To view high-resolution typographic formatting and complete layout on smaller screens, launch the PDF directly.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-sm mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
               href={RESUME_PATH}
               target="_blank"
               rel="noopener noreferrer"
-              className="got-cta-ghost w-full justify-center min-h-[44px] text-xs flex items-center gap-2"
-              style={{ borderColor: 'rgba(143, 175, 196, 0.45)', color: accent }}
+              className="got-cta-btn w-full sm:w-auto text-xs py-2.5 px-5 flex items-center justify-center gap-2"
+              style={{ background: accent, color: '#07080c' }}
             >
               <ExternalLink size={14} />
-              <span>Open in New Tab</span>
+              <span>Open PDF in Tab</span>
             </a>
-
             <a
               href={RESUME_PATH}
               download={RESUME_FILENAME}
-              className="got-cta-btn w-full justify-center min-h-[44px] text-xs flex items-center gap-2"
-              style={{ background: accent, color: '#050403' }}
+              className="cyber-ghost w-full sm:w-auto text-xs py-2.5 px-5 flex items-center justify-center gap-2"
+              style={{ borderColor: 'rgba(0, 240, 255, 0.4)', color: 'var(--text)' }}
             >
               <Download size={14} />
               <span>Download PDF</span>

@@ -8,7 +8,7 @@ import {
   ShieldAlert,
   RotateCw,
   Clock,
-  Sparkles,
+  Terminal,
   Layers,
 } from 'lucide-react';
 
@@ -51,18 +51,18 @@ export const GitHubActivity: React.FC = () => {
       });
 
       if (!res.ok) {
-        throw new Error(`GitHub ledger returned status ${res.status}`);
+        throw new Error(`GitHub API returned status ${res.status}`);
       }
 
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
-        setEvents(data.slice(0, 6)); // Display top 6 recent maneuvers
+        setEvents(data.slice(0, 6));
       } else {
         setEvents([]);
       }
-    } catch (err: unknown) {
+    } catch {
       setError(
-        'The Citadel ravens report the GitHub archive ledger is currently resting under public rate limits.'
+        'GitHub telemetry stream reached unauthenticated rate limits. View repositories directly on GitHub.'
       );
     } finally {
       setLoading(false);
@@ -100,9 +100,9 @@ export const GitHubActivity: React.FC = () => {
     switch (event.type) {
       case 'PushEvent': {
         const commitCount = event.payload.commits?.length || 1;
-        const firstMessage = event.payload.commits?.[0]?.message || 'Code forged and committed';
+        const firstMessage = event.payload.commits?.[0]?.message || 'Code pushed to repository';
         return {
-          icon: <GitCommit size={16} className="text-[#ffde7a]" />,
+          icon: <GitCommit size={15} className="text-[var(--cyan)]" />,
           title: `Pushed ${commitCount} commit${commitCount > 1 ? 's' : ''} to ${repoName}`,
           description: firstMessage.split('\n')[0],
           tag: 'Commit',
@@ -111,37 +111,37 @@ export const GitHubActivity: React.FC = () => {
       }
       case 'PullRequestEvent': {
         return {
-          icon: <GitPullRequest size={16} className="text-[#99e6ff]" />,
+          icon: <GitPullRequest size={15} className="text-[var(--magenta)]" />,
           title: `${event.payload.action === 'opened' ? 'Opened' : 'Merged'} PR in ${repoName}`,
-          description: event.payload.pull_request?.title || 'System contribution merged',
+          description: event.payload.pull_request?.title || 'Pull request update',
           tag: 'Pull Request',
           url: event.payload.pull_request?.html_url || cleanRepoUrl,
         };
       }
       case 'CreateEvent': {
         return {
-          icon: <GitBranch size={16} className="text-[#7aff9e]" />,
-          title: `Created ${event.payload.ref_type || 'repository'} in ${repoName}`,
-          description: event.payload.ref ? `Branch / Tag: ${event.payload.ref}` : 'New repository initialized',
+          icon: <GitBranch size={15} className="text-[#00ff88]" />,
+          title: `Created ${event.payload.ref_type || 'ref'} in ${repoName}`,
+          description: event.payload.ref ? `Branch / Tag: ${event.payload.ref}` : 'Initialized repository',
           tag: 'Created',
           url: cleanRepoUrl,
         };
       }
       case 'WatchEvent': {
         return {
-          icon: <Star size={16} className="text-[var(--gold)]" />,
+          icon: <Star size={15} className="text-[var(--amber)]" />,
           title: `Starred repository ${repoName}`,
-          description: 'Recognized masterwork in open source realm',
+          description: 'Starred open-source project',
           tag: 'Starred',
           url: cleanRepoUrl,
         };
       }
       default: {
         return {
-          icon: <Layers size={16} className="text-[var(--gold-dim)]" />,
-          title: `Activity recorded in ${repoName}`,
+          icon: <Layers size={15} className="text-[var(--cyan-dim)]" />,
+          title: `Activity in ${repoName}`,
           description: `Action: ${event.type.replace('Event', '')}`,
-          tag: 'Action',
+          tag: 'Activity',
           url: cleanRepoUrl,
         };
       }
@@ -152,12 +152,12 @@ export const GitHubActivity: React.FC = () => {
     <div className="fade-up w-full mt-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div>
-          <h3 className="font-cinzel text-xs tracking-[0.35em] text-[var(--gold)] uppercase font-semibold flex items-center gap-2">
-            <Sparkles size={14} className="text-[var(--gold)]" />
-            <span>Live Campaign Ledger · GitHub Activity</span>
+          <h3 className="font-chakra text-xs tracking-[0.3em] text-[var(--cyan)] uppercase font-semibold flex items-center gap-2">
+            <Terminal size={14} className="text-[var(--cyan)]" />
+            <span>SYS://GITHUB.ACTIVITY_STREAM</span>
           </h3>
-          <p className="font-garamond text-xs text-[var(--ash)] mt-0.5">
-            Synchronized directly from Sarthak&apos;s public open-source battleground.
+          <p className="font-space text-xs text-[var(--text-muted)] mt-0.5">
+            Real-time public events polled from Sarthak&apos;s open-source GitHub account.
           </p>
         </div>
 
@@ -165,7 +165,7 @@ export const GitHubActivity: React.FC = () => {
           href="https://github.com/sarthakjalan05"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-cinzel text-[11px] uppercase tracking-wider text-[var(--gold-light)] hover:text-[var(--gold)] inline-flex items-center gap-1.5 transition-colors"
+          className="font-chakra text-xs uppercase tracking-wider text-[var(--cyan)] hover:text-white inline-flex items-center gap-1.5 transition-colors"
         >
           <span>@sarthakjalan05</span>
           <ExternalLink size={12} />
@@ -173,43 +173,44 @@ export const GitHubActivity: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="p-8 border border-[var(--gold-dim)]/30 bg-[#0e0a07] text-center">
-          <div className="inline-block animate-spin text-[var(--gold)] mb-3">
+        <div className="p-8 border border-[rgba(0,240,255,0.2)] bg-[#0d1017] text-center rounded">
+          <div className="inline-block animate-spin text-[var(--cyan)] mb-3">
             <RotateCw size={22} />
           </div>
-          <p className="font-cinzel text-xs uppercase tracking-widest text-[var(--parchment)]">
-            Dispatching Ravens to GitHub Ledger...
+          <p className="font-chakra text-xs uppercase tracking-widest text-[var(--text-muted)]">
+            Polling GitHub Telemetry Feed...
           </p>
         </div>
       ) : error || events.length === 0 ? (
-        <div className="realm-card relative p-6 sm:p-8 border border-[rgba(201,168,76,0.35)] bg-[#120d09]/90 text-center">
-          <span className="corner corner-tl" />
-          <span className="corner corner-br" />
-          <div className="w-12 h-12 rounded-full mx-auto border border-[var(--gold-dim)] flex items-center justify-center bg-[#1a130c] text-[var(--gold)] mb-3">
+        <div className="realm-card relative p-6 sm:p-8 border border-[rgba(0,240,255,0.25)] bg-[#0d1017]/90 text-center rounded">
+          <span className="corner corner-tl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+          <span className="corner corner-br" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+          <div className="w-12 h-12 rounded mx-auto border border-[var(--cyan-dim)] flex items-center justify-center bg-[#07080c] text-[var(--cyan)] mb-3">
             <ShieldAlert size={22} />
           </div>
-          <h4 className="font-cinzel-dec text-base font-bold text-[var(--parchment)] mb-2">
-            Public Raven Quota Resting
+          <h4 className="font-orbitron text-sm sm:text-base font-bold text-[var(--text)] mb-2">
+            GitHub Telemetry Standby
           </h4>
-          <p className="font-garamond text-sm text-[var(--ash)] max-w-md mx-auto mb-5 leading-relaxed">
-            {error ||
-              'Public activity records are momentarily guarded by API limits. All maneuvers are live and inspectable on GitHub.'}
+          <p className="font-space text-xs sm:text-sm text-[var(--text-muted)] max-w-md mx-auto mb-5 leading-relaxed">
+            {error || 'Telemetry events currently resting. All repositories and commit histories are public on GitHub.'}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={fetchActivity}
-              className="got-cta-ghost text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer"
+              className="cyber-ghost text-xs py-2 px-4 inline-flex items-center gap-2 cursor-pointer rounded"
+              style={{ borderColor: 'rgba(0, 240, 255, 0.4)', color: 'var(--text)' }}
             >
               <RotateCw size={12} />
-              <span>Retry Raven</span>
+              <span>Retry Query</span>
             </button>
             <a
               href="https://github.com/sarthakjalan05"
               target="_blank"
               rel="noopener noreferrer"
-              className="got-cta-btn text-xs py-2 px-5 inline-flex items-center gap-2"
+              className="got-cta-btn text-xs py-2 px-5 inline-flex items-center gap-2 rounded"
+              style={{ background: 'var(--cyan)', color: '#07080c' }}
             >
-              <span>Inspect Battlefield</span>
+              <span>Launch GitHub Profile</span>
               <ExternalLink size={12} />
             </a>
           </div>
@@ -224,39 +225,39 @@ export const GitHubActivity: React.FC = () => {
                 href={details.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="realm-card relative p-4 sm:p-5 border border-[rgba(201,168,76,0.25)] bg-[#120d09]/90 hover:border-[var(--gold)] flex flex-col justify-between group transition-all"
+                className="realm-card relative p-4 sm:p-5 border border-[rgba(0,240,255,0.2)] bg-[#0d1017]/95 hover:border-[var(--cyan)] flex flex-col justify-between group transition-all rounded"
               >
-                <span className="corner corner-tl" />
-                <span className="corner corner-br" />
+                <span className="corner corner-tl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+                <span className="corner corner-br" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
 
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 rounded bg-[#1a140d] border border-[var(--gold-dim)]/40">
+                      <div className="p-1.5 rounded bg-[#07080c] border border-[rgba(0,240,255,0.25)]">
                         {details.icon}
                       </div>
-                      <span className="font-cinzel text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[var(--gold)]/10 text-[var(--gold-light)] border border-[var(--gold-dim)]/30">
+                      <span className="font-chakra text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[#07080c] text-[var(--cyan)] border border-[rgba(0,240,255,0.25)] rounded">
                         {details.tag}
                       </span>
                     </div>
 
-                    <span className="flex items-center gap-1 font-cinzel text-[10px] text-[var(--ash)]">
+                    <span className="flex items-center gap-1 font-space text-[10px] text-[var(--text-muted)]">
                       <Clock size={11} />
                       {getRelativeTime(ev.created_at)}
                     </span>
                   </div>
 
-                  <h5 className="font-cinzel text-xs font-semibold text-[var(--parchment)] group-hover:text-[var(--gold-light)] transition-colors mb-1 line-clamp-1">
+                  <h5 className="font-orbitron text-xs font-semibold text-[var(--text)] group-hover:text-[var(--cyan)] transition-colors mb-1 line-clamp-1">
                     {details.title}
                   </h5>
 
-                  <p className="font-garamond text-xs text-[var(--ash)] line-clamp-2 leading-relaxed">
+                  <p className="font-space text-xs text-[var(--text-muted)] line-clamp-2 leading-relaxed">
                     {details.description}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2 border-t border-[rgba(201,168,76,0.15)] flex items-center justify-between text-[10px] font-cinzel text-[var(--gold-dim)] group-hover:text-[var(--gold)]">
-                  <span>Inspect Commit / PR</span>
+                <div className="mt-3 pt-2 border-t border-[rgba(0,240,255,0.12)] flex items-center justify-between text-[10px] font-chakra text-[var(--cyan)] group-hover:text-white">
+                  <span>View on GitHub</span>
                   <ExternalLink size={11} />
                 </div>
               </a>

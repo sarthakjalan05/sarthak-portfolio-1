@@ -15,19 +15,18 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   icon,
   heading,
   body,
-  ctaText = 'Return to the Realm',
+  ctaText = 'Return to System Root',
   ctaLink = '/',
   onCtaClick,
-  accentColor = '#5ca0d3', // Night's Watch / Wall frost blue default
+  accentColor = 'var(--cyan)',
 }) => {
   return (
     <div
-      className="fade-up realm-card relative flex flex-col items-center justify-center text-center p-6 sm:p-10 md:p-14 border max-w-2xl mx-auto my-8 overflow-hidden"
+      className="fade-up realm-card relative flex flex-col items-center justify-center text-center p-6 sm:p-10 md:p-14 border max-w-2xl mx-auto my-8 overflow-hidden rounded bg-[#0d1017]/95"
       style={{
         '--accent': accentColor,
-        borderColor: `color-mix(in srgb, ${accentColor} 30%, transparent)`,
-        background: `radial-gradient(ellipse 80% 80% at 50% 50%, color-mix(in srgb, ${accentColor} 8%, #050403) 0%, #050403 100%)`,
-        boxShadow: `0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px color-mix(in srgb, ${accentColor} 12%, transparent)`,
+        borderColor: `rgba(0, 240, 255, 0.3)`,
+        boxShadow: `0 0 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 240, 255, 0.1)`,
       } as React.CSSProperties}
     >
       {/* Corner brackets */}
@@ -36,31 +35,23 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       <span className="corner corner-bl" style={{ '--accent': accentColor } as React.CSSProperties} />
       <span className="corner corner-br" style={{ '--accent': accentColor } as React.CSSProperties} />
 
-      {/* Decorative Top Rune & Line */}
+      {/* Decorative Top Line */}
       <div className="flex items-center gap-3 mb-6">
         <span
-          className="h-px w-16"
-          style={{ background: `linear-gradient(to right, transparent, ${accentColor})` }}
+          className="h-px w-16 bg-gradient-to-r from-transparent to-[var(--cyan)]"
         />
-        <span className="text-xl" style={{ color: accentColor }}>
-          ❄
+        <span className="text-xs font-chakra text-[var(--cyan)] tracking-widest uppercase">
+          SYS://STANDBY
         </span>
         <span
-          className="h-px w-16"
-          style={{ background: `linear-gradient(to left, transparent, ${accentColor})` }}
+          className="h-px w-16 bg-gradient-to-l from-transparent to-[var(--cyan)]"
         />
       </div>
 
       {/* Icon slot */}
       {icon && (
         <div
-          className="mb-5 p-4 rounded-full border flex items-center justify-center"
-          style={{
-            borderColor: `color-mix(in srgb, ${accentColor} 40%, transparent)`,
-            background: `rgba(10, 7, 5, 0.7)`,
-            color: accentColor,
-            boxShadow: `0 0 25px color-mix(in srgb, ${accentColor} 25%, transparent)`,
-          }}
+          className="mb-5 p-4 rounded border border-[rgba(0,240,255,0.3)] bg-[#07080c] flex items-center justify-center text-[var(--cyan)] shadow-[0_0_20px_rgba(0,240,255,0.2)]"
         >
           {icon}
         </div>
@@ -68,42 +59,34 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 
       {/* Heading */}
       <h2
-        className="font-cinzel-dec text-2xl md:text-4xl font-bold tracking-wide mb-4"
-        style={{ color: 'var(--parchment)', textShadow: '0 2px 20px rgba(0,0,0,0.9)' }}
+        className="font-orbitron text-xl sm:text-2xl md:text-3xl font-bold tracking-wider mb-4 text-[var(--text)]"
       >
         {heading}
       </h2>
 
-      {/* Divider */}
-      <div className="got-divider max-w-xs mb-6">
-        <div
-          className="got-divider-line"
-          style={{ background: `linear-gradient(to right, transparent, ${accentColor})` }}
-        />
-        <div className="got-divider-diamond" style={{ background: accentColor }} />
-        <div
-          className="got-divider-line right"
-          style={{ background: `linear-gradient(to left, transparent, ${accentColor})` }}
-        />
-      </div>
+      <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--cyan)] to-transparent mb-6" />
 
       {/* Body text */}
-      <p className="font-garamond text-base md:text-lg text-[#c8bfb0] max-w-lg mb-8 leading-[1.75]">
+      <p className="font-space text-xs sm:text-sm text-[var(--text-muted)] max-w-lg mb-8 leading-relaxed">
         {body}
       </p>
 
       {/* CTA Button */}
       {ctaLink ? (
-        <Link to={ctaLink} className="got-cta-btn min-h-[44px]" style={{ background: accentColor, color: '#050403' }}>
-          <span>⚔</span> {ctaText}
+        <Link
+          to={ctaLink}
+          className="got-cta-btn min-h-[44px] px-8 py-2.5 font-chakra text-xs tracking-wider uppercase font-bold rounded shadow-[0_0_20px_rgba(0,240,255,0.25)]"
+          style={{ background: 'var(--cyan)', color: '#07080c' }}
+        >
+          {ctaText}
         </Link>
       ) : onCtaClick ? (
         <button
           onClick={onCtaClick}
-          className="got-cta-btn min-h-[44px]"
-          style={{ background: accentColor, color: '#050403' }}
+          className="got-cta-btn min-h-[44px] px-8 py-2.5 font-chakra text-xs tracking-wider uppercase font-bold rounded shadow-[0_0_20px_rgba(0,240,255,0.25)] cursor-pointer"
+          style={{ background: 'var(--cyan)', color: '#07080c' }}
         >
-          <span>⚔</span> {ctaText}
+          {ctaText}
         </button>
       ) : null}
     </div>

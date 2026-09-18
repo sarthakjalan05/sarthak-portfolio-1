@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IM+Fell+English:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 *,
@@ -10,66 +10,102 @@
 }
 
 :root {
-  --gold:       #c9a84c;
-  --gold-light: #e8c97a;
-  --gold-dim:   #7a6130;
-  --blood:      #8b1a1a;
-  --parchment:  #f5e6c8;
-  --ash:        #c8bfb0;
-  --ink:        #0a0705;
-  --white-mist: rgba(245, 230, 200, 0.88);
-  --ease-realm: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Cyberpunk / Neon Sci-Fi Tokens */
+  --bg:          #07080c;
+  --bg-panel:    #0d1017;
+  --cyan:        #00f0ff;
+  --cyan-dim:    #0a7a82;
+  --magenta:     #ff2bd6;
+  --magenta-dim: #7a1466;
+  --amber:       #ffb800;  /* reserve for small alert/highlight accents only, not general use */
+  --text:        #e8f4ff;
+  --text-muted:  #7d8fa9;
+
+  /* Font Families */
+  --font-title: 'Orbitron', sans-serif;
+  --font-ui:    'Chakra Petch', monospace, sans-serif;
+  --font-body:  'Space Grotesk', sans-serif;
+
+  /* Backward Compatibility Mappings for Existing Components */
+  --accent:      var(--cyan);
+  --accent-dim:  var(--cyan-dim);
+  --gold:        var(--cyan);
+  --gold-light:  #7df9ff;
+  --gold-dim:    var(--cyan-dim);
+  --blood:       var(--magenta);
+  --parchment:   var(--text);
+  --ash:         var(--text-muted);
+  --ink:         var(--bg);
+  --white-mist:  rgba(232, 244, 255, 0.88);
+  --ease-realm:  cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Standardized Page Header Rhythm Tokens */
-  --header-gap-eyebrow: 24px;
-  --header-gap-sigil:   32px;
-  --header-gap-title:   32px;
-  --header-gap-motto:   36px;
-  --header-gap-bottom:  80px;
+  --header-gap-eyebrow: 16px;
+  --header-gap-sigil:   24px;
+  --header-gap-title:   24px;
+  --header-gap-motto:   28px;
+  --header-gap-bottom:  64px;
 }
 
 @media (max-width: 640px) {
   :root {
-    --header-gap-eyebrow: 16px;
-    --header-gap-sigil:   20px;
-    --header-gap-title:   24px;
-    --header-gap-motto:   28px;
-    --header-gap-bottom:  60px;
+    --header-gap-eyebrow: 12px;
+    --header-gap-sigil:   16px;
+    --header-gap-title:   18px;
+    --header-gap-motto:   20px;
+    --header-gap-bottom:  48px;
   }
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #050403;
-  color: var(--parchment);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 body {
-  background: #050403;
-  color: var(--ash);
-  font-family: 'EB Garamond', serif;
-  line-height: 1.75;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  line-height: 1.65;
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
 }
 
 /* ── Typography Classes ── */
+.font-orbitron {
+  font-family: var(--font-title);
+  letter-spacing: 0.04em;
+}
+
+.font-chakra {
+  font-family: var(--font-ui);
+}
+
+.font-space {
+  font-family: var(--font-body);
+}
+
+/* Compatibility aliases mapped to the new typography hierarchy */
 .font-cinzel-dec {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: var(--font-title);
+  letter-spacing: 0.04em;
 }
 
 .font-cinzel {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-ui);
+  letter-spacing: 0.12em;
 }
 
 .font-fell {
-  font-family: 'IM Fell English', serif;
+  font-family: var(--font-body);
+  font-style: normal;
 }
 
 .font-garamond {
-  font-family: 'EB Garamond', serif;
-  line-height: 1.75;
+  font-family: var(--font-body);
+  line-height: 1.65;
 }
 
 /* ── Global Scrollbar ── */
@@ -77,37 +113,68 @@ body {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #050403;
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold-dim);
+  background: var(--cyan-dim);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
 }
 
-/* ── Shared Overlays ── */
-.got-grain {
+/* ── Atmospheric Background: Animated Cyber Grid & Radial Glow ── */
+@keyframes cyber-grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes cyber-pulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: scale(1.06);
+  }
+}
+
+.got-grain,
+.cyber-grid,
+.realm-bg-texture,
+.section1-bg-texture,
+.got-grain-local {
   position: fixed;
   inset: 0;
-  z-index: 99;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.055;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(to right, rgba(0, 240, 255, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.4) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: cyber-grid-drift 35s linear infinite;
 }
 
-.got-vignette {
+.got-vignette,
+.realm-bg-vignette,
+.section1-bg-vignette {
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(5, 4, 3, 0.88) 100%);
   pointer-events: none;
-  z-index: 98;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 30%, rgba(0, 240, 255, 0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 80% at 50% 50%, transparent 35%, rgba(7, 8, 12, 0.88) 100%);
 }
 
-/* ── Diamond-Flanked Dividers ── */
+/* ── Neon Line Dividers with Glowing Center Pulse ── */
 .got-divider,
 .house-divider {
   display: flex;
@@ -123,11 +190,11 @@ body {
 .divider-line {
   flex: 1 1 0%;
   width: 100%;
-  max-width: 60px;
+  max-width: 65px;
   height: 1px;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--accent, var(--gold)) 65%, transparent));
+  background: linear-gradient(to right, transparent, var(--accent, var(--cyan)));
 }
 
 .got-divider-line:last-of-type,
@@ -136,34 +203,39 @@ body {
 .divider-line.right {
   flex: 1 1 0%;
   width: 100%;
-  max-width: 60px;
+  max-width: 65px;
   height: 1px;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to left, transparent, color-mix(in srgb, var(--accent, var(--gold)) 65%, transparent));
+  background: linear-gradient(to left, transparent, var(--accent, var(--cyan)));
 }
 
 .got-divider-diamond,
-.divider-diamond {
-  width: 6px;
-  height: 6px;
+.divider-diamond,
+.divider-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
   margin: 0;
   padding: 0;
-  background: var(--accent, var(--gold));
-  transform: rotate(45deg);
+  background: var(--accent, var(--cyan));
+  box-shadow: 0 0 8px var(--accent, var(--cyan)), 0 0 14px var(--accent, var(--cyan));
   flex-shrink: 0;
 }
 
-/* ── Angled Buttons ── */
+/* ── Cyberpunk Buttons ── */
+.cyber-btn,
 .got-cta-btn {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-ui);
   font-size: 11px;
-  letter-spacing: 0.3em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ink);
-  background: var(--gold);
-  border: none;
-  padding: 13px 28px;
+  color: #07080c !important;
+  background: var(--cyan);
+  border: 1px solid var(--cyan);
+  border-radius: 2px;
+  padding: 11px 24px;
   min-height: 44px;
   cursor: pointer;
   position: relative;
@@ -173,30 +245,30 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-weight: 600;
-  transition: background 0.3s var(--ease-realm),
-              color 0.3s var(--ease-realm),
-              transform 0.25s var(--ease-realm),
-              box-shadow 0.3s var(--ease-realm);
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: all 0.25s ease;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
   touch-action: manipulation;
 }
 
+.cyber-btn:hover,
 .got-cta-btn:hover {
-  background: var(--gold-light);
-  box-shadow: 0 0 24px rgba(201, 168, 76, 0.45);
+  background: #52f6ff;
+  box-shadow: 0 0 26px rgba(0, 240, 255, 0.75);
   transform: translateY(-2px);
 }
 
+.cyber-ghost,
 .got-cta-ghost {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-ui);
   font-size: 11px;
-  letter-spacing: 0.3em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
-  background: transparent;
-  border: 1px solid var(--gold-dim);
-  padding: 12px 26px;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.04);
+  border: 1px solid var(--cyan-dim);
+  border-radius: 2px;
+  padding: 11px 22px;
   min-height: 44px;
   cursor: pointer;
   text-decoration: none;
@@ -204,76 +276,119 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-weight: 600;
-  transition: border-color 0.3s var(--ease-realm),
-              color 0.3s var(--ease-realm),
-              background 0.3s var(--ease-realm),
-              transform 0.25s var(--ease-realm),
-              box-shadow 0.3s var(--ease-realm);
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: all 0.25s ease;
   touch-action: manipulation;
 }
 
+.cyber-ghost:hover,
 .got-cta-ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold-light);
-  background: rgba(201, 168, 76, 0.12);
-  box-shadow: 0 0 20px rgba(201, 168, 76, 0.25);
+  border-color: var(--cyan);
+  color: #ffffff;
+  background: rgba(0, 240, 255, 0.14);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
   transform: translateY(-2px);
 }
 
-/* ── Corner Ornaments for Cards ── */
+/* ── HUD Corner Brackets (Targeting Reticle Style) ── */
 .corner {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   pointer-events: none;
   z-index: 4;
-  opacity: 0.45;
-  transition: opacity 0.3s var(--ease-realm), border-color 0.3s var(--ease-realm);
+  opacity: 0.75;
+  transition: all 0.3s ease;
 }
 
-.corner::before,
-.corner::after {
-  content: '';
-  position: absolute;
-  background: var(--accent, var(--gold));
+.corner-tl {
+  top: 8px;
+  left: 8px;
+  border-top: 2px solid var(--accent, var(--cyan));
+  border-left: 2px solid var(--accent, var(--cyan));
 }
-.corner::before { width: 100%; height: 1px; top: 0; left: 0; }
-.corner::after  { width: 1px; height: 100%; top: 0; left: 0; }
 
-.corner-tl { top: 10px; left: 10px; }
-.corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
-.corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
-.corner-br { bottom: 10px; right: 10px; transform: scale(-1); }
+.corner-tr {
+  top: 8px;
+  right: 8px;
+  border-top: 2px solid var(--accent, var(--cyan));
+  border-right: 2px solid var(--accent, var(--cyan));
+}
 
-/* ── Standard Realm Card Interactive Base ── */
+.corner-bl {
+  bottom: 8px;
+  left: 8px;
+  border-bottom: 2px solid var(--accent, var(--cyan));
+  border-left: 2px solid var(--accent, var(--cyan));
+}
+
+.corner-br {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 2px solid var(--accent, var(--cyan));
+  border-right: 2px solid var(--accent, var(--cyan));
+}
+
+/* ── Cyber Panel / Realm Card Base ── */
 .realm-card {
   position: relative;
-  transition: transform 0.4s var(--ease-realm),
-              border-color 0.4s ease,
-              box-shadow 0.4s ease,
-              background-color 0.4s ease;
+  background: var(--bg-panel);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 4px;
+  transition: transform 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
 }
 
 .realm-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 0 1px var(--accent, var(--gold)) inset,
-              0 14px 45px rgba(0, 0, 0, 0.85),
-              0 0 45px color-mix(in srgb, var(--accent, var(--gold)) 25%, transparent);
-  border-color: var(--accent, var(--gold)) !important;
+  transform: translateY(-3px);
+  border-color: var(--accent, var(--cyan)) !important;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent, var(--cyan)) 35%, transparent),
+              0 14px 40px rgba(0, 0, 0, 0.85);
 }
 
 .realm-card:hover .corner {
-  opacity: 0.85;
+  opacity: 1;
+  box-shadow: 0 0 10px var(--accent, var(--cyan));
+}
+
+/* ── Title Glitch Entrance Animation ── */
+@keyframes title-glitch {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) skewX(0deg);
+  }
+  25% {
+    opacity: 0.85;
+    transform: translateY(4px) skewX(-2.5deg);
+    text-shadow: -2px 0 var(--cyan), 2px 0 var(--magenta);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateY(-1px) skewX(1.5deg);
+    text-shadow: 2px 0 var(--cyan), -2px 0 var(--magenta);
+  }
+  75% {
+    opacity: 1;
+    transform: skewX(0deg);
+    text-shadow: -1px 0 var(--cyan), 1px 0 var(--cyan-dim);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    text-shadow: 0 0 24px rgba(0, 240, 255, 0.25);
+  }
+}
+
+.title-glitch-entrance {
+  animation: title-glitch 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ── IntersectionObserver Fade Up ── */
 .fade-up {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.75s var(--ease-realm),
-              transform 0.75s var(--ease-realm);
+  transform: translateY(20px);
+  transition: opacity 0.65s var(--ease-realm),
+              transform 0.65s var(--ease-realm);
   will-change: opacity, transform;
 }
 
@@ -282,11 +397,11 @@ body {
   transform: translateY(0);
 }
 
-/* ── Keyboard Focus Outline for Accessibility (All Interactive Elements) ── */
+/* ── Keyboard Focus Outline for Accessibility ── */
 :focus-visible {
-  outline: 2px solid var(--gold) !important;
+  outline: 2px solid var(--cyan) !important;
   outline-offset: 3px !important;
-  box-shadow: 0 0 14px rgba(201, 168, 76, 0.6) !important;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.7) !important;
 }
 
 /* ── Page Container Base ── */
@@ -294,95 +409,69 @@ body {
   position: relative;
   width: 100%;
   min-height: calc(100vh - 80px);
-  padding: 140px 32px 120px;
+  padding: 130px 32px 110px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 @media (max-width: 1024px) {
   .realm-page {
-    padding: 120px 28px 100px;
+    padding: 110px 24px 90px;
   }
 }
 
 @media (max-width: 768px) {
   .realm-page {
-    padding: 100px 20px 80px;
+    padding: 95px 18px 75px;
   }
 }
 
 @media (max-width: 375px) {
   .realm-page {
-    padding: 90px 16px 70px;
+    padding: 85px 14px 65px;
   }
 }
 
 /* ── Reduced Motion Accessibility ── */
 @media (prefers-reduced-motion: reduce) {
-  .fade-up {
+  .fade-up,
+  .title-glitch-entrance {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    animation: none !important;
   }
   .realm-card,
   .house-card,
   .got-cta-btn,
-  .got-cta-ghost {
+  .got-cta-ghost,
+  .cyber-btn,
+  .cyber-ghost {
     transition: none !important;
     transform: none !important;
   }
-}
-
-/* ── Atmospheric Page Background Layers ── */
-.realm-bg-texture {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 220px;
-  pointer-events: none;
-}
-
-.realm-bg-vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 85% 85% at 50% 35%,
-    color-mix(in srgb, var(--accent, var(--gold)) 11%, transparent) 0%,
-    color-mix(in srgb, var(--accent, var(--gold)) 3%, transparent) 42%,
-    rgba(5, 4, 3, 0.78) 75%,
-    #050403 100%
-  );
+  .cyber-grid,
+  .got-grain {
+    animation: none !important;
+  }
 }
 
 /* ── View Transitions API (Route Crossfades) ── */
 @media not (prefers-reduced-motion: reduce) {
   ::view-transition-old(root) {
-    animation: 200ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-out;
+    animation: 180ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-out;
   }
   ::view-transition-new(root) {
-    animation: 200ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-in;
+    animation: 180ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-in;
   }
 }
 
 @keyframes vt-fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 @keyframes vt-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-

@@ -17,7 +17,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   title,
   titleEm,
   subtitle,
-  accent = 'var(--gold)',
+  accent = 'var(--cyan)',
   sigilRune = '✦',
   motto,
 }) => {
@@ -37,68 +37,72 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         width: '100%',
       }}
     >
-      {/* 0. Plain-English Section Identifier for universal clarity */}
-      {sectionLabel && (
-        <div className="flex items-center justify-center mb-3.5">
+      {/* 0. Monospace System Eyebrow Tag */}
+      <div className="flex items-center justify-center mb-3">
+        <span
+          className="inline-flex items-center gap-2 px-3 py-1 rounded text-[11px] sm:text-xs font-chakra font-semibold tracking-[0.25em] uppercase border select-none"
+          style={{
+            color: accent,
+            borderColor: `color-mix(in srgb, ${accent} 40%, transparent)`,
+            backgroundColor: 'rgba(13, 16, 23, 0.85)',
+            boxShadow: `0 0 14px color-mix(in srgb, ${accent} 15%, transparent)`,
+          }}
+        >
           <span
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-cinzel font-semibold tracking-[0.25em] uppercase border select-none"
+            className="w-1.5 h-1.5 rounded-full animate-pulse"
             style={{
-              color: accent,
-              borderColor: `color-mix(in srgb, ${accent} 40%, transparent)`,
-              backgroundColor: `color-mix(in srgb, ${accent} 8%, #080604)`,
-              boxShadow: `0 0 14px color-mix(in srgb, ${accent} 12%, transparent)`,
+              backgroundColor: accent,
+              boxShadow: `0 0 6px ${accent}`,
             }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{
-                backgroundColor: accent,
-                boxShadow: `0 0 6px ${accent}`,
-              }}
-            />
-            {sectionLabel}
-          </span>
-        </div>
+          />
+          {eyebrow.startsWith('SYS://') ? eyebrow : `SYS://${eyebrow.toUpperCase()}`}
+        </span>
+      </div>
+
+      {/* 1. Optional Sub-category or Section Tag */}
+      {sectionLabel && (
+        <p
+          className="font-chakra text-[10px] sm:text-xs uppercase tracking-[0.35em] mb-3"
+          style={{ color: 'var(--text-muted)' }}
+        >
+          {sectionLabel}
+        </p>
       )}
 
-      {/* 1. House / Seat Eyebrow Label */}
-      <p
-        className="font-cinzel text-[10px] sm:text-xs uppercase tracking-[0.45em]"
-        style={{ color: accent, marginBottom: 'var(--header-gap-eyebrow)' }}
-      >
-        {eyebrow}
-      </p>
-
-      {/* 2. Sigil Flanked Ornament */}
+      {/* 2. Cyber Neon Divider with Glowing Center Dot */}
       <div
         className="flex items-center justify-center gap-4"
         style={{ marginBottom: 'var(--header-gap-sigil)' }}
       >
         <span
-          className="block w-16 sm:w-24 h-px"
+          className="block w-16 sm:w-28 h-px"
           style={{ background: `linear-gradient(to right, transparent, ${accent})` }}
         />
         <span
-          className="text-base sm:text-lg"
-          style={{ color: accent, filter: `drop-shadow(0 0 8px ${accent})` }}
-        >
-          {sigilRune}
-        </span>
+          className="w-2 h-2 rounded-full"
+          style={{
+            backgroundColor: accent,
+            boxShadow: `0 0 10px ${accent}`,
+          }}
+        />
         <span
-          className="block w-16 sm:w-24 h-px"
+          className="block w-16 sm:w-28 h-px"
           style={{ background: `linear-gradient(to left, transparent, ${accent})` }}
         />
       </div>
 
-      {/* 3. Main Title */}
+      {/* 3. Major Page Title with Glitch Entrance Effect */}
       <h1
-        className="font-cinzel-dec text-[clamp(26px,4.8vw,56px)] font-bold text-[var(--parchment)] tracking-wide leading-[1.15]"
-        style={{ marginBottom: 'var(--header-gap-title)' }}
+        className="title-glitch-entrance font-orbitron text-[clamp(28px,5vw,54px)] font-extrabold text-[var(--text)] tracking-wider leading-[1.12]"
+        style={{
+          marginBottom: 'var(--header-gap-title)',
+          textShadow: `0 0 30px color-mix(in srgb, ${accent} 35%, transparent)`,
+        }}
       >
-        {title} {titleEm && <em className="font-fell italic font-normal" style={{ color: accent }}>{titleEm}</em>}
+        {title} {titleEm && <span style={{ color: accent }}>{titleEm}</span>}
       </h1>
 
-      {/* 4. House Motto Quote & Symmetrically Centered Divider */}
+      {/* 4. Technical Tagline & Divider */}
       {cleanedMotto && (
         <div
           className="w-full flex flex-col items-center justify-center text-center mx-auto"
@@ -112,15 +116,14 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           }}
         >
           <span
-            className="font-cinzel-dec text-base sm:text-lg md:text-xl uppercase block text-center"
+            className="font-chakra text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase block text-center"
             style={{
               color: accent,
-              textShadow: `0 0 20px color-mix(in srgb, ${accent} 40%, transparent)`,
-              letterSpacing: '0.12em',
+              textShadow: `0 0 14px color-mix(in srgb, ${accent} 40%, transparent)`,
               margin: '0 auto',
             }}
           >
-            "{cleanedMotto}"
+            {cleanedMotto}
           </span>
           <div
             className="flex items-center justify-center gap-3 mt-2.5 mx-auto"
@@ -130,60 +133,39 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
               justifyContent: 'center',
               gap: '12px',
               width: 'auto',
-              margin: '10px auto 0 auto',
+              margin: '8px auto 0 auto',
             }}
           >
             <span
               className="divider-line"
               style={{
                 display: 'block',
-                width: '56px',
-                minWidth: '56px',
-                maxWidth: '56px',
-                flex: '0 0 56px',
+                width: '50px',
                 height: '1px',
                 background: `linear-gradient(to right, transparent, ${accent})`,
-                margin: 0,
-                padding: 0,
               }}
             />
             <span
-              className="divider-diamond"
+              className="w-1.5 h-1.5 rounded-full"
               style={{
-                display: 'block',
-                width: '6px',
-                minWidth: '6px',
-                maxWidth: '6px',
-                height: '6px',
-                minHeight: '6px',
-                maxHeight: '6px',
-                flex: '0 0 6px',
                 background: accent,
-                transform: 'rotate(45deg)',
-                flexShrink: 0,
-                margin: 0,
-                padding: 0,
+                boxShadow: `0 0 8px ${accent}`,
               }}
             />
             <span
               className="divider-line right"
               style={{
                 display: 'block',
-                width: '56px',
-                minWidth: '56px',
-                maxWidth: '56px',
-                flex: '0 0 56px',
+                width: '50px',
                 height: '1px',
                 background: `linear-gradient(to left, transparent, ${accent})`,
-                margin: 0,
-                padding: 0,
               }}
             />
           </div>
         </div>
       )}
 
-      {/* 5. Subtitle / Body Copy */}
+      {/* 5. Subtitle / Summary Description */}
       <div
         className="w-full flex justify-center items-center text-center mx-auto"
         style={{
@@ -195,7 +177,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         }}
       >
         <p
-          className="font-fell italic text-[clamp(15px,1.8vw,20px)] text-[var(--ash)] leading-relaxed px-4 text-center"
+          className="font-space text-[clamp(15px,1.5vw,18px)] text-[var(--text-muted)] leading-relaxed px-4 text-center"
           style={{
             maxWidth: '680px',
             width: '100%',

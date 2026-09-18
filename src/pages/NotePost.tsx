@@ -2,11 +2,11 @@ import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import { NOTES } from '../data/notes';
-import { Calendar, Clock, ArrowLeft, Tag, Share2, BookOpen } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Tag, BookOpen, Terminal } from 'lucide-react';
 
 export const NotePost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const accent = '#9aa5b1'; // Citadel Silver
+  const accent = 'var(--cyan)';
 
   const note = NOTES.find((n) => n.slug === slug);
 
@@ -14,13 +14,12 @@ export const NotePost: React.FC = () => {
     return <Navigate to="/notes" replace />;
   }
 
-  // Parse markdown-like blocks cleanly without external bloat
+  // Parse markdown-like blocks
   const renderFormattedBody = (content: string) => {
     const lines = content.trim().split('\n');
     const elements: React.ReactNode[] = [];
     let inCodeBlock = false;
     let codeBlockLines: string[] = [];
-    let codeLanguage = '';
 
     lines.forEach((line, idx) => {
       if (line.trim().startsWith('```')) {
@@ -28,7 +27,7 @@ export const NotePost: React.FC = () => {
           elements.push(
             <pre
               key={`code-${idx}`}
-              className="p-4 sm:p-5 my-6 rounded bg-[#070503] border border-[rgba(201,168,76,0.3)] text-xs sm:text-sm font-mono text-[#f0e6d2] overflow-x-auto"
+              className="p-4 sm:p-5 my-6 rounded bg-[#07080c] border border-[rgba(0,240,255,0.3)] text-xs sm:text-sm font-mono text-[var(--cyan)] overflow-x-auto shadow-[inset_0_0_15px_rgba(0,0,0,0.8)]"
             >
               <code>{codeBlockLines.join('\n')}</code>
             </pre>
@@ -37,7 +36,6 @@ export const NotePost: React.FC = () => {
           inCodeBlock = false;
         } else {
           inCodeBlock = true;
-          codeLanguage = line.trim().replace('```', '');
         }
         return;
       }
@@ -51,7 +49,7 @@ export const NotePost: React.FC = () => {
         elements.push(
           <h3
             key={`h3-${idx}`}
-            className="font-cinzel-dec text-lg sm:text-xl md:text-2xl text-[var(--parchment)] font-bold mt-8 mb-3"
+            className="font-orbitron text-base sm:text-lg md:text-xl text-[var(--text)] font-bold mt-8 mb-3 tracking-wide"
           >
             {line.replace('### ', '')}
           </h3>
@@ -63,7 +61,7 @@ export const NotePost: React.FC = () => {
         elements.push(
           <blockquote
             key={`quote-${idx}`}
-            className="border-l-2 border-[var(--gold)] pl-4 my-5 italic font-garamond text-lg text-[var(--parchment)]/90 bg-[var(--gold)]/5 py-2 pr-3"
+            className="border-l-2 border-[var(--cyan)] pl-4 my-5 font-space text-sm sm:text-base text-[var(--text)]/90 bg-[rgba(0,240,255,0.06)] py-2.5 pr-3 rounded-r"
           >
             {line.replace('> ', '')}
           </blockquote>
@@ -75,7 +73,7 @@ export const NotePost: React.FC = () => {
         elements.push(
           <li
             key={`li-${idx}`}
-            className="font-garamond text-base sm:text-lg text-[var(--ash)] ml-6 list-disc mb-2"
+            className="font-space text-xs sm:text-sm text-[var(--text-muted)] ml-6 list-disc mb-2"
           >
             {line.replace('- ', '')}
           </li>
@@ -87,7 +85,7 @@ export const NotePost: React.FC = () => {
         elements.push(
           <p
             key={`p-${idx}`}
-            className="font-garamond text-base sm:text-lg text-[var(--ash)] leading-[1.85] mb-4"
+            className="font-space text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed mb-4"
           >
             {line}
           </p>
@@ -103,56 +101,53 @@ export const NotePost: React.FC = () => {
       className="realm-page relative overflow-hidden"
       style={{ '--accent': accent } as React.CSSProperties}
     >
-      {/* Atmospheric Background Layers */}
+      {/* Background Texture & Vignette */}
       <div className="realm-bg-texture" />
       <div className="realm-bg-vignette" />
 
       {/* Breadcrumb Bar */}
-      <div className="relative z-10 max-w-4xl mx-auto mb-6 px-2">
+      <div className="relative z-10 max-w-4xl mx-auto mb-6 px-4">
         <Link
           to="/notes"
-          className="inline-flex items-center gap-2 font-cinzel text-xs uppercase tracking-widest text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors py-2"
+          className="inline-flex items-center gap-2 font-chakra text-xs uppercase tracking-wider text-[var(--cyan)] hover:text-white transition-colors py-2"
         >
           <ArrowLeft size={14} />
-          <span>Return to All Notes</span>
+          <span>Return to All Technical Notes</span>
         </Link>
       </div>
 
       <PageHeader
-        sectionLabel="Maester's Note"
-        eyebrow="THE CITADEL · ARCHIVES OF OLDTOWN"
-        title="Dispatched"
-        titleEm="Scroll"
-        motto="Knowledge Is a Chain Unbroken"
+        sectionLabel="TECHNICAL DISPATCH"
+        eyebrow="SYS://RESEARCH.PAPER"
+        title="Technical"
+        titleEm="Analysis"
+        motto="Engineering dispatches on edge diagnostics, multimodal affective fusion, and distributed systems"
         subtitle={note.excerpt}
         accent={accent}
-        sigilRune="📜"
+        sigilRune="//"
       />
 
       {/* Main Post Article */}
-      <article className="relative z-10 max-w-4xl mx-auto px-2 sm:px-4">
+      <article className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
         <div
-          className="fade-up realm-card relative p-7 sm:p-12 border bg-[#0d0a07]/95 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.85)]"
-          style={{
-            borderColor: 'rgba(154, 165, 177, 0.4)',
-          }}
+          className="fade-up realm-card relative p-6 sm:p-10 md:p-12 border border-[rgba(0,240,255,0.25)] bg-[#0d1017]/95 backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.9)] rounded"
         >
-          {/* Corner Ornaments */}
+          {/* Corner HUD Brackets */}
           <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
           <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
           {/* Meta Header */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-[rgba(154,165,177,0.25)]">
-            <div className="flex items-center gap-4 text-xs font-cinzel text-[var(--gold-light)]">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b border-[rgba(0,240,255,0.15)]">
+            <div className="flex items-center gap-4 text-xs font-chakra text-[var(--cyan)]">
               <span className="flex items-center gap-2">
-                <Calendar size={15} className="text-[var(--gold)]" />
+                <Calendar size={14} className="text-[var(--cyan)]" />
                 {note.date}
               </span>
-              <span className="text-[var(--gold-dim)]">◆</span>
-              <span className="flex items-center gap-2 text-[var(--ash)]">
-                <Clock size={15} />
+              <span className="text-[var(--cyan-dim)]">/</span>
+              <span className="flex items-center gap-2 text-[var(--text-muted)] font-space">
+                <Clock size={14} />
                 {note.readingTime}
               </span>
             </div>
@@ -161,7 +156,7 @@ export const NotePost: React.FC = () => {
               {note.tags.map((t) => (
                 <span
                   key={t}
-                  className="text-[10px] font-cinzel uppercase px-2.5 py-1 bg-[#18130e] text-[var(--parchment)] border border-[rgba(154,165,177,0.3)]"
+                  className="text-[10px] font-chakra uppercase px-2.5 py-0.5 bg-[#07080c] text-[var(--cyan)] border border-[rgba(0,240,255,0.25)] rounded"
                 >
                   {t}
                 </span>
@@ -170,42 +165,38 @@ export const NotePost: React.FC = () => {
           </div>
 
           {/* Article Title */}
-          <h1 className="font-cinzel-dec text-2xl sm:text-3xl md:text-4xl text-[var(--parchment)] font-bold mb-6 leading-tight">
+          <h1 className="font-orbitron text-xl sm:text-2xl md:text-3xl text-[var(--text)] font-bold mb-6 leading-tight">
             {note.title}
           </h1>
 
-          <div className="got-divider mb-8" style={{ justifyContent: 'flex-start' }}>
-            <span className="got-divider-line" style={{ maxWidth: '60px', background: `linear-gradient(to right, transparent, ${accent})` }} />
-            <span className="got-divider-diamond" style={{ background: accent }} />
-            <span className="got-divider-line right" style={{ maxWidth: '60px', background: `linear-gradient(to left, transparent, ${accent})` }} />
-          </div>
+          <div className="h-px bg-gradient-to-r from-[var(--cyan)] via-[var(--cyan-dim)] to-transparent mb-8" />
 
           {/* Formatted Body */}
-          <div className="article-body font-garamond">{renderFormattedBody(note.body)}</div>
+          <div className="article-body font-space">{renderFormattedBody(note.body)}</div>
 
           {/* Author Sign-off */}
-          <div className="mt-12 pt-8 border-t border-[rgba(154,165,177,0.25)] flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="mt-12 pt-6 border-t border-[rgba(0,240,255,0.15)] flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
-              <span className="font-cinzel text-[10px] uppercase tracking-[0.25em] text-[var(--gold)] font-semibold block mb-1">
-                Written &amp; Transcribed by
+              <span className="font-chakra text-[10px] uppercase tracking-wider text-[var(--cyan)] font-semibold block mb-1">
+                AUTHORED BY
               </span>
-              <h4 className="font-cinzel-dec text-lg font-bold text-[var(--parchment)]">
+              <h4 className="font-orbitron text-base font-bold text-[var(--text)]">
                 Sarthak Jalan
               </h4>
-              <p className="font-garamond text-xs text-[var(--ash)]">
-                Full-Stack Developer &amp; AI Engineer · Vellore Institute of Technology
+              <p className="font-space text-xs text-[var(--text-muted)]">
+                Full-Stack Developer &amp; AI Systems Engineer · Vellore Institute of Technology
               </p>
             </div>
 
             <Link
               to="/notes"
-              className="got-cta-ghost text-xs tracking-wider py-2.5 px-5 flex items-center gap-2"
+              className="cyber-ghost text-xs tracking-wider py-2 px-4 flex items-center gap-2 font-chakra font-semibold rounded"
               style={{
-                borderColor: 'rgba(154, 165, 177, 0.5)',
-                color: 'var(--parchment)',
+                borderColor: 'rgba(0, 240, 255, 0.35)',
+                color: 'var(--cyan)',
               }}
             >
-              <ArrowLeft size={14} />
+              <ArrowLeft size={13} />
               <span>Back to All Notes</span>
             </Link>
           </div>

@@ -1,22 +1,24 @@
-/* ── Section1 (House Cards Grid & Navigation) ── */
+/* ── Section1 (Modules / Systems Grid & Navigation) ── */
 
 .section1 {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background: #050403;
+  background: var(--bg);
   padding: 100px 48px 120px;
   overflow: hidden;
 }
 
-/* Background texture & vignette */
+/* Background grid & radial gradient */
 .section1-bg-texture {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 220px;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(to right, rgba(0, 240, 255, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.45) 1px, transparent 1px);
+  background-size: 50px 50px;
   pointer-events: none;
 }
 
@@ -24,7 +26,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(5, 4, 3, 0.75) 100%);
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(7, 8, 12, 0.88) 100%);
   pointer-events: none;
 }
 
@@ -33,16 +35,17 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 56px;
 }
 
 .section1-eyebrow {
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: 0.5em;
-  color: var(--gold);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--cyan);
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .header-ornament {
@@ -50,76 +53,75 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .ornament-line {
   display: block;
-  width: 80px;
+  width: 70px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201, 168, 76, 0.5));
+  background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.6));
 }
 
 .ornament-line:last-child {
-  background: linear-gradient(to left, transparent, rgba(201, 168, 76, 0.5));
+  background: linear-gradient(to left, transparent, rgba(0, 240, 255, 0.6));
 }
 
-.ornament-rune {
-  font-size: 14px;
-  color: var(--gold);
-  filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.7));
+.ornament-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
 }
 
 .section1-title {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(34px, 5.5vw, 72px);
-  font-weight: 700;
-  line-height: 1.05;
-  color: var(--parchment);
-  text-shadow: 0 0 60px rgba(201, 168, 76, 0.15), 0 4px 30px rgba(0, 0, 0, 0.9);
-  margin-bottom: 14px;
-  letter-spacing: 0.02em;
+  font-family: var(--font-title);
+  font-size: clamp(30px, 4.5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+  margin-bottom: 12px;
 }
 
 .section1-title em {
-  font-style: italic;
-  color: var(--gold);
-  font-family: 'IM Fell English', serif;
+  font-style: normal;
+  color: var(--cyan);
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
 }
 
 .section1-subtitle {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(16px, 1.6vw, 20px);
-  font-style: normal;
-  color: var(--ash);
-  letter-spacing: 0.02em;
-  line-height: 1.7;
-  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
-/* Houses grid */
+/* Modules grid */
 .houses-grid {
   position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Outer link wrapper to ensure semantics without breaking hover or click */
 .house-card-link {
   display: block;
   text-decoration: none;
   color: inherit;
   outline: none;
-  border-radius: 2px;
 }
 
 .house-card-link:focus-visible .house-card {
-  border-color: var(--gold-light);
-  box-shadow: 0 0 0 2px var(--gold-light);
+  border-color: var(--cyan);
+  box-shadow: 0 0 24px rgba(0, 240, 255, 0.6);
 }
 
 /* Card base */
@@ -129,20 +131,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  min-height: 420px;
-  padding: 32px 24px 36px;
-  border: 1px solid var(--border, #3a3020);
+  min-height: 390px;
+  padding: 30px 22px 32px;
+  border: 1px solid var(--border, rgba(0, 240, 255, 0.25));
+  border-radius: 4px;
   cursor: pointer;
   overflow: hidden;
 
   /* Entrance state */
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
+  transform: translateY(28px);
   transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .house-card.non-navigable {
@@ -151,25 +154,24 @@
 
 .house-card.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .house-card:hover {
-  border-color: var(--accent, var(--gold));
+  border-color: var(--accent, var(--cyan)) !important;
   box-shadow:
-    0 0 0 1px var(--accent, var(--gold)) inset,
-    0 0 40px rgba(0, 0, 0, 0.85),
-    0 0 60px color-mix(in srgb, var(--accent, var(--gold)) 15%, transparent);
+    0 0 25px color-mix(in srgb, var(--accent, var(--cyan)) 30%, transparent),
+    0 12px 40px rgba(0, 0, 0, 0.9);
   z-index: 3;
 }
 
-/* Card glow */
+/* Ambient card glow */
 .card-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 50% at 50% 30%, color-mix(in srgb, var(--accent) 10%, transparent), transparent);
+  background: radial-gradient(ellipse 70% 50% at 50% 25%, color-mix(in srgb, var(--accent, var(--cyan)) 12%, transparent), transparent);
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease;
   pointer-events: none;
   z-index: 1;
 }
@@ -178,14 +180,14 @@
   opacity: 1;
 }
 
-/* Sigil */
+/* Module Icon Frame */
 .house-sigil-wrap {
   position: absolute;
-  top: 28px;
+  top: 32px;
   left: 50%;
   transform: translateX(-50%);
-  width: 116px;
-  height: 116px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,63 +196,36 @@
   transform-style: preserve-3d;
 }
 
-.house-sigil-img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.7),
-    0 0 0 4px rgba(0, 0, 0, 0.4),
-    0 0 30px color-mix(in srgb, var(--accent) 20%, transparent);
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
-}
-
-/* Specific Citadel treatment: object-fit contain to preserve shield shape and solid background fill */
-.house-sigil-img--citadel,
-.house-card--citadel .house-sigil-img {
-  object-fit: contain;
-  background-color: var(--ink, #0a0705);
-  box-sizing: border-box;
-  padding: 4px;
-}
-
-.house-card:hover .house-sigil-img {
-  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.9),
-    0 0 0 4px rgba(0, 0, 0, 0.5),
-    0 0 50px color-mix(in srgb, var(--accent) 45%, transparent);
-}
-
-.house-sigil-fallback {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 38px;
-  font-weight: 700;
-  color: var(--accent, var(--gold));
-  text-shadow: 0 0 25px var(--accent, var(--gold));
+.cyber-icon-frame {
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: rgba(10, 7, 5, 0.85);
-  border: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  background: rgba(13, 16, 23, 0.85);
+  backdrop-filter: blur(8px);
+  transition: all 0.35s ease;
+}
+
+.house-card:hover .cyber-icon-frame {
+  background: rgba(13, 16, 23, 0.95);
+  border-color: var(--accent, var(--cyan));
+  box-shadow: 0 0 25px color-mix(in srgb, var(--accent, var(--cyan)) 45%, transparent);
 }
 
 .sigil-ring {
   position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
-  transition: border-color 0.4s;
+  inset: -6px;
+  border-radius: 12px;
+  border: 1px dashed rgba(0, 240, 255, 0.2);
+  transition: border-color 0.3s;
 }
 
 .house-card:hover .sigil-ring {
-  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
-  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 25%, transparent);
+  border-color: var(--accent, var(--cyan));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent, var(--cyan)) 25%, transparent);
 }
 
 /* Static content */
@@ -259,52 +234,50 @@
   z-index: 3;
   text-align: center;
   width: 100%;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  margin-top: 130px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-top: 105px;
 }
 
 .house-content.content-hidden {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(8px);
   pointer-events: none;
 }
 
 .house-region {
-  font-family: 'Cinzel', serif;
-  font-size: 9px;
-  letter-spacing: 0.45em;
-  color: var(--accent, var(--gold));
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--accent, var(--cyan));
   text-transform: uppercase;
-  margin-bottom: 10px;
-  opacity: 0.85;
+  margin-bottom: 8px;
 }
 
 .house-name {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(16px, 1.8vw, 22px);
+  font-family: var(--font-title);
+  font-size: clamp(17px, 1.8vw, 21px);
   font-weight: 700;
-  color: var(--parchment);
+  color: var(--text);
   line-height: 1.2;
   letter-spacing: 0.05em;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-}
-
-.house-seat {
-  font-family: 'Cinzel', serif;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: var(--ash);
-  text-transform: uppercase;
   margin-bottom: 6px;
 }
 
+.house-seat {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
 .house-sigil-label {
-  font-family: 'IM Fell English', serif;
+  font-family: var(--font-body);
   font-size: 13px;
-  font-style: italic;
-  color: #b0a592;
-  margin-bottom: 14px;
+  color: #9cb1cc;
+  margin-bottom: 12px;
 }
 
 /* Routing Chip */
@@ -313,23 +286,23 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-family: var(--font-ui);
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent, var(--gold));
+  color: var(--accent, var(--cyan));
   padding: 6px 14px;
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  background: rgba(10, 7, 5, 0.6);
+  border: 1px solid color-mix(in srgb, var(--accent, var(--cyan)) 35%, transparent);
+  background: rgba(7, 8, 12, 0.7);
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .house-card:hover .house-enter-chip {
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  border-color: var(--accent);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 25%, transparent);
+  background: color-mix(in srgb, var(--accent, var(--cyan)) 15%, transparent);
+  border-color: var(--accent, var(--cyan));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent, var(--cyan)) 35%, transparent);
 }
 
 /* Hover reveal panel */
@@ -341,15 +314,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 24px;
+  padding: 28px 20px;
   text-align: center;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(12px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  background: rgba(5, 4, 3, 0.85);
-  backdrop-filter: blur(4px);
+  background: rgba(13, 16, 23, 0.94);
+  backdrop-filter: blur(8px);
 }
 
 .house-hover-content.hover-visible {
@@ -359,102 +332,104 @@
 }
 
 .hover-words {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(15px, 1.8vw, 21px);
+  font-family: var(--font-ui);
+  font-size: 11px;
   font-weight: 700;
-  color: var(--accent, var(--gold));
-  text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 60%, transparent);
-  margin-bottom: 14px;
-  letter-spacing: 0.04em;
-  animation: words-glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes words-glow {
-  from { text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 40%, transparent); }
-  to   { text-shadow: 0 0 32px color-mix(in srgb, var(--accent) 80%, transparent), 0 0 50px color-mix(in srgb, var(--accent) 30%, transparent); }
+  color: var(--accent, var(--cyan));
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent, var(--cyan)) 60%, transparent);
+  margin-bottom: 12px;
 }
 
 .hover-divider {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .hover-name {
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
+  font-family: var(--font-title);
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.35em;
-  color: var(--parchment);
+  letter-spacing: 0.15em;
+  color: var(--text);
   text-transform: uppercase;
-  margin-bottom: 14px;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  margin-bottom: 10px;
 }
 
 .hover-desc {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  font-style: normal;
-  color: var(--parchment);
-  line-height: 1.75;
-  max-width: 280px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 270px;
   margin-bottom: 16px;
 }
 
 .hover-enter-cta {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-ui);
   font-size: 10px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent, var(--gold));
+  color: var(--accent, var(--cyan));
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-weight: 600;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
-  padding-bottom: 2px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent, var(--cyan)) 50%, transparent);
+  padding-bottom: 3px;
+  transition: all 0.2s ease;
 }
 
-/* Bottom accent bar */
+.hover-enter-cta:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Bottom neon accent line */
 .card-accent-bar {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--accent, var(--gold));
+  background: var(--accent, var(--cyan));
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 8px var(--accent, var(--cyan));
 }
 
 .house-card:hover .card-accent-bar {
   transform: scaleX(1);
 }
 
-/* Footer ornament */
+/* Footer status */
 .section1-footer-ornament {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  margin-top: 72px;
+  gap: 20px;
+  margin-top: 64px;
 }
 
 .footer-line {
   display: block;
-  width: 120px;
+  width: 100px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201, 168, 76, 0.3));
+  background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.35));
 }
 
 .footer-line:last-child {
-  background: linear-gradient(to left, transparent, rgba(201, 168, 76, 0.3));
+  background: linear-gradient(to left, transparent, rgba(0, 240, 255, 0.35));
 }
 
-.footer-sigil {
-  font-size: 20px;
-  color: rgba(201, 168, 76, 0.5);
+.footer-terminal-tag {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--cyan-dim);
 }
 
 @media (min-width: 1025px) {
@@ -467,22 +442,22 @@
 @media (max-width: 1024px) {
   .houses-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
+    gap: 20px;
   }
   .section1 {
-    padding: 80px 32px 100px;
+    padding: 80px 28px 90px;
   }
 }
 
 @media (max-width: 680px) {
   .houses-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 18px;
   }
   .section1 {
-    padding: 60px 16px 80px;
+    padding: 60px 16px 70px;
   }
   .house-card {
-    min-height: 380px;
+    min-height: 350px;
   }
 }

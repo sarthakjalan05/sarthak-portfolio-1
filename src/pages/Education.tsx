@@ -1,117 +1,105 @@
 import React from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { EDUCATION_DATA } from '../data/education';
-import { Scroll, Award, BookOpen, Layers } from 'lucide-react';
+import { GraduationCap, BookOpen, Cpu } from 'lucide-react';
 
 export const Education: React.FC = () => {
-  const accent = '#c8bfb0'; // Citadel Maester Parchment / Silver
+  const accent = '#00f0ff'; // Cyber Cyan
 
   return (
     <div className="realm-page relative overflow-hidden" style={{ '--accent': accent } as React.CSSProperties}>
-      {/* Atmospheric Background Layers */}
+      {/* Background Grid & Glow */}
       <div className="realm-bg-texture" />
       <div className="realm-bg-vignette" />
 
       <PageHeader
-        sectionLabel="Education"
-        eyebrow="THE CITADEL OF OLDTOWN · ARCHIVES"
-        title="Scholarly Scroll of"
-        titleEm="The Citadel"
-        motto="Knowledge Is a Chain Unbroken"
-        subtitle='"Knowledge is a chain unbroken." Records of foundational study, distributed systems theory, and automation architectures at Vellore Institute of Technology.'
+        sectionLabel="ACADEMIC BACKGROUND"
+        eyebrow="SYS://ACADEMICS.CREDENTIALS"
+        title="Formal"
+        titleEm="Education"
+        motto="THEORY // ALGORITHMS // SYSTEMS ARCHITECTURE"
+        subtitle="Foundational computer science, distributed architectures, database systems, and algorithms at Vellore Institute of Technology."
         accent={accent}
-        sigilRune="⛓"
+        sigilRune="✦"
       />
 
-      {/* Illuminated Manuscript Single Card - Diploma Rectangle */}
-      <div className="relative z-10 max-w-6xl mx-auto px-2">
+      {/* Cyber Academic Record Panel */}
+      <div className="relative z-10 max-w-4xl mx-auto px-2">
         <div
-          className="fade-up realm-card relative p-12 sm:p-16 md:p-20 border bg-[#0d0c0a]/95 backdrop-blur-md shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden"
+          className="fade-up realm-card relative p-8 sm:p-12 md:p-14 border bg-[#0d1017]/95 backdrop-blur-md shadow-[0_0_50px_rgba(0,0,0,0.85)] rounded overflow-hidden"
           style={{
-            '--accent': '#e8c97a',
-            borderColor: 'rgba(200, 191, 176, 0.4)',
-            aspectRatio: '1.6 / 1',
-          } as React.CSSProperties}
+            borderColor: 'rgba(0, 240, 255, 0.35)',
+          }}
           data-delay="100"
         >
-          {/* Corner brackets */}
-          <span className="corner corner-tl" style={{ '--accent': '#e8c97a' } as React.CSSProperties} />
-          <span className="corner corner-tr" style={{ '--accent': '#e8c97a' } as React.CSSProperties} />
-          <span className="corner corner-bl" style={{ '--accent': '#e8c97a' } as React.CSSProperties} />
-          <span className="corner corner-br" style={{ '--accent': '#e8c97a' } as React.CSSProperties} />
+          {/* Corner HUD brackets */}
+          <span className="corner corner-tl" style={{ '--accent': accent } as React.CSSProperties} />
+          <span className="corner corner-tr" style={{ '--accent': accent } as React.CSSProperties} />
+          <span className="corner corner-bl" style={{ '--accent': accent } as React.CSSProperties} />
+          <span className="corner corner-br" style={{ '--accent': accent } as React.CSSProperties} />
 
-          {/* Maester Archival Seal Top Stamp */}
-          <div className="flex flex-col items-center justify-center mb-6 sm:mb-8">
+          {/* Academic crest */}
+          <div className="flex flex-col items-center justify-center mb-6">
             <div
-              className="w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 flex items-center justify-center mb-3 sm:mb-4 bg-[#171512] transition-transform duration-300 hover:scale-105"
+              className="w-16 h-16 rounded border border-[var(--cyan-dim)] flex items-center justify-center mb-3 bg-[#07080c] transition-transform duration-300 hover:scale-105"
               style={{
-                borderColor: '#c8bfb0',
-                color: '#e8c97a',
-                boxShadow: '0 0 25px rgba(200,191,176,0.25)',
+                color: accent,
+                boxShadow: '0 0 25px rgba(0,240,255,0.25)',
               }}
             >
-              <Scroll size={32} className="sm:w-9 sm:h-9" />
+              <GraduationCap size={32} />
             </div>
-            <span className="font-cinzel text-[11px] sm:text-sm tracking-[0.35em] uppercase text-[#e8c97a] text-center">
-              Conferred by Vellore Institute of Technology
+            <span className="font-chakra text-[11px] tracking-[0.3em] uppercase text-[var(--cyan)] text-center font-semibold">
+              ACCREDITED DEGREE PROGRAM
             </span>
           </div>
 
-          {/* Institution & Degree with Fluid Clamp */}
+          {/* Institution & Degree */}
           <div className="text-center mb-8">
-            <h2 className="font-cinzel-dec text-[clamp(20px,4vw,36px)] text-[var(--parchment)] font-bold mb-2 leading-tight">
+            <h2 className="font-orbitron text-2xl sm:text-3xl text-[var(--text)] font-extrabold mb-2 leading-tight">
               {EDUCATION_DATA.institution}
             </h2>
-            <div className="got-divider max-w-sm mx-auto my-4">
-              <div className="got-divider-line" style={{ background: 'linear-gradient(to right, transparent, #c8bfb0)' }} />
-              <div className="got-divider-diamond" style={{ background: '#c8bfb0' }} />
-              <div className="got-divider-line right" style={{ background: 'linear-gradient(to left, transparent, #c8bfb0)' }} />
+            <div className="flex items-center justify-center gap-3 my-4">
+              <span className="w-16 h-px bg-gradient-to-r from-transparent to-[var(--cyan)]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--cyan)]" />
+              <span className="w-16 h-px bg-gradient-to-l from-transparent to-[var(--cyan)]" />
             </div>
-            <h3 className="font-cinzel text-xs sm:text-sm md:text-base tracking-widest uppercase text-[#e8c97a] font-semibold mb-2">
+            <h3 className="font-chakra text-sm sm:text-base tracking-widest uppercase text-[var(--cyan)] font-semibold mb-2">
               {EDUCATION_DATA.degree}
             </h3>
-            <p className="font-garamond text-base sm:text-lg md:text-xl text-[var(--parchment)] max-w-xl mx-auto leading-[1.7]">
+            <p className="font-space text-sm sm:text-base text-[var(--text-muted)] max-w-xl mx-auto leading-relaxed">
               Specialization in {EDUCATION_DATA.specialization.replace('Bachelor of Technology (B.Tech) in ', '')}
             </p>
           </div>
 
           {/* Tenure & Location */}
           <div
-            className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 py-4 px-5 sm:px-8 my-8 bg-[#12100d] text-sm sm:text-base font-cinzel tracking-wider text-[var(--ash)]"
-            style={{
-              borderTop: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
-              borderBottom: `1px solid color-mix(in srgb, ${accent} 30%, transparent)`,
-            }}
+            className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 py-3.5 px-6 my-6 bg-[#07080c] text-xs sm:text-sm font-chakra tracking-wider text-[var(--text-muted)] border-y border-[rgba(0,240,255,0.2)] rounded"
           >
-            <span>PERIOD: {EDUCATION_DATA.period}</span>
-            <span className="hidden sm:inline">·</span>
-            <span>LOCATION: {EDUCATION_DATA.location}</span>
+            <span>TIMELINE: {EDUCATION_DATA.period}</span>
+            <span className="hidden sm:inline text-[var(--cyan)]">·</span>
+            <span>CAMPUS: {EDUCATION_DATA.location}</span>
           </div>
 
-          {/* Manuscript Highlights */}
-          <div className="space-y-6 my-12">
-            <h4 className="font-cinzel text-base sm:text-lg uppercase tracking-[0.3em] text-[#c8bfb0] flex items-center gap-3">
-              <BookOpen size={22} className="text-[#e8c97a] shrink-0" />
-              Links in the Chain (Curricular Focus)
+          {/* Curricular Focus */}
+          <div className="space-y-4 my-8">
+            <h4 className="font-chakra text-xs sm:text-sm uppercase tracking-[0.25em] text-[var(--text)] font-semibold flex items-center gap-2.5">
+              <BookOpen size={16} className="text-[var(--cyan)] shrink-0" />
+              <span>Core Curricular Focus &amp; Foundations</span>
             </h4>
-            <div className="space-y-4 sm:space-y-5">
+            <div className="space-y-3">
               {EDUCATION_DATA.highlights.map((h, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-4 p-5 sm:p-6 border border-[#2e2820] bg-[#14120e] text-base sm:text-lg font-garamond text-[var(--ash)] leading-[1.75] hover:border-[#e8c97a]/40 hover:bg-[#1a1712] hover:text-[var(--parchment)] hover:translate-x-1 transition-all duration-300 cursor-default"
+                  className="flex items-start gap-3 p-3.5 bg-[#07080c]/60 border border-[rgba(0,240,255,0.15)] rounded"
                 >
-                  <span className="text-[#e8c97a] text-xl mt-0 shrink-0">✦</span>
-                  <span className="leading-[1.75]">{h}</span>
+                  <Cpu size={16} className="text-[var(--cyan)] mt-0.5 shrink-0" />
+                  <p className="font-space text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+                    {h}
+                  </p>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Wax seal watermark mark */}
-          <div className="text-center pt-2">
-            <span className="font-cinzel text-[10px] tracking-[0.35em] text-[#9e927f] uppercase block">
-              Archives of Oldtown · Validated Record
-            </span>
           </div>
         </div>
       </div>

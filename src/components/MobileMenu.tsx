@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import { X, Shield, Scroll, Search, Feather } from 'lucide-react';
+import { X, Terminal, FileText, Search } from 'lucide-react';
 import { RESUME_PATH, RESUME_FILENAME } from '../config/constants';
 
 interface MobileMenuProps {
@@ -9,17 +9,17 @@ interface MobileMenuProps {
 }
 
 const NAV_ITEMS = [
-  { path: '/', label: 'The Realm (Home)', house: 'Overview' },
-  { path: '/about', label: 'About Sarthak', house: 'Beyond the Houses' },
-  { path: '/experience', label: 'Experience', house: 'House Lannister' },
-  { path: '/projects', label: 'Projects', house: 'House Targaryen' },
-  { path: '/notes', label: "Maester's Notes", house: 'The Citadel Archives' },
-  { path: '/skills', label: 'Skills & Arsenal', house: 'House Baratheon' },
-  { path: '/education', label: 'Education', house: 'The Citadel' },
-  { path: '/certifications', label: 'Certifications', house: 'House Greyjoy' },
-  { path: '/achievements', label: 'Achievements', house: 'House Tyrell' },
-  { path: '/contact', label: 'Contact', house: 'House Stark' },
-  { path: '/character-sheet', label: 'RPG Character Sheet', house: 'Valyrian Codex (Easter Egg)' },
+  { path: '/', label: 'System Root', sub: 'SYS://ROOT_OVERVIEW' },
+  { path: '/about', label: 'About Engineer', sub: 'SYS://PROFILE_TELEMETRY' },
+  { path: '/experience', label: 'Work Experience', sub: 'SYS://PRODUCTION_LOGS' },
+  { path: '/projects', label: 'Projects Matrix', sub: 'SYS://DEPLOYED_SYSTEMS' },
+  { path: '/notes', label: 'Engineering Notes', sub: 'SYS://TECHNICAL_PAPERS' },
+  { path: '/skills', label: 'Skills & Capabilities', sub: 'SYS://TECH_MATRIX' },
+  { path: '/education', label: 'Academic Records', sub: 'SYS://VIT_CREDENTIALS' },
+  { path: '/certifications', label: 'Certifications', sub: 'SYS://ACCREDITATIONS' },
+  { path: '/achievements', label: 'Achievements', sub: 'SYS://BENCHMARKS_HONORS' },
+  { path: '/contact', label: 'Contact Terminal', sub: 'SYS://TRANSMISSION_UPLINK' },
+  { path: '/character-sheet', label: 'System Codex', sub: 'SYS://ATTRIBUTES_EASTER_EGG' },
 ];
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
@@ -58,10 +58,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    // Lock background scroll
     document.body.style.overflow = 'hidden';
 
-    // Focus close button on open
     setTimeout(() => {
       firstFocusableRef.current?.focus();
     }, 50);
@@ -83,73 +81,72 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
+        className="fixed inset-0 bg-black/85 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Off-canvas scroll / banner container */}
+      {/* Off-canvas cyber container */}
       <div
         ref={menuRef}
-        className="relative z-10 w-full max-w-md bg-[#0a0705] border-l border-[var(--gold-dim)] h-full overflow-y-auto flex flex-col p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.9)] animate-in slide-in-from-right duration-300"
+        className="relative z-10 w-full max-w-md bg-[#0d1017] border-l border-[rgba(0,240,255,0.3)] h-full overflow-y-auto flex flex-col p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.95)] animate-in slide-in-from-right duration-300"
       >
         {/* Corner Brackets */}
-        <span className="corner corner-tl" />
-        <span className="corner corner-tr" />
-        <span className="corner corner-bl" />
-        <span className="corner corner-br" />
+        <span className="corner corner-tl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-tr" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-bl" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
+        <span className="corner corner-br" style={{ '--accent': 'var(--cyan)' } as React.CSSProperties} />
 
         {/* Top Header */}
         <div
-          className="flex items-center justify-between pb-5 mb-4"
-          style={{ borderBottom: '1px solid color-mix(in srgb, var(--gold-dim) 40%, transparent)' }}
+          className="flex items-center justify-between pb-4 mb-4 border-b border-[rgba(0,240,255,0.2)]"
         >
           <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[var(--gold)]" />
-            <span className="font-cinzel-dec text-sm tracking-widest text-[var(--gold)] uppercase">
-              The Seven Kingdoms
+            <Terminal className="w-5 h-5 text-[var(--cyan)]" />
+            <span className="font-chakra text-xs tracking-[0.25em] text-[var(--cyan)] uppercase font-semibold">
+              SYS://NAVIGATION.INDEX
             </span>
           </div>
           <button
             ref={firstFocusableRef}
             onClick={onClose}
             aria-label="Close navigation menu"
-            className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--ash)] hover:text-[var(--gold)] hover:border-[var(--gold)] transition-colors"
-            style={{ border: '1px solid color-mix(in srgb, var(--gold-dim) 40%, transparent)' }}
+            className="min-w-[40px] min-h-[40px] flex items-center justify-center p-2 text-[var(--text-muted)] hover:text-white border border-[rgba(0,240,255,0.25)] hover:border-[var(--cyan)] transition-colors rounded"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Send a Raven (Command Palette) Button */}
+        {/* Command Palette Button */}
         <div className="mb-3">
           <button
             onClick={() => {
               onClose();
               window.dispatchEvent(new CustomEvent('open-command-palette'));
             }}
-            className="w-full flex items-center justify-between px-4 py-2.5 border border-[var(--gold)]/50 bg-[#140e0a] hover:bg-[var(--gold)]/15 text-[var(--gold-light)] font-cinzel text-xs tracking-wider transition-colors cursor-pointer"
+            className="w-full flex items-center justify-between px-4 py-2.5 border border-[rgba(0,240,255,0.3)] bg-[#07080c] hover:border-[var(--cyan)] text-[var(--cyan)] font-chakra text-xs tracking-wider transition-colors cursor-pointer rounded"
           >
             <span className="flex items-center gap-2">
-              <Search size={14} className="text-[var(--gold)]" />
-              <span>Send a Raven (Search)</span>
+              <Search size={14} className="text-[var(--cyan)]" />
+              <span>Execute Command (Search)</span>
             </span>
-            <kbd className="px-1.5 py-0.5 bg-[#1f160e] border border-[var(--gold-dim)]/40 text-[10px] text-[var(--gold)]">
+            <kbd className="px-1.5 py-0.5 bg-[#0d1017] border border-[rgba(0,240,255,0.3)] text-[10px] text-[var(--cyan)] rounded">
               ⌘K
             </kbd>
           </button>
         </div>
 
-        {/* Prominent Resume Download Button for Mobile */}
+        {/* Resume Download Button */}
         <div className="mb-4">
           <a
             href={RESUME_PATH}
             download={RESUME_FILENAME}
             onClick={onClose}
-            className="got-cta-btn w-full min-h-[44px] justify-center text-xs shadow-[0_0_20px_rgba(201,168,76,0.3)]"
+            className="got-cta-btn w-full min-h-[42px] justify-center text-xs shadow-[0_0_20px_rgba(0,240,255,0.2)] rounded flex items-center gap-2 font-chakra uppercase tracking-wider"
+            style={{ background: 'var(--cyan)', color: '#07080c' }}
           >
-            <Scroll size={15} />
-            <span>Download the Scroll (Resume)</span>
+            <FileText size={14} />
+            <span>Download Resume Dossier (PDF)</span>
           </a>
         </div>
 
@@ -161,22 +158,22 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               to={item.path}
               onClick={onClose}
               className={({ isActive }) =>
-                `group flex items-center justify-between min-h-[44px] px-3.5 py-2.5 border transition-all duration-300 ${
+                `group flex items-center justify-between min-h-[44px] px-3.5 py-2 border rounded transition-all duration-300 ${
                   isActive
-                    ? 'border-[var(--gold)] bg-[var(--gold)]/10 text-[var(--gold-light)] shadow-[0_0_15px_rgba(201,168,76,0.2)]'
-                    : 'border-[#2a2216] bg-[#120d09]/50 text-[var(--ash)] hover:border-[var(--gold-dim)] hover:text-[var(--parchment)] hover:bg-[#1a140d] hover:shadow-[0_0_15px_rgba(201,168,76,0.1)]'
+                    ? 'border-[var(--cyan)] bg-[rgba(0,240,255,0.12)] text-[var(--text)] shadow-[0_0_15px_rgba(0,240,255,0.2)]'
+                    : 'border-[rgba(0,240,255,0.15)] bg-[#07080c]/60 text-[var(--text-muted)] hover:border-[var(--cyan-dim)] hover:text-white hover:bg-[#07080c]'
                 }`
               }
             >
               <div>
-                <span className="font-cinzel text-xs tracking-[0.2em] uppercase block font-semibold">
+                <span className="font-chakra text-xs tracking-wider uppercase block font-semibold">
                   {item.label}
                 </span>
-                <span className="font-fell italic text-xs text-[var(--gold-dim)] group-hover:text-[var(--gold)] transition-colors">
-                  {item.house}
+                <span className="font-space text-[11px] text-[var(--cyan-dim)] group-hover:text-[var(--cyan)] transition-colors">
+                  {item.sub}
                 </span>
               </div>
-              <span className="text-[var(--gold-dim)] group-hover:text-[var(--gold)] text-sm font-cinzel transition-transform group-hover:translate-x-1">
+              <span className="text-[var(--cyan)] text-sm font-chakra transition-transform group-hover:translate-x-1">
                 →
               </span>
             </NavLink>
@@ -185,14 +182,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
         {/* Bottom Banner Note */}
         <div
-          className="pt-4 mt-4 text-center"
-          style={{ borderTop: '1px solid color-mix(in srgb, var(--gold-dim) 35%, transparent)' }}
+          className="pt-4 mt-4 text-center border-t border-[rgba(0,240,255,0.2)]"
         >
-          <p className="font-cinzel text-[10px] tracking-[0.25em] text-[var(--gold-dim)] uppercase">
-            Sarthak Jalan · Portfolio
+          <p className="font-chakra text-[10px] tracking-[0.25em] text-[var(--cyan)] uppercase font-semibold">
+            SARTHAK JALAN · SYSTEMS DOSSIER
           </p>
-          <p className="font-fell italic text-xs text-[#a09585] mt-0.5">
-            &quot;A chronicle of code and craft&quot;
+          <p className="font-space text-xs text-[var(--text-muted)] mt-0.5">
+            Distributed Architectures &amp; Applied AI
           </p>
         </div>
       </div>
